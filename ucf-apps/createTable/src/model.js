@@ -29,7 +29,7 @@ export default {
         bordered: false,
         zebraCrossing: false, //隔行换色
         loading: false,
-        rowDraggAble: false,
+        // rowDraggAble: false,
         dragborder: false,
         draggable: false,
         rowDraggAble: false,
@@ -48,6 +48,11 @@ export default {
             return {
                 ...state,
                 ...data
+            };
+        },
+        getState(state) { //获取state
+            return {
+                ...state
             };
         }
     },

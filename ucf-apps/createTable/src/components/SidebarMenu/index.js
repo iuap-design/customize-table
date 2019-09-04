@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Tree, Icon } from 'tinper-bee';
 import treeData from './menuList';
-import { actions } from 'mirrorx';
+import {actions, connect} from 'mirrorx';
 import './index.less';
+import App from "../App";
 
 const TreeNode = Tree.TreeNode;
 
@@ -19,14 +20,15 @@ class SidebarMenu extends Component {
         console.log('onCheck', checkedKeys);
         this.setState({ checkedKeys });
     };
-    
+
     onSelect = (selectedKeys, info) => {
         console.log('onSelect', info);
-        let { attribute } = info.node.props.ext;
-        this.setState({ 
+        const { attribute } = info.node.props.ext;
+        const { selected } = info;
+        this.setState({
             selectedKeys
         });
-        this.updateTableProps(attribute);
+        this.updateTableProps(attribute, selected);
     };
 
     renderTreeNode = data => data.map((item) => {
@@ -40,69 +42,109 @@ class SidebarMenu extends Component {
           );
         }
         return (
-            <TreeNode 
-            key={item.key} 
-            title={title} 
-            isLeaf={true} 
+            <TreeNode
+            key={item.key}
+            title={title}
+            isLeaf={true}
             ext={{attribute: item.attribute}}
             />
         )
     });
 
-    updateTableProps = (attribute) => {
-        let { 
-            bordered, 
-            nodata, 
-            zebraCrossing, 
+    updateTableProps = (attribute, selected) => {
+        let {
+            bordered,
+            nodata,
+            zebraCrossing,
             loading,
-            draggable, 
+            draggable,
             dragborder,
             rowDraggAble,
             showFilterMenu,
-            columnFilterAble
+            columnFilterAble,
+            showHeader,
+            showHeaderMenu,
+            bodyDisplayInRow,
+            headerDisplayInRow,
+            heightTakeEffect,
+            sizeTakeEffect,
+            titleTakeEffect,
+            scroll,
+            columns,
+            textAlign,
         } = this.props;
+        const arr = columns.slice();
         switch(attribute){
-            case 'nodata': 
+            case 'nodata':
                 actions.app.updateState({ nodata: !nodata });
                 break;
-            case 'zebraCrossing': 
+            case 'zebraCrossing':
                 actions.app.updateState({ zebraCrossing: !zebraCrossing });
                 break;
-            case 'loading': 
+            case 'loading':
                 actions.app.updateState({ loading: !loading });
                 break;
-            case 'bordered': 
+            case 'bordered':
                 actions.app.updateState({ bordered: !bordered });
                 break;
-            case 'draggable': 
+            case 'draggable':
                 actions.app.updateState({ draggable: !draggable });
                 break;
-            case 'dragborder': 
+            case 'dragborder':
                 actions.app.updateState({ dragborder: !dragborder });
                 break;
-            case 'rowDraggAble': 
+            case 'rowDraggAble':
                 actions.app.updateState({ rowDraggAble: !rowDraggAble });
                 break;
-            case 'showHeaderMenu': 
+            case 'showHeaderMenu':
                 actions.app.updateState({ showHeaderMenu: !showHeaderMenu });
                 break;
-            case 'showFilterMenu': 
+            case 'showFilterMenu':
                 actions.app.updateState({ showFilterMenu: !showFilterMenu });
                 break;
-            case 'columnFilterAble': 
+            case 'columnFilterAble':
                 actions.app.updateState({ columnFilterAble: !columnFilterAble });
                 break;
-            case 'showHeader': 
+            case 'showHeader':
                 actions.app.updateState({ showHeader: !showHeader });
                 break;
-            case '': 
+            case 'bodyDisplayInRow':
+                actions.app.updateState({ bodyDisplayInRow: !bodyDisplayInRow });
+                break;
+            case 'headerDisplayInRow':
+                actions.app.updateState({ headerDisplayInRow: !headerDisplayInRow });
+                break;
+            case 'heightTakeEffect':
+                actions.app.updateState({ heightTakeEffect: !heightTakeEffect });
+                break;
+            case 'sizeTakeEffect':
+                actions.app.updateState({ sizeTakeEffect: !sizeTakeEffect });
+                break;
+            case 'titleTakeEffect':
+                actions.app.updateState({ titleTakeEffect: !titleTakeEffect });
+                break;
+            case 'scrollX':
+                selected ? actions.app.updateState({ scroll: {...scroll, x: 3200} }) : actions.app.updateState({ scroll: {...scroll, x: undefined} });
+                break;
+            case 'scrollY':
+                selected ? actions.app.updateState({ scroll: {...scroll, y: 150} }) : actions.app.updateState({ scroll: {...scroll, y: undefined} });
+                break;
+            case 'showRowNum':
+                selected ? arr.unshift({title: '序号', dataIndex: 'key'}) : arr.splice(0, 1);
+                actions.app.updateState({ columns: arr });
+                break;
+            case 'contentAlign':
+                selected ? arr.forEach(item => item.textAlign = textAlign) : arr.forEach(item => item.textAlign = 'left');
+                actions.app.updateState({ columns: arr });
+                break;
+            case '':
                 actions.app.updateState({ showFilterMenu: !showFilterMenu });
                 break;
-            default: 
+            default:
                 break;
         }
     }
-    
+
     render() {
         return (
             <div className="sidebar-wrap">
@@ -118,4 +160,4 @@ class SidebarMenu extends Component {
         );
     }
 }
-export default SidebarMenu;
+export default connect(state => state.app)(SidebarMenu);
