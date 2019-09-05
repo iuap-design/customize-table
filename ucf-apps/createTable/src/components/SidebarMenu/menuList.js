@@ -1,3 +1,6 @@
+import { actions } from 'mirrorx';
+import { Select } from 'tinper-bee';
+const Option = Select.Option;
 const treeData = [
     {
         title: '基础 Basic',
@@ -8,6 +11,7 @@ const treeData = [
                 attribute: 'nodata',
                 key: '0-0-0'
             },
+
             {
                 title: '隔行换色',
                 attribute: 'zebraCrossing',
@@ -16,21 +20,28 @@ const treeData = [
             {
                 title: '表格数据加载 Loading',
                 attribute: 'loading',
-                key: '0-0-2', 
+                key: '0-0-2',
             },
             {
                 title: '显示边框',
                 attribute: 'bordered',
-                key: '0-0-3', 
+                key: '0-0-3',
             },
             {
                 title: '设置横向滚动条',
-                key: '0-0-4'
+                key: '0-0-4',
+                attribute: 'scrollX',
             },
             {
                 title: '设置纵向滚动条(固定表头)',
-                key: '0-0-5'
-            }
+                key: '0-0-5',
+                attribute: 'scrollY',
+            },
+            {
+                title: <span>表格标题<input onClick={(e) => {e.stopPropagation()}} value={undefined} onChange={(e) => {actions.app.updateState({ title: e.target.value })}} style={{width: 50, height: 25, marginLeft: 5}} /></span>,
+                key: '0-0-6',
+                attribute: 'titleTakeEffect',
+            },
         ],
     },
     {
@@ -78,7 +89,24 @@ const treeData = [
                 attribute: 'titleAlign',
             },
             {
-                title: '内容对齐方式',
+                title: <span>
+                            内容对齐方式
+                            <span onClick={(e) => {e.stopPropagation()}}>
+                                <Select
+                                    size='sm'
+                                    defaultValue={'left'}
+                                    // value={actions.app ? actions.app.getState().size : undefined}
+                                    onChange={(e) => {
+                                        console.log(actions.app.updateState)
+                                        actions.app.updateState({ textAlign: e })
+                                    }}
+                                    style={{width: 50, marginLeft: 5}}>
+                                        <Option value={'left'}>left</Option>
+                                        <Option value={'center'}>center</Option>
+                                        <Option value={'right'}>right</Option>
+                                    </Select>
+                            </span>
+                        </span>,
                 key: '0-1-8',
                 attribute: 'contentAlign',
             },
@@ -86,7 +114,41 @@ const treeData = [
                 title: '必填项,列标题展示红色星号',
                 key: '0-1-9',
                 attribute: 'required',
-            }
+            },
+            {
+                title: '表体的内容显示一行',
+                key: '0-1-10',
+                attribute: 'bodyDisplayInRow',
+            },
+            {
+                title: '表头的内容显示一行',
+                key: '0-1-11',
+                attribute: 'headerDisplayInRow',
+            },
+            {
+                title: <span>自定义表格行高<input onClick={(e) => {e.stopPropagation()}} value={actions.app ? actions.app.getState().height : undefined} onChange={(e) => {actions.app.updateState({ height: +e.target.value })}} style={{width: 50, height: 25, marginLeft: 5}} /></span>,
+                key: '0-1-12',
+                attribute: 'heightTakeEffect',
+            },
+            {
+                title: <span>
+                            表格大小
+                            <span onClick={(e) => {e.stopPropagation()}}>
+                                <Select
+                                    size='sm'
+                                    defaultValue={'md'}
+                                    // value={actions.app ? actions.app.getState().size : undefined}
+                                    onChange={(e) => {actions.app.updateState({ size: e })}}
+                                    style={{width: 50, marginLeft: 5}}>
+                                        <Option value={'sm'}>sm</Option>
+                                        <Option value={'md'}>md</Option>
+                                        <Option value={'lg'}>lg</Option>
+                                    </Select>
+                            </span>
+                        </span>,
+                key: '0-1-13',
+                attribute: 'sizeTakeEffect',
+            },
         ],
     },
     {
@@ -94,7 +156,7 @@ const treeData = [
         key: '0-2',
         children: [
             {
-                title: '显示表头',
+                title: '隐藏表头',
                 key: '0-2-0',
                 attribute: 'showHeader',
             },
@@ -152,7 +214,7 @@ const treeData = [
                 ],
             }
         ],
-        
+
     },
     {
         title: '分页 Pagination',

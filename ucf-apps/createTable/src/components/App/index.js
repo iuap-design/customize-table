@@ -14,7 +14,18 @@ class App extends Component {
     constructor(props) {
         super(props);
     }
-    
+    componentDidUpdate(prevProps, nextState) {
+        if (prevProps.scroll !== this.props.scroll) {
+            this.refs.Grid.forceUpdate();
+        }
+        return true
+    }
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (nextProps.columns !== this.props.columns) {
+            this.refs.Grid.resetColumns(nextProps.columns.slice())
+        }
+    }
+
     render() {
         let {
             columns,
@@ -23,13 +34,23 @@ class App extends Component {
             bordered,
             zebraCrossing, //隔行换色
             loading,
-            draggable, 
+            draggable,
             dragborder,
             rowDraggAble,
             showHeaderMenu,
             showFilterMenu,
             columnFilterAble,
-            showHeader
+            showHeader,
+            bodyDisplayInRow,
+            height,
+            heightTakeEffect,
+            headerHeight,
+            headerHeightTakeEffect,
+            sizeTakeEffect,
+            size,
+            titleTakeEffect,
+            title,
+            scroll = {},
         } = this.props;
         let paginationObj = {
             items:10,//一页显示多少条
@@ -48,8 +69,9 @@ class App extends Component {
                     </Col>
                     <Col md={10} xs={10} sm={12}>
                         <Grid
+                            ref={'Grid'}
                             className={zebraCrossing ? 'zebra-table' : ''}
-                            columns={columns}
+                            columns={columns.slice()}
                             data={!nodata ? data : []}
                             bordered={bordered}
                             loading={loading}
@@ -61,6 +83,12 @@ class App extends Component {
                             showFilterMenu={showFilterMenu}
                             columnFilterAble={columnFilterAble}
                             showHeader={showHeader}
+                            bodyDisplayInRow={bodyDisplayInRow}
+                            height={heightTakeEffect ? height : undefined}
+                            headerHeight={headerHeightTakeEffect ? headerHeight : undefined}
+                            size={sizeTakeEffect ? size : undefined}
+                            title={titleTakeEffect ? () => <span>{title}</span> : undefined}
+                            scroll={scroll}
                         />
                     </Col>
                 </Row>
