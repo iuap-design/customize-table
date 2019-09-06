@@ -1,7 +1,4 @@
-import { actions } from 'mirrorx';
-import { Select } from 'tinper-bee';
-const Option = Select.Option;
-const treeData = [
+export const treeData = [
     {
         title: 'Table基础配置',
         key: '0-0',
@@ -227,5 +224,72 @@ const treeData = [
         ],
     }
 ];
+export const GridData = [
+    {
+        title: 'Grid特殊配置',
+        key: '0-last',
+        children: [
+            {
+                title: '显示表头菜单',
+                attribute: 'showHeaderMenu',
+                key: '0-last-1',
+            },
+            {
+                title: '分页',
+                attribute: 'paginationObj',
+                key: '0-last-2',
+            },
+            {
+                title: '单选/多选/无',
+                attribute: 'multiSelect',
+                key: '0-last-3',
+                type: 'select',
+                options: [
+                    {title: '单选', value: 'radio'},
+                    {title: '多选', value: 'checkbox'},
+                    {title: '无', value: 'none'},
+                ],
+                matters: 'multiSelect:只在初始化生效，无法动态修改'
+            },
+        ],
+    }
+];
+export const leftMenuData = [
+    {
+        title: 'Table',
+        key: '0-0',
+    },
+    // {
+    //     title: 'SingleSelectTable',
+    //     key: '0-1',
+    // },
+    {
+        title: 'MultiSelectTable',
+        key: '0-2',
+    },
+    {
+        title: 'SortTable',
+        key: '0-3',
+    },
+    {
+        title: 'SumTable',
+        key: '0-4',
+    },
+    {
+        title: 'DragColumnTable',
+        key: '0-5',
+    },
+    {
+        title: 'FilterColumnTable',
+        key: '0-6',
+    },
+    {
+        title: 'BigDataTable',
+        key: '0-7',
+    },
+    {
+        title: 'Grid',
+        key: '0-8',
+    },
+];
 
-export default treeData;

@@ -1,34 +1,54 @@
 /**
  * App模块
  */
-
 import React, { Component } from 'react';
-import { Col, Row, Collapse, Checkbox ,Select, FormControl,Panel, Table } from 'tinper-bee';
+import { Col, Row, Collapse, Checkbox ,Select, Popover,Panel, Table, Icon, Radio,Tree } from 'tinper-bee';
+import singleSelect from "tinper-bee/lib/singleSelect.js";
+import multiSelect from "tinper-bee/lib/multiSelect.js";
+import sort from "tinper-bee/lib/sort.js";
+import sum from "tinper-bee/lib/sum.js";
+import dragColumn from "tinper-bee/lib/dragColumn.js";
+import filterColumn from "tinper-bee/lib/filterColumn.js";
+import bigData from "tinper-bee/lib/bigData.js";
 import Grid from 'bee-complex-grid';
 import SidebarMenu from '../SidebarMenu';
-import treeData from './menuList';
+import {leftMenuData, treeData, GridData} from './menuList';
 import 'bee-complex-grid/build/Grid.css';
 import './index.less';
 import {actions} from "mirrorx";
 const PanelGroup = Panel.PanelGroup;
 const Option = Select.Option;
+const TreeNode = Tree.TreeNode;
+const SingleSelectTable = singleSelect(Table, Radio);
+const SumTable = sum(Table);
+const SortTable = sort(Table, Icon);
+const MultiSelectTable = multiSelect(Table, Checkbox);
+const DragColumnTable = dragColumn(Table);
+const FilterColumnTable = filterColumn(Table, Checkbox, Popover, Icon);
+const BigDataTable = bigData(Table);
+
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: true,
+            display: true,
             propsList: [],
             matters: [],
             collapse: {},
+            treeData: treeData.slice(),
+            selectedKeys: ['0-0'],
+            table: 'Table',
             value: {
                 showHeader: true,
+                showHeaderMenu: true,
                 bodyDisplayInRow: false,
             },
             inputValue: {
-                title: '自定义标题'
+                title: '自定义标题',
+                multiSelect: 'checkbox',
             },
             columns: [
-                { title: "员工编号", dataIndex: "a", key: "a", width: 200, filterType: 'text' },
+                { title: "员工编号", dataIndex: "a", key: "a", width: 200, filterType: 'text'},
                 { title: "员工姓名", dataIndex: "b", key: "b", width:200, filterType: 'text'},
                 { title: "性别", dataIndex: "c", key: "c", width: 200, filterType: 'text'},
                 { title: "部门", dataIndex: "d", key: "d", width: 200, filterType: "dropdown" },
@@ -44,17 +64,6 @@ class App extends Component {
             ],
         }
     }
-    // componentDidUpdate(prevProps, nextState) {
-    //     if (prevProps.scroll !== this.props.scroll) {
-    //         this.refs.Grid.forceUpdate();
-    //     }
-    //     return true
-    // }
-    // componentWillReceiveProps(nextProps, nextContext) {
-    //     if (nextProps.columns !== this.props.columns) {
-    //         this.refs.Grid.resetColumns(nextProps.columns.slice())
-    //     }
-    // }
     table = {
         'filterable':(checked) => {
             const columns = this.state.columns.slice();
@@ -76,7 +85,7 @@ class App extends Component {
             const checked = this.state.value['columns[i].width'];
             if (checked) {
                 columns.map(item => {
-                    item.width =  +value || '200px';
+                    item.width =  value + 'px' || '200px';
                 })
             } else {
                 columns.map(item => {
@@ -93,7 +102,7 @@ class App extends Component {
             } else {
                 columns[2].fixed =  undefined;
             }
-            this.setState({columns});
+            this.setState({columns}, () => console.log(this.state.columns));
         },
         'columns[i].titleAlign': (value) => {
             const columns = this.state.columns.slice();
@@ -138,6 +147,25 @@ class App extends Component {
             this.setState({columns});
         },
     }
+    componentDidMount() {
+        this.getAllPropList();
+        this.getAllMatters();
+    }
+    onSelect = (selectedKeys, info) => {
+        const { table, selectedKey } = info.node.props;
+        if (selectedKey === this.state.selectedKeys[0]) {
+            return
+        }
+        let stateTreeData  = treeData.slice();
+        if (table === 'Grid') {
+            stateTreeData = treeData.concat(GridData)
+        }
+        this.setState({
+            selectedKeys: [selectedKey],
+            table,
+            treeData: stateTreeData
+        });
+    };
     checkedMiddleware(value, attribute) {
         const _this = this;
         typeof _this['table'][attribute] === 'function' &&  _this['table'][attribute](value);
@@ -158,15 +186,19 @@ class App extends Component {
                 }
             })
         };
-        fun(treeData);
+        fun(this.state.treeData);
         this.setState({matters: arr});
+    }
+    getAllPropList(){
+        this.setState({propsList: Object.keys(this.state.value).filter(item => this.state.value[item])});
     }
     checkboxChange(value, attribute) {
         this.checkedMiddleware(value, attribute);
         this.inputMiddleware(value, attribute);
         this.setState({value: {...this.state.value, [attribute]: !this.state.value[attribute]}}, () => {
-            this.setState({propsList: Object.keys(this.state.value).filter(item => this.state.value[item])}, () => console.log(this.state));
+            this.getAllPropList();
             this.getAllMatters();
+            this.tableRefresh()
         });
     }
     collapseClick(i) {
@@ -176,15 +208,17 @@ class App extends Component {
         const value = type === 'input' ? e.target.value : e;
         this.setState({inputValue: {...this.state.inputValue, [attribute]: value}}, () => {
             this.inputMiddleware(value, attribute);
+            this.tableRefresh()
         });
     }
     getItemInput(item) {
         let node = null;
         switch (item.type) {
-            case 'input' : node = <input value={this.state.inputValue[item.attribute]} onChange={(e)=>this.formChange(e, item.attribute, 'input')} />; break;
+            case 'input' : node = <input style={{width: '80px', height: '20px'}} value={this.state.inputValue[item.attribute]} onChange={(e)=>this.formChange(e, item.attribute, 'input')} />; break;
             case 'select' : node = (
                 <Select
                     size='sm'
+                    style={{width: '80px'}}
                     value={this.state.inputValue[item.attribute]}
                     onChange={(value) => this.formChange(value, item.attribute, 'select')}
                 >
@@ -201,14 +235,29 @@ class App extends Component {
         const arr = [];
         for (let i = 0; i < length; i++) {
             arr.push(
-                <div key={propsList[i].key}>
-                    <div onClick={() =>this.collapseClick(i)}>{propsList[i].title}</div>
+                <div key={propsList[i].key} style={{marginBottom: '10px'}}>
+                    <div style={{
+                        background: '#fafafa',
+                        padding: '12px 16px',
+                        cursor: 'pointer',
+                        borderRadius: '4px',
+                        border: '1px solid #d9d9d9'
+                    }} onClick={() =>this.collapseClick(i)}>
+                        {
+                            this.state.collapse[i]
+                                ?
+                            <Icon type={'angle-arrow-down'} className={'uf-arrow-down'}></Icon>
+                                :
+                            <Icon type={'angle-arrow-pointing-to-right'} className={'uf-arrow-right'}></Icon>
+                        }
+                        {propsList[i].title}
+                    </div>
                     <Collapse in={this.state.collapse[i + '']}>
-                        <div>
+                        <Row style={{padding: '15px'}}>
                             {
                                 propsList[i].children.map(item => {
                                     return (
-                                        <span key={item.key}>
+                                        <Col style={{lineHeight: '30px'}} md={4} xs={4} sm={6} lg={4}>
                                             <Checkbox checked={!!this.state.value[item.attribute]} onChange={(value) => this.checkboxChange(value, item.attribute)}>{item.title}</Checkbox>
                                             {
                                                 item.type
@@ -221,11 +270,11 @@ class App extends Component {
                                                     :
                                                 null
                                             }
-                                        </span>
+                                        </Col>
                                     )
                                 })
                             }
-                        </div>
+                        </Row>
                     </Collapse>
                 </div>
             )
@@ -238,6 +287,28 @@ class App extends Component {
     onFilterClear(value) {
         window.alert(`key:${key}, value:${val}, condition:${condition}`);
     }
+    renderTreeNode = data => data.map((item) => {
+        let { selectedKeys } = this.state;
+        let title = selectedKeys.indexOf(item.key) > -1 ? <span><span>{item.title}</span><Icon type="uf-correct-2"></Icon></span> : item.title;
+        if (item.children) {
+            return (
+                <TreeNode key={item.key} title={item.title}>
+                    {this.renderTreeNode(item.children)}
+                </TreeNode>
+            );
+        }
+        return (
+            <TreeNode
+                key={item.key}
+                selectedKey={item.key}
+                title={title}
+                table={title}
+            />
+        )
+    });
+    tableRefresh() {
+        this.setState({display: false}, () => setTimeout(() => this.setState({display: true}), 4))
+    }
     render() {
         let paginationObj = {
             items:10,//一页显示多少条
@@ -247,57 +318,88 @@ class App extends Component {
             showJump:false,
             noBorder:true,
             horizontalPosition:'center'
-        }
+        };
         const scroll = {};
+        const value = this.state.value;
         this.state.value.scrollX ? scroll.x = 3200 : null;
         this.state.value.scrollY ? scroll.y = 200 : null;
+        const props = {
+            ref: 'Table',
+            className: value.zebraCrossing ? 'zebra-table' : '',
+            columns: this.state.columns.slice(),
+            // columns: this.state.columns,
+            data: value.emptyText ? [] : this.state.data,
+            bordered: value.bordered,
+            loading: value.loading,
+            paginationObj: value.paginationObj ? paginationObj : 'none',
+            // draggable: draggable,
+            // dragborder: dragborder,
+            // rowDraggAble: rowDraggAble,
+            showHeaderMenu: value.showHeaderMenu,
+            // showFilterMenu: showFilterMenu,
+            // columnFilterAble: columnFilterAble,
+            filterable: value.filterable,
+            filterDelay: value.filterDelay ? this.state.inputValue.filterDelay : undefined,
+            onFilterChange: this.onFilterChange,
+            onFilterClear: this.onFilterClear,
+            showHeader: value.showHeader,
+            showRowNum: value.showRowNum,
+            bodyDisplayInRow: value.bodyDisplayInRow,
+            emptyText: this.state.inputValue.emptyText ? () => this.state.inputValue.emptyText : undefined,
+            onRowClick: value.onRowClick ? (record, index) => window.alert(`index=>${index},record=>${JSON.stringify(record)},`) : undefined,
+            onRowDoubleClick: value.onRowDoubleClick ? (record, index) => window.alert(`index=>${index},record=>${JSON.stringify(record)},`) : undefined,
+            onRowHover: value.onRowHover ? (index, record) => window.alert(`index=>${index},record=>${JSON.stringify(record)},`) : undefined,
+            bodyStyle: value.bodyStyle ? {color: this.state.inputValue.bodyStyle} : undefined,
+            size: value.size ? this.state.inputValue.size : undefined,
+            height: value.height ? +this.state.inputValue.height : undefined,
+            headerHeight: value.headerHeight ? +this.state.inputValue.headerHeight : undefined,
+            title: value.title ? () => <span>{this.state.inputValue.title}</span> : undefined,
+            scroll: scroll,
+            headerScroll: value.headerScroll,
+            footerScroll: value.footerScroll,
+            resetScroll: value.resetScroll,
+            //Grid
+            multiSelect: value.multiSelect ? {type: this.state.inputValue.multiSelect} : {type: 'checkbox'}
+            // multiSelect: {type: 'radio'}
+        }
         return (
             <div className="app-wrap">
                 <Row>
                     <Col md={2} xs={2} sm={2} lg={2}>
-                        <SidebarMenu />
+                        <Tree
+                            multiple
+                            defaultExpandAll
+                            onSelect={this.onSelect}
+                            selectedKeys={this.state.selectedKeys}
+                        >
+                            {this.renderTreeNode(leftMenuData)}
+                        </Tree>
                     </Col>
                     <Col md={8} xs={8} sm={8} lg={8}>
                         {
-                            this.getCollapse(treeData)
+                            this.getCollapse(this.state.treeData)
                         }
-                        <div style={{marginTop: 20}}>
-                            <Grid
-                                ref={'Grid'}
-                                className={this.state.value.zebraCrossing ? 'zebra-table' : ''}
-                                columns={this.state.columns.slice()}
-                                data={this.state.value.emptyText ? [] : this.state.data}
-                                bordered={this.state.value.bordered}
-                                loading={this.state.value.loading}
-                                paginationObj={paginationObj}
-                                // draggable={draggable}
-                                // dragborder={dragborder}
-                                // rowDraggAble={rowDraggAble}
-                                // showHeaderMenu={showHeaderMenu}
-                                // showFilterMenu={showFilterMenu}
-                                // columnFilterAble={columnFilterAble}
-                                filterable={this.state.value.filterable}
-                                filterDelay={this.state.value.filterDelay ? this.state.inputValue.filterDelay : undefined}
-                                onFilterChange={this.onFilterChange}
-                                onFilterClear={this.onFilterClear}
-                                showHeader={this.state.value.showHeader}
-                                showRowNum={this.state.value.showRowNum}
-                                bodyDisplayInRow={this.state.value.bodyDisplayInRow}
-                                emptyText={this.state.inputValue.emptyText ? () => this.state.inputValue.emptyText : undefined}
-                                onRowClick={this.state.value.onRowClick ? (record, index) => window.alert(`index=>${index},record=>${JSON.stringify(record)}`) : undefined}
-                                onRowDoubleClick={this.state.value.onRowDoubleClick ? (record, index) => window.alert(`index=>${index},record=>${JSON.stringify(record)}`) : undefined}
-                                onRowHover={this.state.value.onRowHover ? (index, record) => window.alert(`index=>${index},record=>${JSON.stringify(record)}`) : undefined}
-                                bodyStyle={this.state.value.bodyStyle ? {color: this.state.inputValue.bodyStyle} : undefined}
-                                size={this.state.value.size ? this.state.inputValue.size : undefined}
-                                height={this.state.value.height ? +this.state.inputValue.height : undefined}
-                                headerHeight={this.state.value.headerHeight ? +this.state.inputValue.headerHeight : undefined}
-                                title={this.state.value.title ? () => <span>{this.state.inputValue.title}</span> : undefined}
-                                scroll={scroll}
-                                headerScroll={this.state.value.headerScroll}
-                                footerScroll={this.state.value.footerScroll}
-                                resetScroll={this.state.value.resetScroll}
-                            />
-                        </div>
+                        {
+                            this.state.display ?  <div style={{marginTop: 20}}>
+                                {
+                                    (()=>{
+                                        let node = null;
+                                        switch (this.state.table) {
+                                            case 'Table' : node = <Table {...props} />;break;
+                                            // case 'SingleSelectTable' : node = <SingleSelectTable {...props} />;break;
+                                            case 'MultiSelectTable' : node = <MultiSelectTable {...props} />;break;
+                                            case 'SortTable' : node = <SortTable {...props} />;break;
+                                            case 'SumTable' : node = <SumTable {...props} />;break;
+                                            case 'DragColumnTable' : node = <DragColumnTable {...props} />;break;
+                                            case 'FilterColumnTable' : node = <FilterColumnTable {...props} />;break;
+                                            case 'Grid' : node = <Grid {...props} />;break;
+                                        }
+                                        return node;
+                                    })()
+                                }
+                            </div> : null
+                        }
+
                     </Col>
                     <Col md={2} xs={2} sm={2} lg={2}>
                             <Panel header="已选择组合的属性">
@@ -320,6 +422,12 @@ class App extends Component {
                                             :
                                         '暂无注意事项'
                                     }
+                                </div>
+                            </Panel>
+                            <Panel header="表格注意事项">
+                                <div>
+                                    <p>1，部分属性（columns.fixed，columns.width）table可以动态修改，Grid不可以动态修改；</p>
+                                    <p>2，height属性需bodyDisplayInRow属性为true，在Grid上才会生效；</p>
                                 </div>
                             </Panel>
                     </Col>
