@@ -3,8 +3,9 @@
  */
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Col, Row, Collapse, Checkbox ,Select, Popover,Panel, Icon, Radio,Tree } from 'tinper-bee';
+import { Col, Row, Collapse, Checkbox ,Select, Popover, Panel, Icon, Tree } from 'tinper-bee';
 import Table from 'bee-table';
+import Radio from 'bee-radio';
 import singleSelect from "tinper-bee/lib/singleSelect.js";
 import multiSelect from "tinper-bee/lib/multiSelect.js";
 import sort from "tinper-bee/lib/sort.js";
@@ -13,7 +14,7 @@ import dragColumn from "tinper-bee/lib/dragColumn.js";
 import filterColumn from "tinper-bee/lib/filterColumn.js";
 import bigData from "tinper-bee/lib/bigData.js";
 import Grid from 'bee-complex-grid';
-import {leftMenuData, treeData, GridData, MultiSelectData, SortData, SumData, FilterColumnData} from './menuList';
+import {leftMenuData, treeData, GridData, MultiSelectData, SortData, SumData, FilterColumnData} from './menuList2';
 import 'bee-complex-grid/build/Grid.css';
 import './index.less';
 const Option = Select.Option;
@@ -31,6 +32,7 @@ class App extends Component {
         super(props);
         this.state = {
             display: true,
+            setAll: {},
             propsList: [],
             matters: [],
             collapse: {},
@@ -215,24 +217,32 @@ class App extends Component {
         this.getAllMatters();
     }
     onSelect = (selectedKeys, info) => {
-        const { table, selectedKey } = info.node.props;
-        if (selectedKey === this.state.selectedKeys[0]) {
-            return
-        }
-        let stateTreeData  = treeData.slice();
-        // if (table === 'Grid') {
-        //     stateTreeData = treeData.concat(GridData)
-        // }
-        // if (table === 'multiSelectData') {
-        //     stateTreeData = treeData.concat(multiSelectData)
-        // }
-        stateTreeData = treeData.concat(this.tableData[table.replace('Table', 'Data')] || []);
+        const { attribute, set } = info.node.props;
+        const {setAll} = this.state;
+        setAll[attribute] = set;
         this.setState({
-            selectedKeys: [selectedKey],
-            table,
-            treeData: stateTreeData
+            selectedKeys
         });
     };
+    // onSelect = (selectedKeys, info) => {
+    //     const { table, selectedKey } = info.node.props;
+    //     if (selectedKey === this.state.selectedKeys[0]) {
+    //         return
+    //     }
+    //     let stateTreeData  = treeData.slice();
+    //     // if (table === 'Grid') {
+    //     //     stateTreeData = treeData.concat(GridData)
+    //     // }
+    //     // if (table === 'multiSelectData') {
+    //     //     stateTreeData = treeData.concat(multiSelectData)
+    //     // }
+    //     stateTreeData = treeData.concat(this.tableData[table.replace('Table', 'Data')] || []);
+    //     this.setState({
+    //         selectedKeys: [selectedKey],
+    //         table,
+    //         treeData: stateTreeData
+    //     });
+    // };
     checkedMiddleware(value, attribute) {
         const _this = this;
         typeof _this['table'][attribute] === 'function' &&  _this['table'][attribute](value);
@@ -283,13 +293,13 @@ class App extends Component {
     getItemInput(item) {
         let node = null;
         switch (item.type) {
-            case 'input' : node = <input style={{width: '80px', height: '20px'}} value={this.state.inputValue[item.attribute]} onChange={(e)=>this.formChange(e, item.attribute, 'input')} />; break;
+            case 'input' : node = <input style={{width: '80px', height: '20px'}} value={this.state.inputValue[item.key]} onChange={(e)=>this.formChange(e, item.key, 'input')} />; break;
             case 'select' : node = (
                 <Select
                     size='sm'
                     style={{width: '80px'}}
-                    value={this.state.inputValue[item.attribute]}
-                    onChange={(value) => this.formChange(value, item.attribute, 'select')}
+                    value={this.state.inputValue[item.key]}
+                    onChange={(value) => this.formChange(value, item.key, 'select')}
                 >
                     {
                         (item.options || []).map(it => <Option value={it.value}>{it.title}</Option>)
@@ -297,7 +307,7 @@ class App extends Component {
                 </Select>
             ); break;
         }
-        return node;
+        return <p>{`${item.key}: `}{node}</p>;
     }
     getCollapse(propsList) {
         const length = propsList.length;
@@ -376,7 +386,8 @@ class App extends Component {
                 key={item.key}
                 selectedKey={item.key}
                 title={title}
-                table={title}
+                attribute={item.attribute}
+                set={item.set}
             />
         )
     });
@@ -395,27 +406,24 @@ class App extends Component {
         };
         const scroll = {};
         const value = this.state.value;
+        const inputValue = this.state.inputValue;
         this.state.value.scrollX ? scroll.x = 3200 : null;
         this.state.value.scrollY ? scroll.y = 200 : null;
+        console.log(this.state.setAll);
         const props = {
             ref: 'Table',
-            className: value.zebraCrossing ? 'zebra-table' : '',
+            className: inputValue.className,
             columns: this.state.columns.slice(),
-            // columns: this.state.columns,
             data: value.emptyText ? [] : this.state.data,
-            bordered: value.bordered,
+            bordered: inputValue.bordered,
             loading: value.loading,
-            paginationObj: value.paginationObj ? paginationObj : 'none',
+            // paginationObj: value.paginationObj ? paginationObj : undefined,
+            paginationObj: paginationObj,
             autoCheckedByClickRows: value.autoCheckedByClickRows,
-            sorterClick: value.sorterClick ? () => console.log(arguments) : null,
+            sorterClick: value.sorterClick ? () => console.log(arguments) : undefined,
             sort: {mode: 'single'},
-            afterFilter: value.showFilterPopover ? this.afterFilter : undefined,
-            // draggable: draggable,
-            // dragborder: dragborder,
-            // rowDraggAble: rowDraggAble,
+            afterFilter: value.afterFilter ? this.afterFilter : undefined,
             showHeaderMenu: value.showHeaderMenu,
-            // showFilterMenu: showFilterMenu,
-            // columnFilterAble: columnFilterAble,
             getSelectedDataFunc: value.getSelectedDataFunc
                 ?
                 (selectedList, record, index) => window.alert('所有选中行:' + JSON.stringify(selectedList) + '\n当前操作行:' + JSON.stringify(record))
@@ -423,8 +431,8 @@ class App extends Component {
                 undefined,
             filterable: value.filterable,
             filterDelay: value.filterDelay ? this.state.inputValue.filterDelay : undefined,
-            onFilterChange: this.onFilterChange,
-            onFilterClear: this.onFilterClear,
+            onFilterChange: value.filterable ? this.onFilterChange : undefined,
+            onFilterClear: value.filterable ? this.onFilterClear : undefined,
             showHeader: value.showHeader,
             showRowNum: value.showRowNum,
             bodyDisplayInRow: value.bodyDisplayInRow,
@@ -441,10 +449,22 @@ class App extends Component {
             headerScroll: value.headerScroll,
             footerScroll: value.footerScroll,
             resetScroll: value.resetScroll,
-            //Grid
             multiSelect: value.multiSelect ? {type: this.state.inputValue.multiSelect} : {type: 'checkbox'}
-            // multiSelect: {type: 'radio'}
         }
+        const viewProp = {}
+        Object.keys(props).map(item => {
+            if (props[item] !== undefined) {
+                if (typeof props[item] === "function") {
+                    viewProp[item] = 'this.' + item;
+                } else if(item === 'columns') {
+                    viewProp[item] = 'this.state.columns';
+                } else if(item === 'data') {
+                    viewProp[item] = 'this.state.data';
+                } else {
+                    viewProp[item] = JSON.stringify(props[item])
+                }
+            }
+        })
         return (
             <div className="app-wrap">
                 <Row style={{width: '1600px',margin: '20px auto'}}>
@@ -455,44 +475,22 @@ class App extends Component {
                             onSelect={this.onSelect}
                             selectedKeys={this.state.selectedKeys}
                         >
-                            {this.renderTreeNode(leftMenuData)}
+                            {this.renderTreeNode(treeData)}
                         </Tree>
                     </Col>
                     <Col md={8} xs={8} sm={8} lg={8}>
+                        {/*{*/}
+                        {/*    this.getCollapse(this.state.treeData)*/}
+                        {/*}*/}
                         {
-                            this.getCollapse(this.state.treeData)
-                        }
-                        {
-                            this.state.display ?  <div style={{marginTop: 20}}>
-                                {
-                                    (()=>{
-                                        let node = null;
-                                        switch (this.state.table) {
-                                            case 'Table' : node = <Table {...props} />;break;
-                                            // case 'SingleSelectTable' : node = <SingleSelectTable {...props} />;break;
-                                            case 'MultiSelectTable' : node = <MultiSelectTable {...props} />;break;
-                                            case 'SortTable' : node = <SortTable {...props} />;break;
-                                            case 'SumTable' : node = <SumTable {...props} />;break;
-                                            case 'DragColumnTable' : node = <DragColumnTable {...props} />;break;
-                                            case 'FilterColumnTable' : node = <FilterColumnTable {...props} />;break;
-                                            case 'BigDataTable' : node = <BigDataTable {...props} />;break;
-                                            case 'Grid' : node = <Grid {...props} />;break;
-                                        }
-                                        return node;
-                                    })()
-                                }
-                            </div> : null
+                            this.state.display ?  <Grid {...props} /> : null
                         }
                     </Col>
                     <Col md={2} xs={2} sm={2} lg={2}>
-                            <Panel header="已选择组合的属性">
+                            <Panel header="属性配置">
                                 <div>
                                     {
-                                        this.state.propsList.length > 0
-                                            ?
-                                        this.state.propsList.map(item => <p>{item}</p>)
-                                            :
-                                        '暂无属性'
+                                        Object.keys(this.state.setAll).map(item => this.state.setAll[item].map(it => this.getItemInput(it)))
                                     }
                                 </div>
                             </Panel>
@@ -505,12 +503,6 @@ class App extends Component {
                                             :
                                         '暂无注意事项'
                                     }
-                                </div>
-                            </Panel>
-                            <Panel header="表格注意事项">
-                                <div>
-                                    <p>1，部分属性（columns.fixed，columns.width）table可以动态修改，Grid不可以动态修改；</p>
-                                    <p>2，height属性需bodyDisplayInRow属性为true，在Grid上才会生效；</p>
                                 </div>
                             </Panel>
                     </Col>

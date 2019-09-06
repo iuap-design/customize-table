@@ -1,22 +1,26 @@
 export const treeData = [
     {
-        title: '基础 Basic',
+        title: 'Table基础配置',
         key: '0-0',
         children: [
             {
                 title: '隔行换色',
                 attribute: 'zebraCrossing',
-                key: '0-0-1',
+                set: [{type: 'select', key: 'className', options: [{title: 'zebra-table', value: 'zebra-table'}, {title: '无', value: undefined}]}],
             },
             {
                 title: '显示边框',
                 attribute: 'bordered',
-                key: '0-0-2',
+                set: [{type: 'select', key: 'bordered', options: [{title: 'true', value: true}, {title: 'false', value: false}]}],
             },
             {
                 title: 'Loading状态',
                 attribute: 'loading',
-                key: '0-0-3',
+                type: 'select',
+                options: [
+                    {title: '显示', value: true},
+                    {title: '隐藏', value: false},
+                ],
             },
             {
                 title: '表格标题',
@@ -24,6 +28,30 @@ export const treeData = [
                 key: '0-0-4',
                 type: 'input',
                 matters: 'title: 传入一个函数,该函数返回一个ReactNode.',
+            },
+            {
+                title: '表格大小',
+                key: '0-0-5',
+                attribute: 'size',
+                type: 'select',
+                options: [
+                    {title: 'sm', value: 'sm'},
+                    {title: 'md', value: 'md'},
+                    {title: 'lg', value: 'lg'},
+                ],
+                matters: 'size: 优先级低于height属性.',
+            },
+            {
+                title: '自定义表格高度',
+                key: '0-0-6',
+                type: 'input',
+                attribute: 'height',
+            },
+            {
+                title: '自定义表头高度',
+                key: '0-0-6-1',
+                type: 'input',
+                attribute: 'headerHeight',
             },
             {
                 title: '显示表头',
@@ -38,16 +66,20 @@ export const treeData = [
                 matters: 'showRowNum: Boolean|Object',
             },
             {
-                title: '无数据显示',
+                title: '表格数据单行展示',
+                attribute: 'bodyDisplayInRow',
+                key: '0-0-9',
+            },
+            {
+                title: '自定义数据显示',
                 attribute: 'emptyText',
                 key: '0-0-10',
                 type: 'input',
-                matters: 'emptyText: 接受一个函数,返回一个ReactNode.',
             },
         ],
     },
     {
-        title: '滚动 Scroll View',
+        title: '滚动条',
         key: '0-1',
         children: [
             {
