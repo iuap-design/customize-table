@@ -14,7 +14,6 @@ module.exports = (env, argv) => {
         // 启动这两个模块，启动调试、构建
         bootList: [
             "createTable",
-            "demonstration",
         ],
         // 代理的配置
         proxy: [
