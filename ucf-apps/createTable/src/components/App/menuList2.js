@@ -1,6 +1,6 @@
 export const treeData = [
     {
-        title: 'Table基础配置',
+        title: '基础 Basic',
         key: '0-0',
         children: [
             {
@@ -17,202 +17,271 @@ export const treeData = [
                 title: 'Loading状态',
                 attribute: 'loading',
                 type: 'select',
-                options: [
-                    {title: '显示', value: true},
-                    {title: '隐藏', value: false},
-                ],
+                set: [{type: 'select', key: 'loading', options: [{title: 'true', value: true}, {title: 'false', value: false}]}],
             },
+            // {
+            //     title: '表格标题',
+            //     attribute: 'title',
+            //     key: '0-0-4',
+            //     type: 'input',
+            //     matters: 'title: 传入一个函数,该函数返回一个ReactNode.',
+            // },
+            // {
+            //     title: '表格大小',
+            //     key: '0-0-5',
+            //     attribute: 'size',
+            //     type: 'select',
+            //     options: [
+            //         {title: 'sm', value: 'sm'},
+            //         {title: 'md', value: 'md'},
+            //         {title: 'lg', value: 'lg'},
+            //     ],
+            //     matters: 'size: 优先级低于height属性.',
+            // },
+            // {
+            //     title: '自定义表格高度',
+            //     key: '0-0-6',
+            //     type: 'input',
+            //     attribute: 'height',
+            // },
+            // {
+            //     title: '自定义表头高度',
+            //     key: '0-0-6-1',
+            //     type: 'input',
+            //     attribute: 'headerHeight',
+            // },
+            // {
+            //     title: '显示表头',
+            //     attribute: 'showHeader',
+            //     key: '0-0-7',
+            //     matters: 'showHeader: 默认为true',
+            // },
+            // {
+            //     title: '显示序号列',
+            //     attribute: 'showRowNum',
+            //     key: '0-0-8',
+            //     matters: 'showRowNum: Boolean|Object',
+            // },
+            // {
+            //     title: '表格数据单行展示',
+            //     attribute: 'bodyDisplayInRow',
+            //     key: '0-0-9',
+            // },
             {
-                title: '表格标题',
-                attribute: 'title',
-                key: '0-0-4',
-                type: 'input',
-                matters: 'title: 传入一个函数,该函数返回一个ReactNode.',
-            },
-            {
-                title: '表格大小',
-                key: '0-0-5',
-                attribute: 'size',
-                type: 'select',
-                options: [
-                    {title: 'sm', value: 'sm'},
-                    {title: 'md', value: 'md'},
-                    {title: 'lg', value: 'lg'},
-                ],
-                matters: 'size: 优先级低于height属性.',
-            },
-            {
-                title: '自定义表格高度',
-                key: '0-0-6',
-                type: 'input',
-                attribute: 'height',
-            },
-            {
-                title: '自定义表头高度',
-                key: '0-0-6-1',
-                type: 'input',
-                attribute: 'headerHeight',
-            },
-            {
-                title: '显示表头',
-                attribute: 'showHeader',
-                key: '0-0-7',
-                matters: 'showHeader: 默认为true',
-            },
-            {
-                title: '显示序号列',
-                attribute: 'showRowNum',
-                key: '0-0-8',
-                matters: 'showRowNum: Boolean|Object',
-            },
-            {
-                title: '表格数据单行展示',
-                attribute: 'bodyDisplayInRow',
-                key: '0-0-9',
-            },
-            {
-                title: '自定义数据显示',
+                title: '自定义无数据显示',
                 attribute: 'emptyText',
-                key: '0-0-10',
-                type: 'input',
+                set: [
+                    {type: 'select', key: 'data', options: [{title: '[]', value: 'none'}, {title: 'data', value: 'data'}]},
+                    {type: 'input', key: 'emptyText'}
+                ],
             },
         ],
     },
     {
-        title: '滚动条',
+        title: '滚动 Scroll View',
         key: '0-1',
         children: [
             {
-                title: '横向滚动条配置',
-                attribute: 'scrollX',
+                title: '滚动条配置',
+                attribute: 'scroll',
                 key: '0-1-1',
-                matters: 'scroll: {x: Number|Boolean|String(percent)} x小写',
-            },
-            {
-                title: '纵向滚动条配置',
-                attribute: 'scrollY',
-                key: '0-1-2',
-                matters: 'scroll: {y: Number|Boolean|String(percent)} y小写',
-            },
-            {
-                title: '表头滚动条',
-                attribute: 'headerScroll',
-                key: '0-1-3',
-            },
-            {
-                title: '表尾和body公用一个滚动条',
-                attribute: 'footerScroll',
-                key: '0-1-4',
-                matters: ' 如果footer中也是一个table组件,并且也具有滚动条,那么也需要加入footerScroll参数,内层表格的footerScroll设置成false.'
-            },
-            {
-                title: '横向滚动条还原',
-                attribute: 'resetScroll',
-                key: '0-1-5',
+                set: [
+                    {type: 'input', key: 'scroll.x'},
+                    {type: 'input', key: 'scroll.y'}
+                ],
             },
         ],
     },
-    {
-        title: 'Table过滤',
-        key: '0-2',
-        children: [
-            {
-                title: '开启过滤',
-                attribute: 'filterable',
-                key: '0-2-1',
-                matters: '对于columns配置的filterType=text，onFilterChange在选择右侧的筛选项后触发'
-            },
-            {
-                title: '过滤输入的延迟时间',
-                attribute: 'filterDelay',
-                type: 'input',
-                key: '0-2-2',
-            },
-        ],
-    },
-    {
-        title: '行事件',
-        key: '0-3',
-        children: [
-            {
-                title: '行点击事件',
-                attribute: 'onRowClick',
-                key: '0-3-1',
-                event: true,
-                matters: 'onRowClick:单击事件有三个参数，分别是index，record，event'
-            },
-            {
-                title: '行双击事件',
-                attribute: 'onRowDoubleClick',
-                key: '0-3-2',
-                event: true,
-                matters: 'onRowDoubleClick:双击事件有三个参数，分别是index，record，event'
-            },
-            {
-                title: '行Hover事件',
-                attribute: 'onRowHover',
-                key: '0-3-4',
-                event: true,
-                matters: 'onRowHover:Hover事件和单击双击事件不同，只有两个参数，且第一个是record，第二个是index'
-            },
-        ],
-    },
-    {
-        title: 'Columns基础配置',
-        key: '0-4',
-        children: [
-            {
-                title: '列宽度',
-                attribute: 'columns[i].width',
-                type: 'input',
-                key: '0-4-1',
-            },
-            {
-                title: '固定列',
-                attribute: 'columns[i].fixed',
-                key: '0-4-2',
-                type: 'select',
-                options: [
-                    {title: '固定在左', value: 'left'},
-                    {title: '固定在右', value: 'right'},
-                ],
-            },
-            {
-                title: '标题对齐方式',
-                attribute: 'columns[i].titleAlign',
-                key: '0-4-3',
-                type: 'select',
-                options: [
-                    {title: '左对齐', value: 'left'},
-                    {title: '居  中', value: 'center'},
-                    {title: '右对齐', value: 'right'},
-                ],
-            },
-            {
-                title: '内容对齐方式',
-                attribute: 'columns[i].contentAlign',
-                key: '0-4-4',
-                type: 'select',
-                options: [
-                    {title: '左对齐', value: 'left'},
-                    {title: '居  中', value: 'center'},
-                    {title: '右对齐', value: 'right'},
-                ],
-            },
-            {
-                title: '全部对齐方式',
-                attribute: 'columns[i].textAlign',
-                key: '0-4-5',
-                type: 'select',
-                options: [
-                    {title: '左对齐', value: 'left'},
-                    {title: '居  中', value: 'center'},
-                    {title: '右对齐', value: 'right'},
-                ],
-                matters: 'textAlign: 优先级低于contentAlign和titleAlign'
-            },
-        ],
-    }
+    // {
+    //     title: '列渲染 Custom Render',
+    //     key: '0-2',
+    //     children: [
+    //         {
+    //             title: '开启过滤',
+    //             attribute: 'filterable',
+    //             key: '0-2-1',
+    //             matters: '对于columns配置的filterType=text，onFilterChange在选择右侧的筛选项后触发'
+    //         },
+    //         {
+    //             title: '过滤输入的延迟时间',
+    //             attribute: 'filterDelay',
+    //             type: 'input',
+    //             key: '0-2-2',
+    //         },
+    //     ],
+    // },
+    // {
+    //     title: '列操作-锁定 Fixed',
+    //     key: '0-3',
+    //     children: [
+    //         {
+    //             title: '列固定',
+    //             attribute: 'fixed',
+    //             key: '0-3-1',
+    //             set: [{type: 'select', key: 'columns[2].fixed', options: [{title: 'left', value: 'left'},{title: 'right', value: 'right'}]}],
+    //         },
+    //     ],
+    // },
+    // {
+    //     title: '列操作-过滤 Filter',
+    //     key: '0-4',
+    //     children: [
+    //         {
+    //             title: '过滤值',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //
+    //     ],
+    // },
+    // {
+    //     title: '列操作-隐藏 Hide',
+    //     key: '0-4',
+    //     children: [
+    //         {
+    //             title: '过滤值',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //
+    //     ],
+    // },
+    // {
+    //     title: '列操作-排序 Sort',
+    //     key: '0-4',
+    //     children: [
+    //         {
+    //             title: '过滤值',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //
+    //     ],
+    // },
+    // {
+    //     title: '列操作-拖拽 Drag',
+    //     key: '0-4',
+    //     children: [
+    //         {
+    //             title: '过滤值',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //
+    //     ],
+    // },
+    // {
+    //     title: '扩展行 Expanded Row',
+    //     key: '0-4',
+    //     children: [
+    //         {
+    //             title: '自定义表格嵌套的内容',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //         {
+    //             title: '树型表格数据展示',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //         {
+    //             title: '自定义表格标题',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //         {
+    //             title: '自定义表格表尾',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //     ],
+    // },
+    // {
+    //     title: '行操作-选择',
+    //     key: '0-4',
+    //     children: [
+    //         {
+    //             title: '过滤值',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //
+    //     ],
+    // },
+    // {
+    //     title: '无限滚动 Infinite-scroll（性能亮点）',
+    //     key: '0-4',
+    //     children: [
+    //         {
+    //             title: '过滤值',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //
+    //     ],
+    // },
+    // {
+    //     title: '导出 Export',
+    //     key: '0-4',
+    //     children: [
+    //         {
+    //             title: '过滤值',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //
+    //     ],
+    // },
+    // {
+    //     title: '分组聚合 Group',
+    //     key: '0-4',
+    //     children: [
+    //         {
+    //             title: '过滤值',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //
+    //     ],
+    // },
+    // {
+    //     title: '分页 Pagination',
+    //     key: '0-4',
+    //     children: [
+    //         {
+    //             title: '过滤值',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //
+    //     ],
+    // },
+    // {
+    //     title: '工具栏 Toobar',
+    //     key: '0-4',
+    //     children: [
+    //         {
+    //             title: '过滤值',
+    //             attribute: 'columns[i].width',
+    //             type: 'input',
+    //             key: '0-4-1',
+    //         },
+    //
+    //     ],
+    // },
 ];
 export const GridData = [
     {

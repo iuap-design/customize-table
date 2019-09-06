@@ -217,11 +217,19 @@ class App extends Component {
         this.getAllMatters();
     }
     onSelect = (selectedKeys, info) => {
+        const selected = info.selected;
         const { attribute, set } = info.node.props;
-        const {setAll} = this.state;
-        setAll[attribute] = set;
+        const {setAll, value} = this.state;
+        if (selected) {
+            setAll[attribute] = set;
+            value[attribute] = true;
+        } else {
+            setAll[attribute] = [];
+            value[attribute] = false;
+        }
         this.setState({
-            selectedKeys
+            selectedKeys,
+            setAll
         });
     };
     // onSelect = (selectedKeys, info) => {
@@ -407,16 +415,20 @@ class App extends Component {
         const scroll = {};
         const value = this.state.value;
         const inputValue = this.state.inputValue;
-        this.state.value.scrollX ? scroll.x = 3200 : null;
-        this.state.value.scrollY ? scroll.y = 200 : null;
-        console.log(this.state.setAll);
+        const columns = this.state.columns.slice();
+        inputValue['scroll.x'] ? scroll.x = +inputValue['scroll.x'] : null;
+        inputValue['scroll.y'] ? scroll.y = +inputValue['scroll.y'] : null;
+        if (inputValue['columns[2].fixed']) {
+            columns[2].fixed = inputValue['columns[2].fixed']
+        }
         const props = {
             ref: 'Table',
             className: inputValue.className,
-            columns: this.state.columns.slice(),
-            data: value.emptyText ? [] : this.state.data,
+            columns: columns.slice(),
+            data: inputValue.data !== 'none' ? this.state.data : [],
             bordered: inputValue.bordered,
-            loading: value.loading,
+            loading: inputValue.loading,
+            emptyText: inputValue.emptyText ? () => this.state.inputValue.emptyText : undefined,
             // paginationObj: value.paginationObj ? paginationObj : undefined,
             paginationObj: paginationObj,
             autoCheckedByClickRows: value.autoCheckedByClickRows,
@@ -436,7 +448,7 @@ class App extends Component {
             showHeader: value.showHeader,
             showRowNum: value.showRowNum,
             bodyDisplayInRow: value.bodyDisplayInRow,
-            emptyText: this.state.inputValue.emptyText ? () => this.state.inputValue.emptyText : undefined,
+            // emptyText: this.state.inputValue.emptyText ? () => this.state.inputValue.emptyText : undefined,
             onRowClick: value.onRowClick ? (record, index) => window.alert(`index=>${index},record=>${JSON.stringify(record)},`) : undefined,
             onRowDoubleClick: value.onRowDoubleClick ? (record, index) => window.alert(`index=>${index},record=>${JSON.stringify(record)},`) : undefined,
             onRowHover: value.onRowHover ? (index, record) => window.alert(`index=>${index},record=>${JSON.stringify(record)},`) : undefined,
@@ -467,8 +479,8 @@ class App extends Component {
         })
         return (
             <div className="app-wrap">
-                <Row style={{width: '1600px',margin: '20px auto'}}>
-                    <Col md={2} xs={2} sm={2} lg={2}>
+                <Row style={{margin: '20px auto'}}>
+                    <Col md={3} xs={3} sm={3} lg={3}>
                         <Tree
                             multiple
                             defaultExpandAll
@@ -478,7 +490,7 @@ class App extends Component {
                             {this.renderTreeNode(treeData)}
                         </Tree>
                     </Col>
-                    <Col md={8} xs={8} sm={8} lg={8}>
+                    <Col md={6} xs={6} sm={6} lg={6}>
                         {/*{*/}
                         {/*    this.getCollapse(this.state.treeData)*/}
                         {/*}*/}
@@ -486,22 +498,11 @@ class App extends Component {
                             this.state.display ?  <Grid {...props} /> : null
                         }
                     </Col>
-                    <Col md={2} xs={2} sm={2} lg={2}>
+                    <Col md={3} xs={3} sm={3} lg={3}>
                             <Panel header="属性配置">
                                 <div>
                                     {
                                         Object.keys(this.state.setAll).map(item => this.state.setAll[item].map(it => this.getItemInput(it)))
-                                    }
-                                </div>
-                            </Panel>
-                            <Panel header="已选择属性注意事项">
-                                <div>
-                                    {
-                                        this.state.matters.length > 0
-                                            ?
-                                        this.state.matters.map(item => <p>{item}</p>)
-                                            :
-                                        '暂无注意事项'
                                     }
                                 </div>
                             </Panel>
