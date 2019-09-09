@@ -291,11 +291,11 @@ class App extends Component {
     getItemInput(item) {
         let node = null;
         switch (item.type) {
-            case 'input' : node = <input style={{width: '80px', height: '20px'}} value={this.state.inputValue[item.key]} onChange={(e)=>this.formChange(e, item.key, 'input')} />; break;
+            case 'input' : node = <input style={{width: '120px', height: '20px'}} value={this.state.inputValue[item.key]} onChange={(e)=>this.formChange(e, item.key, 'input')} />; break;
             case 'select' : node = (
                 <Select
                     size='sm'
-                    style={{width: '80px'}}
+                    style={{width: '120px'}}
                     value={this.state.inputValue[item.key]}
                     onChange={(value) => this.formChange(value, item.key, 'select')}
                 >
@@ -304,8 +304,18 @@ class App extends Component {
                     }
                 </Select>
             ); break;
+            case 'radio' : node = (
+                <Radio.RadioGroup
+                    value={this.state.inputValue[item.key]}
+                    onChange={(value) => this.formChange(value, item.key, 'radio')}
+                >
+                    {
+                        (item.options || []).map(it => <Radio value={it.value}>{it.title}</Radio>)
+                    }
+                </Radio.RadioGroup>
+            ); break;
         }
-        return <p>{`${item.key}: `}{node}</p>;
+        return <div>{`${item.key}: `}{node}</div>;
     }
     getCollapse(propsList) {
         const length = propsList.length;
@@ -374,9 +384,10 @@ class App extends Component {
     }
     render() {
         const scroll = {};
-        const {data = [], checkAttr = {}, inputValue, value} = this.state;
+        const clientHeight = document.body.clientHeight - 120;
+        const {data = [], checkAttr = {}, inputValue, value, setAll = {}} = this.state;
         const columns = this.state.columns.slice();
-        let paginationObj = {
+        const paginationObj = {
             items:10,//一页显示多少条
             total:data.length,//总共多少条、
             freshData:this.freshData,//点击下一页刷新的数据
@@ -429,22 +440,8 @@ class App extends Component {
             resetScroll: value.resetScroll,
             multiSelect: value.multiSelect ? {type: this.state.inputValue.multiSelect} : {type: 'checkbox'}
         }
-        const viewProp = {}
-        Object.keys(props).map(item => {
-            if (props[item] !== undefined) {
-                if (typeof props[item] === "function") {
-                    viewProp[item] = 'this.' + item;
-                } else if(item === 'columns') {
-                    viewProp[item] = 'this.state.columns';
-                } else if(item === 'data') {
-                    viewProp[item] = 'this.state.data';
-                } else {
-                    viewProp[item] = JSON.stringify(props[item])
-                }
-            }
-        })
         return (
-            <div className="app-wrap" style={{background: '#ccc'}}>
+            <div className="app-wrap" style={{background: '#ccc', height: '100%'}}>
                 <div style={{
                     background: '#fff',
                     height: '50px'
@@ -461,61 +458,73 @@ class App extends Component {
                     </div>
                 </div>
                 <Row style={{margin: '10px auto',minHeight: 500}}>
-                    <Col md={3} xs={3} sm={3} lg={3} style={{height: '100%', padding: 0}}>
-                        <Panel header="功能选择">
+                    <Col md={3} xs={3} sm={3} lg={3} style={{padding: 0}}>
+                        <Panel header="功能选择" style={{height: clientHeight}}>
                             <Row>
-                            <Col md={6} xs={6} sm={6} lg={6}  style={{padding: '10px'}}>
-                                {
-                                    treeData.map(item => {
-                                        return (
-                                            <div style={{height: 40, lineHeight: '40px'}}>
-                                                <Checkbox
-                                                    checked={checkAttr[item.key]}
-                                                    onChange={() => this.setState({checkAttr: {...checkAttr, [item.key] : !checkAttr[item.key]}})}
-                                                >
-                                                    {item.title}
-                                                </Checkbox>
-                                            </div>);
-                                    })
-                                }
-                            </Col>
-                            <Col md={6} xs={6} sm={6} lg={6} style={{ padding: '10px', height: '100%'}}>
-                                {
-                                    treeData.map(item => {
-                                        if (this.state.checkAttr[item.key]) {
-                                            return item.children.map(it => {
-                                                return (<div style={{height: 30, lineHeight: '30px'}}>
+                                <Col md={6} xs={6} sm={6} lg={6}  style={{padding: '10px'}}>
+                                    {
+                                        treeData.map(item => {
+                                            return (
+                                                <div style={{height: 40, lineHeight: '40px'}}>
                                                     <Checkbox
-                                                        checked={value[it.attribute]}
-                                                        onChange={(value) => this.onSelect(value, it.attribute, it.set)}
+                                                        checked={checkAttr[item.key]}
+                                                        onChange={() => this.setState({checkAttr: {...checkAttr, [item.key] : !checkAttr[item.key]}})}
                                                     >
-                                                        {it.title}
+                                                        {item.title}
                                                     </Checkbox>
-                                                </div>)
-                                            })
-                                        }
-                                        return null;
-                                    })
-                                }
-                            </Col>
-                        </Row>
+                                                </div>);
+                                        })
+                                    }
+                                </Col>
+                                <Col md={6} xs={6} sm={6} lg={6} style={{ padding: '10px', height: clientHeight - 80, overflow: 'auto'}}>
+                                    {
+                                        treeData.map(item => {
+                                            if (this.state.checkAttr[item.key]) {
+                                                return <Panel header={item.title}>
+                                                        {
+                                                            item.children.map(it => {
+                                                                return (
+                                                                    <div style={{height: 30, lineHeight: '30px'}}>
+                                                                        <Checkbox
+                                                                            checked={value[it.attribute]}
+                                                                            onChange={(value) => this.onSelect(value, it.attribute, it.set)}
+                                                                        >
+                                                                            {it.title}
+                                                                        </Checkbox>
+                                                                    </div>
+                                                                )
+                                                            })
+                                                        }
+                                                        </Panel>
+                                            }
+                                            return null;
+                                        })
+                                    }
+                                </Col>
+                            </Row>
                         </Panel>
                     </Col>
                     <Col md={6} xs={6} sm={6} lg={6}>
-                        {/*{*/}
-                        {/*    this.getCollapse(this.state.treeData)*/}
-                        {/*}*/}
-                        <Panel header="Grid预览">
+                        <Panel header="Grid预览" style={{height: clientHeight, overflow: 'auto'}}>
                             {
                                 this.state.display ?  <Grid {...props} /> : null
                             }
                         </Panel>
                     </Col>
-                    <Col md={3} xs={3} sm={3} lg={3} style={{height: '100%', padding: 0}}>
-                        <Panel header="属性配置">
+                    <Col md={3} xs={3} sm={3} lg={3} style={{padding: 0}}>
+                        <Panel header="属性配置" style={{height: clientHeight, overflow: 'auto'}}>
                             <div>
                                 {
-                                    Object.keys(this.state.setAll).map(item => this.state.setAll[item].map(it => this.getItemInput(it)))
+                                    Object.keys(setAll).length > 0
+                                        ?
+                                        Object.keys(setAll).map(item => setAll[item].map(it => {
+                                            return <div style={{marginBottom: '15px'}}>
+                                                <h4 style={{marginBottom: '5px'}}>{it.title}</h4>
+                                                <div>{this.getItemInput(it)}</div>
+                                            </div>
+                                        }))
+                                        :
+                                        <div style={{textAlign: 'center'}}>暂无配置属性</div>
                                 }
                             </div>
                         </Panel>
