@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Col, Row, Collapse, Checkbox ,Select, Popover, Panel, Icon, Tree } from 'tinper-bee';
+import { Col, Row, ColorPicker, Checkbox ,Select, Popover, Panel, Icon, Tree } from 'tinper-bee';
 import Table from 'bee-table';
 import Radio from 'bee-radio';
 import singleSelect from "tinper-bee/lib/singleSelect.js";
@@ -33,12 +33,8 @@ class App extends Component {
         this.state = {
             display: true,
             setAll: {},
-            propsList: [],
-            matters: [],
-            collapse: {},
             treeData: treeData.slice(),
             selectedKeys: ['0-0'],
-            table: 'Table',
             value: {},
             checkAttr: {},
             inputValue: {},
@@ -69,29 +65,16 @@ class App extends Component {
         }
     }
     table = {
-        'filterable':(checked) => {
-            const columns = this.state.columns.slice();
+        'data[2]._disabled':(checked) => {
+            const {inputValue} = this.state;
             if (checked) {
-                columns.map(item => {
-                    item.filterDropdown = 'show';
-                })
-            } else {
-                columns.map(item => {
-                    item.filterDropdown = 'hide';
-                })
+                this.onSelect(true, 'multiSelect', this.getSet('multiSelect'));
+                this.setState({inputValue:{ ...inputValue, multiSelect : 'checkbox'}}, () => this.tableRefresh());
             }
-            this.setState({columns});
         },
-        'data[i]._checked':(checked) => {
-            const data = this.state.data.slice();
-            if (checked) {
-                data[1]['_checked'] = true
-            } else {
-                data[1]['_checked'] = false
-            }
-            this.setState({data});
-        },
-        'data[i]._disabled':(checked) => {
+    };
+    data = {
+        'data[2]._disabled':(checked) => {
             const data = this.state.data.slice();
             if (checked) {
                 data[2]['_disabled'] = true
@@ -107,14 +90,14 @@ class App extends Component {
             const checked = this.state.value['columns[i].width'];
             if (checked) {
                 columns.map(item => {
-                    item.width =  value + 'px' || '200px';
+                    item.width =  isNaN(+value) ? '200px' : +value + 'px';
                 })
             } else {
                 columns.map(item => {
                     item.width =  '200px';
                 })
             }
-            this.setState({columns});
+            this.setState({columns}, () => this.tableRefresh());
         },
         'columns[i].fixed': (value) => {
             const columns = this.state.columns.slice();
@@ -124,7 +107,7 @@ class App extends Component {
             } else {
                 columns[2].fixed =  undefined;
             }
-            this.setState({columns}, () => console.log(this.state.columns));
+            this.setState({columns});
         },
         'columns[i].titleAlign': (value) => {
             const columns = this.state.columns.slice();
@@ -168,6 +151,26 @@ class App extends Component {
             }
             this.setState({columns});
         },
+        'columns[2].fontColor': (value) => {
+            const columns = this.state.columns.slice();
+            const checked = this.state.value['columns[2].fontColor'];
+            if (checked) {
+                columns[2].fontColor = this.state.inputValue['columns[2].fontColor']
+            } else {
+                columns[2].fontColor = undefined
+            }
+            this.setState({columns});
+        },
+        'columns[2].bgColor': (value) => {
+            const columns = this.state.columns.slice();
+            const checked = this.state.value['columns[2].bgColor'];
+            if (checked) {
+                columns[2].bgColor = this.state.inputValue['columns[2].bgColor']
+            } else {
+                columns[2].bgColor = undefined
+            }
+            this.setState({columns});
+        },
         'columns[i].sorter': (value) => {
             const columns = this.state.columns.slice();
             if (value) {
@@ -205,179 +208,108 @@ class App extends Component {
             this.setState({columns});
         },
     };
-    componentDidMount() {
-        this.getAllPropList();
-        this.getAllMatters();
+    getSet(attribute) {
+        let set;
+        treeData.map(item => item.children.map(it => {
+            if(it.attribute === attribute) {
+                set = it.set;
+            }
+        }));
+        return set
     }
     onSelect = (selected, attribute, set) => {
-        const {setAll, value} = this.state;
+        const {setAll, value, inputValue} = this.state;
         if (selected) {
             setAll[attribute] = set;
             value[attribute] = true;
         } else {
             setAll[attribute] = [];
+            set.map(item => inputValue[item.key] = undefined);
             value[attribute] = false;
         }
         this.setState({
-            setAll
+            setAll,
+            value,
+            inputValue
+        }, () => {
+            this.checkedMiddleware(selected, attribute);
+            this.inputMiddleware(value, attribute);
         });
     };
-    // onSelect = (selectedKeys, info) => {
-    //     const { table, selectedKey } = info.node.props;
-    //     if (selectedKey === this.state.selectedKeys[0]) {
-    //         return
-    //     }
-    //     let stateTreeData  = treeData.slice();
-    //     // if (table === 'Grid') {
-    //     //     stateTreeData = treeData.concat(GridData)
-    //     // }
-    //     // if (table === 'multiSelectData') {
-    //     //     stateTreeData = treeData.concat(multiSelectData)
-    //     // }
-    //     stateTreeData = treeData.concat(this.tableData[table.replace('Table', 'Data')] || []);
-    //     this.setState({
-    //         selectedKeys: [selectedKey],
-    //         table,
-    //         treeData: stateTreeData
-    //     });
-    // };
     checkedMiddleware(value, attribute) {
         const _this = this;
         typeof _this['table'][attribute] === 'function' &&  _this['table'][attribute](value);
-        typeof _this['columns'][attribute] === 'function' &&  _this['columns'][attribute](value);
     }
     inputMiddleware(value, attribute){
         const _this = this;
-        typeof _this['table'][attribute] === 'function' &&  _this['table'][attribute](value);
         typeof _this['columns'][attribute] === 'function' &&  _this['columns'][attribute](value);
-    }
-    getAllMatters() {
-        const arr = [];
-        const fun = (data) => {
-            data.map(item => {
-                if (this.state.value[item.attribute]) {
-                    item.matters && arr.push(item.matters);
-                }
-                if(item.children) {
-                    fun(item.children)
-                }
-            })
-        };
-        fun(this.state.treeData);
-        this.setState({matters: arr});
-    }
-    getAllPropList(){
-        this.setState({propsList: Object.keys(this.state.value).filter(item => this.state.value[item])});
-    }
-    checkboxChange(value, attribute) {
-        this.checkedMiddleware(value, attribute);
-        this.inputMiddleware(value, attribute);
-        this.setState({value: {...this.state.value, [attribute]: !this.state.value[attribute]}}, () => {
-            this.getAllPropList();
-            this.getAllMatters();
-            this.tableRefresh()
-        });
-    }
-    collapseClick(i) {
-        this.setState({collapse: {...this.state.collapse, [i] : !this.state.collapse[i]}})
+        typeof _this['data'][attribute] === 'function' &&  _this['data'][attribute](value);
     }
     formChange(e, attribute, type) {
-        const value = type === 'input' ? e.target.value : e;
+        let value;
+        switch (type) {
+            case 'input' : value = e.target.value;break;
+            case 'select' : value = e;break;
+            case 'radio' : value = e;break;
+            case 'colorPicker' : value = e.hex;break;
+        }
         this.setState({inputValue: {...this.state.inputValue, [attribute]: value}}, () => {
             this.inputMiddleware(value, attribute);
-            this.tableRefresh()
+            this.tableRefresh();
         });
     }
     getItemInput(item) {
         let node = null;
         switch (item.type) {
-            case 'input' : node = <input style={{width: '120px', height: '20px'}} value={this.state.inputValue[item.key]} onChange={(e)=>this.formChange(e, item.key, 'input')} />; break;
+            case 'input' : node = (
+                <div style={{paddingLeft: '12px', padding: '10px, 0'}}>
+                    <span style={{marginRight: '12px'}}>{item.key}:</span>
+                    <input
+                        style={{width: '120px', height: '20px'}}
+                        value={this.state.inputValue[item.key]}
+                        onChange={(e)=>this.formChange(e, item.key, 'input')} />
+                </div>
+            );break;
             case 'select' : node = (
-                <Select
-                    size='sm'
-                    style={{width: '120px'}}
-                    value={this.state.inputValue[item.key]}
-                    onChange={(value) => this.formChange(value, item.key, 'select')}
-                >
-                    {
-                        (item.options || []).map(it => <Option value={it.value}>{it.title}</Option>)
-                    }
-                </Select>
+                <div style={{paddingLeft: '12px', padding: '10px, 0'}}>
+                    <span style={{marginRight: '12px'}}>{item.key}:</span>
+                    <Select
+                        size='sm'
+                        style={{width: '120px'}}
+                        value={this.state.inputValue[item.key]}
+                        onChange={(value) => this.formChange(value, item.key, 'select')}
+                    >
+                        {
+                            (item.options || []).map(it => <Option value={it.value}>{it.title}</Option>)
+                        }
+                    </Select>
+                </div>
             ); break;
             case 'radio' : node = (
-                <Radio.RadioGroup
-                    value={this.state.inputValue[item.key]}
-                    onChange={(value) => this.formChange(value, item.key, 'radio')}
-                >
-                    {
-                        (item.options || []).map(it => <Radio value={it.value}>{it.title}</Radio>)
-                    }
-                </Radio.RadioGroup>
+                <div style={{paddingLeft: '12px', padding: '10px, 0'}}>
+                    <span style={{marginRight: '12px'}}>{item.key}:</span>
+                    <Radio.RadioGroup
+                        value={this.state.inputValue[item.key]}
+                        onChange={(value) => this.formChange(value, item.key, 'radio')}
+                    >
+                        {
+                            (item.options || []).map(it => <Radio value={it.value}>{it.title}</Radio>)
+                        }
+                    </Radio.RadioGroup>
+                </div>
+            ); break;
+            case 'colorPicker' : node = (
+                <div>
+                    <ColorPicker
+                        style={{width: '120px', height: '20px'}}
+                        value={this.state.inputValue[item.key]}
+                        onChange={(e)=>this.formChange(e, item.key, 'colorPicker')}
+                        label={item.key + ':'}
+                    />
+                </div>
             ); break;
         }
-        return <div>{`${item.key}: `}{node}</div>;
-    }
-    getCollapse(propsList) {
-        const length = propsList.length;
-        const arr = [];
-        for (let i = 0; i < length; i++) {
-            arr.push(
-                <div key={propsList[i].key} style={{marginBottom: '10px'}}>
-                    <div style={{
-                        background: '#fafafa',
-                        padding: '12px 16px',
-                        cursor: 'pointer',
-                        borderRadius: '4px',
-                        border: '1px solid #d9d9d9'
-                    }} onClick={() =>this.collapseClick(i)}>
-                        {
-                            this.state.collapse[i]
-                                ?
-                            <Icon type={'angle-arrow-down'} className={'uf-arrow-down'}></Icon>
-                                :
-                            <Icon type={'angle-arrow-pointing-to-right'} className={'uf-arrow-right'}></Icon>
-                        }
-                        {propsList[i].title}
-                    </div>
-                    <Collapse in={this.state.collapse[i + '']}>
-                        <Row style={{padding: '15px'}}>
-                            {
-                                propsList[i].children.map(item => {
-                                    return (
-                                        <Col style={{lineHeight: '30px'}} md={4} xs={4} sm={6} lg={4}>
-                                            <Checkbox checked={!!this.state.value[item.attribute]} onChange={(value) => this.checkboxChange(value, item.attribute)}>{item.title}</Checkbox>
-                                            {
-                                                item.type
-                                                    ?
-                                                <span style={{display: this.state.value[item.attribute] ? 'inline-block' : 'none', width: '60px'}}>
-                                                    {
-                                                        this.getItemInput(item)
-                                                    }
-                                                </span>
-                                                    :
-                                                null
-                                            }
-                                        </Col>
-                                    )
-                                })
-                            }
-                        </Row>
-                    </Collapse>
-                </div>
-            )
-        }
-        return arr;
-    }
-    // 过滤回调 start
-    onFilterChange(key, val, condition) {
-        window.alert(`key:${key}, value:${val}, condition:${condition}`);
-    }
-    onFilterClear(value) {
-        window.alert(`key:${key}, value:${val}, condition:${condition}`);
-    }
-    //
-    afterFilter = (optData,columns)=>{
-        alert('列过滤后的回调函数')
+        return <div style={{color: '#212121', fontSize: '12px'}}>{node}</div>;
     }
     tableRefresh() {
         this.setState({display: false}, () => setTimeout(() => this.setState({display: true}), 4))
@@ -385,7 +317,7 @@ class App extends Component {
     render() {
         const scroll = {};
         const clientHeight = document.body.clientHeight - 120;
-        const {data = [], checkAttr = {}, inputValue, value, setAll = {}} = this.state;
+        const {data = [], checkAttr = {}, inputValue, value, setAll = {}, display} = this.state;
         const columns = this.state.columns.slice();
         const paginationObj = {
             items:10,//一页显示多少条
@@ -396,6 +328,33 @@ class App extends Component {
             noBorder:true,
             horizontalPosition:'center'
         };
+        const toolBtns = [{
+            value:'新增',
+            onClick:this.addData,
+            bordered:false,
+            colors:'primary'
+        },{
+            value:'导出',
+            iconType:'uf-search',
+            onClick:this.export
+        },{
+            value:'上传',
+            iconType:'uf-cloud-up',
+        },{
+            value:'批量操作',
+            onClick:this.dispatchOpt,
+            children:[
+                {
+                    value:'修改',
+                    onClick:this.dispatchUpdate
+                },{
+                    value:'删除',
+                    onClick:this.dispatchDel
+                }
+            ]
+        },{
+            iconType:'uf-copy',
+        }]
         inputValue['scroll.x'] ? scroll.x = +inputValue['scroll.x'] : null;
         inputValue['scroll.y'] ? scroll.y = +inputValue['scroll.y'] : null;
         if (inputValue['columns[2].fixed']) {
@@ -405,13 +364,14 @@ class App extends Component {
             ref: 'Table',
             className: inputValue.className,
             columns: columns.slice(),
-            data: inputValue.data !== 'none' ? this.state.data : [],
+            data: inputValue.data !== 'none' ? data : [],
             bordered: inputValue.bordered,
             loading: inputValue.loading,
-            emptyText: inputValue.emptyText ? () => this.state.inputValue.emptyText : undefined,
+            emptyText: inputValue.emptyText ? () => inputValue.emptyText : undefined,
             paginationObj: value.paginationObj && inputValue.paginationObj ? paginationObj : 'none',
             showHeaderMenu: value.showHeaderMenu ? inputValue.showHeaderMenu : false,
             showRowNum: value.showRowNum ? inputValue.showRowNum : false,
+            multiSelect: value.multiSelect ? {type: inputValue.multiSelect} : {type: false},
             //
             autoCheckedByClickRows: value.autoCheckedByClickRows,
             sorterClick: value.sorterClick ? () => console.log(arguments) : undefined,
@@ -423,22 +383,21 @@ class App extends Component {
                 :
                 undefined,
             filterable: value.filterable,
-            filterDelay: value.filterDelay ? this.state.inputValue.filterDelay : undefined,
+            filterDelay: value.filterDelay ? inputValue.filterDelay : undefined,
             onFilterChange: value.filterable ? this.onFilterChange : undefined,
             onFilterClear: value.filterable ? this.onFilterClear : undefined,
             showHeader: value.showHeader,
 
             bodyDisplayInRow: value.bodyDisplayInRow,
-            bodyStyle: value.bodyStyle ? {color: this.state.inputValue.bodyStyle} : undefined,
-            size: value.size ? this.state.inputValue.size : undefined,
-            height: value.height ? +this.state.inputValue.height : undefined,
-            headerHeight: value.headerHeight ? +this.state.inputValue.headerHeight : undefined,
-            title: value.title ? () => <span>{this.state.inputValue.title}</span> : undefined,
+            bodyStyle: value.bodyStyle ? {color: inputValue.bodyStyle} : undefined,
+            size: value.size ? inputValue.size : undefined,
+            height: value.height ? +inputValue.height : undefined,
+            headerHeight: value.headerHeight ? +inputValue.headerHeight : undefined,
+            title: value.title ? () => <span>{inputValue.title}</span> : undefined,
             scroll: scroll,
             headerScroll: value.headerScroll,
             footerScroll: value.footerScroll,
             resetScroll: value.resetScroll,
-            multiSelect: value.multiSelect ? {type: this.state.inputValue.multiSelect} : {type: 'checkbox'}
         }
         return (
             <div className="app-wrap" style={{background: '#ccc', height: '100%'}}>
@@ -479,7 +438,7 @@ class App extends Component {
                                 <Col md={6} xs={6} sm={6} lg={6} style={{ padding: '10px', height: clientHeight - 80, overflow: 'auto'}}>
                                     {
                                         treeData.map(item => {
-                                            if (this.state.checkAttr[item.key]) {
+                                            if (checkAttr[item.key]) {
                                                 return <Panel header={item.title}>
                                                         {
                                                             item.children.map(it => {
@@ -507,7 +466,10 @@ class App extends Component {
                     <Col md={6} xs={6} sm={6} lg={6}>
                         <Panel header="Grid预览" style={{height: clientHeight, overflow: 'auto'}}>
                             {
-                                this.state.display ?  <Grid {...props} /> : null
+                                inputValue['<Grid.GridToolBar />'] ? <Grid.GridToolBar toolBtns={toolBtns} btnSize='sm' /> : null
+                            }
+                            {
+                                display ?  <Grid {...props} /> : null
                             }
                         </Panel>
                     </Col>

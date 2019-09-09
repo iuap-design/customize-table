@@ -88,26 +88,69 @@ export const treeData = [
             },
         ],
     },
-    // {
-    //     title: '列渲染 Custom Render',
-    //     key: '0-2',
-    //     children: [
-    //         {
-    //             title: '开启过滤',
-    //             attribute: 'filterable',
-    //             key: '0-2-1',
-    //             matters: '对于columns配置的filterType=text，onFilterChange在选择右侧的筛选项后触发'
-    //         },
-    //         {
-    //             title: '过滤输入的延迟时间',
-    //             attribute: 'filterDelay',
-    //             type: 'input',
-    //             key: '0-2-2',
-    //         },
-    //     ],
-    // },
     {
-        title: '列操作-锁定 Fixed',
+        title: '列渲染 Custom Render',
+        key: '0-2',
+        children: [
+            {
+                title: '自定义列宽',
+                attribute: 'columns[i].width',
+                set: [
+                    {
+                        type: 'input', title: '自定义列宽', key: 'columns[i].width',
+                    },
+                ],
+            },
+            {
+                title: '表头对齐方式',
+                attribute: 'columns[i].titleAlign',
+                set: [
+                    {
+                        type: 'radio', title: '表头对齐方式', key: 'columns[i].titleAlign',
+                        options: [
+                            {title: 'left', value: 'left'},
+                            {title: 'center', value: 'center'},
+                            {title: 'right', value: 'right'},
+                        ]
+                    },
+                ],
+            },
+            {
+                title: '内容对齐方式',
+                attribute: 'columns[i].contentAlign',
+                set: [
+                    {
+                        type: 'radio', title: '内容对齐方式', key: 'columns[i].contentAlign',
+                        options: [
+                            {title: 'left', value: 'left'},
+                            {title: 'center', value: 'center'},
+                            {title: 'right', value: 'right'},
+                        ]
+                    },
+                ],
+            },
+            {
+                title: '列文本颜色',
+                attribute: 'columns[2].fontColor',
+                set: [
+                    {
+                        type: 'colorPicker', title: '列文本颜色', key: 'columns[2].fontColor',
+                    },
+                ],
+            },
+            {
+                title: '列背景颜色',
+                attribute: 'columns[2].bgColor',
+                set: [
+                    {
+                        type: 'colorPicker', title: '列背景颜色', key: 'columns[2].bgColor',
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        title: '列操作-锁定 Fixed / 隐藏 Hide',
         key: '0-3',
         children: [
             {
@@ -118,7 +161,7 @@ export const treeData = [
                 ],
             },
             {
-                title: '动态设置列锁定、解除锁定',
+                title: '设置列锁定、解除、隐藏列',
                 attribute: 'showHeaderMenu',
                 set: [
                     {type: 'radio',title: '显示锁定/隐藏表头菜单', key: 'showHeaderMenu', options: [{title: 'true', value: true}, {title: 'false', value: false}]},
@@ -128,19 +171,6 @@ export const treeData = [
     },
     // {
     //     title: '列操作-过滤 Filter',
-    //     key: '0-4',
-    //     children: [
-    //         {
-    //             title: '过滤值',
-    //             attribute: 'columns[i].width',
-    //             type: 'input',
-    //             key: '0-4-1',
-    //         },
-    //
-    //     ],
-    // },
-    // {
-    //     title: '列操作-隐藏 Hide',
     //     key: '0-4',
     //     children: [
     //         {
@@ -208,19 +238,38 @@ export const treeData = [
     //         },
     //     ],
     // },
-    // {
-    //     title: '行操作-选择',
-    //     key: '0-4',
-    //     children: [
-    //         {
-    //             title: '过滤值',
-    //             attribute: 'columns[i].width',
-    //             type: 'input',
-    //             key: '0-4-1',
-    //         },
-    //
-    //     ],
-    // },
+    {
+        title: '行操作-选择',
+        key: '0-4',
+        children: [
+            {
+                title: '多选/单选',
+                attribute: 'multiSelect',
+                set: [
+                    {
+                        type: 'radio', title: '单选/多选/无', key: 'multiSelect', options:
+                        [
+                            {title: '{type: "checkbox"}', value: 'checkbox'},
+                            {title: '{type: "radio"}', value: 'radio'},
+                            {title: 'false', value: false},
+                        ]
+                    }
+                ],
+            },
+            {
+                title: '多选-某一行（第三行）禁用',
+                attribute: 'data[2]._disabled',
+                set: [
+                    {type: 'radio', title: '选择禁用(第三行)', key: 'data[2]._disabled', options:
+                            [
+                                {title: 'true', value: true},
+                                {title: 'false', value: false},
+                            ]
+                    }
+                ],
+            },
+        ],
+    },
     // {
     //     title: '无限滚动 Infinite-scroll（性能亮点）',
     //     key: '0-4',
@@ -262,7 +311,7 @@ export const treeData = [
     // },
     {
         title: '分页 Pagination',
-        key: '0-4',
+        key: '0-5',
         attribute: 'paginationObj',
         children: [
             {
@@ -272,18 +321,16 @@ export const treeData = [
             },
         ],
     },
-    // {
-    //     title: '工具栏 Toobar',
-    //     key: '0-4',
-    //     children: [
-    //         {
-    //             title: '过滤值',
-    //             attribute: 'columns[i].width',
-    //             type: 'input',
-    //             key: '0-4-1',
-    //         },
-    //
-    //     ],
-    // },
+    {
+        title: '工具栏 Toobar',
+        key: '0-6',
+        children: [
+            {
+                title: '顶部工具栏',
+                attribute: 'GridToolBar',
+                set: [{type: 'radio', title: '工具栏组件', key: '<Grid.GridToolBar />', options: [{title: 'true', value: true}, {title: 'false', value: false}]}],
+            },
+        ],
+    },
 ];
 
