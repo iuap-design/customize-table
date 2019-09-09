@@ -56,17 +56,14 @@ export const treeData = [
             //     key: '0-0-7',
             //     matters: 'showHeader: 默认为true',
             // },
-            // {
-            //     title: '显示序号列',
-            //     attribute: 'showRowNum',
-            //     key: '0-0-8',
-            //     matters: 'showRowNum: Boolean|Object',
-            // },
-            // {
-            //     title: '表格数据单行展示',
-            //     attribute: 'bodyDisplayInRow',
-            //     key: '0-0-9',
-            // },
+            {
+                title: '显示序号列',
+                attribute: 'showRowNum',
+                key: '0-0-8',
+                set: [
+                    {type: 'select', key: 'showRowNum', options: [{title: 'true', value: true}, {title: 'false', value: false}]},
+                ],
+            },
             {
                 title: '自定义无数据显示',
                 attribute: 'emptyText',
@@ -92,36 +89,44 @@ export const treeData = [
             },
         ],
     },
-    // {
-    //     title: '列渲染 Custom Render',
-    //     key: '0-2',
-    //     children: [
-    //         {
-    //             title: '开启过滤',
-    //             attribute: 'filterable',
-    //             key: '0-2-1',
-    //             matters: '对于columns配置的filterType=text，onFilterChange在选择右侧的筛选项后触发'
-    //         },
-    //         {
-    //             title: '过滤输入的延迟时间',
-    //             attribute: 'filterDelay',
-    //             type: 'input',
-    //             key: '0-2-2',
-    //         },
-    //     ],
-    // },
-    // {
-    //     title: '列操作-锁定 Fixed',
-    //     key: '0-3',
-    //     children: [
-    //         {
-    //             title: '列固定',
-    //             attribute: 'fixed',
-    //             key: '0-3-1',
-    //             set: [{type: 'select', key: 'columns[2].fixed', options: [{title: 'left', value: 'left'},{title: 'right', value: 'right'}]}],
-    //         },
-    //     ],
-    // },
+    {
+        title: '列渲染 Custom Render',
+        key: '0-2',
+        children: [
+            {
+                title: '开启过滤',
+                attribute: 'filterable',
+                key: '0-2-1',
+                matters: '对于columns配置的filterType=text，onFilterChange在选择右侧的筛选项后触发'
+            },
+            {
+                title: '过滤输入的延迟时间',
+                attribute: 'filterDelay',
+                type: 'input',
+                key: '0-2-2',
+            },
+        ],
+    },
+    {
+        title: '列操作-锁定 Fixed',
+        key: '0-3',
+        children: [
+            {
+                title: '列固定',
+                attribute: 'columns[2].fixed',
+                set: [
+                    {type: 'select', key: 'columns[2].fixed', options: [{title: 'left', value: 'left'}, {title: 'right', value: 'right'}]},
+                ],
+            },
+            {
+                title: '动态设置列锁定、解除锁定',
+                attribute: 'showHeaderMenu',
+                set: [
+                    {type: 'select', key: 'showHeaderMenu', options: [{title: 'true', value: true}, {title: 'false', value: false}]},
+                ],
+            },
+        ],
+    },
     // {
     //     title: '列操作-过滤 Filter',
     //     key: '0-4',
@@ -256,19 +261,18 @@ export const treeData = [
     //
     //     ],
     // },
-    // {
-    //     title: '分页 Pagination',
-    //     key: '0-4',
-    //     children: [
-    //         {
-    //             title: '过滤值',
-    //             attribute: 'columns[i].width',
-    //             type: 'input',
-    //             key: '0-4-1',
-    //         },
-    //
-    //     ],
-    // },
+    {
+        title: '分页 Pagination',
+        key: '0-4',
+        attribute: 'paginationObj',
+        children: [
+            {
+                title: '分页',
+                attribute: 'paginationObj',
+                set: [{type: 'select', key: 'paginationObj', options: [{title: 'paginationObj', value: 'paginationObj'}, {title: 'none', value: false}]}],
+            },
+        ],
+    },
     // {
     //     title: '工具栏 Toobar',
     //     key: '0-4',

@@ -39,16 +39,9 @@ class App extends Component {
             treeData: treeData.slice(),
             selectedKeys: ['0-0'],
             table: 'Table',
-            value: {
-                showHeader: true,
-                showHeaderMenu: true,
-                bodyDisplayInRow: false,
-                autoCheckedByClickRows: true,
-            },
-            inputValue: {
-                title: '自定义标题',
-                multiSelect: 'checkbox',
-            },
+            value: {},
+            checkAttr: {},
+            inputValue: {},
             columns: [
                 { title: "员工编号", dataIndex: "a", key: "a", width: 200, filterType: 'text'},
                 { title: "入职时间", dataIndex: "time", key: "time", width: 200, filterType: 'text'},
@@ -64,17 +57,17 @@ class App extends Component {
                 { a: "ASVAL_20190312", time: '2019-09-02', b: "小红", c: "女", d: "财务一科", amount: 140, e: "T2", key: "3" },
                 { a: "ASVAL_20190328", time: '2019-09-03', b: "小张", c: "男", d: "财务二科", amount: 120, e: "M1", key: "4" },
                 { a: "ASVAL_20190320", time: '2019-09-01', b: "小明", c: "男", d: "财务一科", amount: 370, e: "T1", key: "5" },
-                { a: "ASVAL_20190312", time: '2019-09-07', b: "小红", c: "女", d: "财务一科", amount: 215, e: "T2", key: "6" }
+                { a: "ASVAL_20190312", time: '2019-09-07', b: "小红", c: "女", d: "财务一科", amount: 215, e: "T2", key: "6" },
+                { a: "ASVAL_20190312", time: '2019-09-07', b: "小红", c: "女", d: "财务一科", amount: 215, e: "T2", key: "7" },
+                { a: "ASVAL_20190312", time: '2019-09-07', b: "小红", c: "女", d: "财务一科", amount: 215, e: "T2", key: "8" },
+                { a: "ASVAL_20190312", time: '2019-09-07', b: "小红", c: "女", d: "财务一科", amount: 215, e: "T2", key: "9" },
+                { a: "ASVAL_20190312", time: '2019-09-07', b: "小红", c: "女", d: "财务一科", amount: 215, e: "T2", key: "11" },
+                { a: "ASVAL_20190312", time: '2019-09-07', b: "小红", c: "女", d: "财务一科", amount: 215, e: "T2", key: "12" },
+                { a: "ASVAL_20190312", time: '2019-09-07', b: "小红", c: "女", d: "财务一科", amount: 215, e: "T2", key: "13" },
+                { a: "ASVAL_20190312", time: '2019-09-07', b: "小红", c: "女", d: "财务一科", amount: 215, e: "T2", key: "14" },
             ],
         }
     }
-    tableData = {
-        GridData,
-        MultiSelectData,
-        SortData,
-        SumData,
-        FilterColumnData
-    };
     table = {
         'filterable':(checked) => {
             const columns = this.state.columns.slice();
@@ -216,9 +209,7 @@ class App extends Component {
         this.getAllPropList();
         this.getAllMatters();
     }
-    onSelect = (selectedKeys, info) => {
-        const selected = info.selected;
-        const { attribute, set } = info.node.props;
+    onSelect = (selected, attribute, set) => {
         const {setAll, value} = this.state;
         if (selected) {
             setAll[attribute] = set;
@@ -228,7 +219,6 @@ class App extends Component {
             value[attribute] = false;
         }
         this.setState({
-            selectedKeys,
             setAll
         });
     };
@@ -379,43 +369,22 @@ class App extends Component {
     afterFilter = (optData,columns)=>{
         alert('列过滤后的回调函数')
     }
-    renderTreeNode = data => data.map((item) => {
-        let { selectedKeys } = this.state;
-        let title = selectedKeys.indexOf(item.key) > -1 ? <span><span>{item.title}</span><Icon type="uf-correct-2"></Icon></span> : item.title;
-        if (item.children) {
-            return (
-                <TreeNode key={item.key} title={item.title}>
-                    {this.renderTreeNode(item.children)}
-                </TreeNode>
-            );
-        }
-        return (
-            <TreeNode
-                key={item.key}
-                selectedKey={item.key}
-                title={title}
-                attribute={item.attribute}
-                set={item.set}
-            />
-        )
-    });
     tableRefresh() {
         this.setState({display: false}, () => setTimeout(() => this.setState({display: true}), 4))
     }
     render() {
+        const scroll = {};
+        const {data = [], checkAttr = {}, inputValue, value} = this.state;
+        const columns = this.state.columns.slice();
         let paginationObj = {
             items:10,//一页显示多少条
-            total:100,//总共多少条、
+            total:data.length,//总共多少条、
             freshData:this.freshData,//点击下一页刷新的数据
             onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件
             showJump:false,
             noBorder:true,
             horizontalPosition:'center'
         };
-        const scroll = {};
-        const value = this.state.value;
-        const inputValue = this.state.inputValue;
-        const columns = this.state.columns.slice();
         inputValue['scroll.x'] ? scroll.x = +inputValue['scroll.x'] : null;
         inputValue['scroll.y'] ? scroll.y = +inputValue['scroll.y'] : null;
         if (inputValue['columns[2].fixed']) {
@@ -429,13 +398,14 @@ class App extends Component {
             bordered: inputValue.bordered,
             loading: inputValue.loading,
             emptyText: inputValue.emptyText ? () => this.state.inputValue.emptyText : undefined,
-            // paginationObj: value.paginationObj ? paginationObj : undefined,
-            paginationObj: paginationObj,
+            paginationObj: value.paginationObj && inputValue.paginationObj ? paginationObj : 'none',
+            showHeaderMenu: value.showHeaderMenu ? inputValue.showHeaderMenu : false,
+            showRowNum: value.showRowNum ? inputValue.showRowNum : false,
+            //
             autoCheckedByClickRows: value.autoCheckedByClickRows,
             sorterClick: value.sorterClick ? () => console.log(arguments) : undefined,
             sort: {mode: 'single'},
             afterFilter: value.afterFilter ? this.afterFilter : undefined,
-            showHeaderMenu: value.showHeaderMenu,
             getSelectedDataFunc: value.getSelectedDataFunc
                 ?
                 (selectedList, record, index) => window.alert('所有选中行:' + JSON.stringify(selectedList) + '\n当前操作行:' + JSON.stringify(record))
@@ -446,12 +416,8 @@ class App extends Component {
             onFilterChange: value.filterable ? this.onFilterChange : undefined,
             onFilterClear: value.filterable ? this.onFilterClear : undefined,
             showHeader: value.showHeader,
-            showRowNum: value.showRowNum,
+
             bodyDisplayInRow: value.bodyDisplayInRow,
-            // emptyText: this.state.inputValue.emptyText ? () => this.state.inputValue.emptyText : undefined,
-            onRowClick: value.onRowClick ? (record, index) => window.alert(`index=>${index},record=>${JSON.stringify(record)},`) : undefined,
-            onRowDoubleClick: value.onRowDoubleClick ? (record, index) => window.alert(`index=>${index},record=>${JSON.stringify(record)},`) : undefined,
-            onRowHover: value.onRowHover ? (index, record) => window.alert(`index=>${index},record=>${JSON.stringify(record)},`) : undefined,
             bodyStyle: value.bodyStyle ? {color: this.state.inputValue.bodyStyle} : undefined,
             size: value.size ? this.state.inputValue.size : undefined,
             height: value.height ? +this.state.inputValue.height : undefined,
@@ -478,34 +444,81 @@ class App extends Component {
             }
         })
         return (
-            <div className="app-wrap">
-                <Row style={{margin: '20px auto'}}>
-                    <Col md={3} xs={3} sm={3} lg={3}>
-                        <Tree
-                            multiple
-                            defaultExpandAll
-                            onSelect={this.onSelect}
-                            selectedKeys={this.state.selectedKeys}
-                        >
-                            {this.renderTreeNode(treeData)}
-                        </Tree>
+            <div className="app-wrap" style={{background: '#ccc'}}>
+                <div style={{
+                    background: '#fff',
+                    height: '50px'
+                }}>
+                    <div style={{
+                        background: '#666',
+                        color: '#fff',
+                        height: '50px',
+                        lineHeight: '50px',
+                        fontSize: '18px',
+                        width: '160px'
+                    }}>
+                        Grid组件演示器
+                    </div>
+                </div>
+                <Row style={{margin: '10px auto',minHeight: 500}}>
+                    <Col md={3} xs={3} sm={3} lg={3} style={{height: '100%', padding: 0}}>
+                        <Panel header="功能选择">
+                            <Row>
+                            <Col md={6} xs={6} sm={6} lg={6}  style={{padding: '10px'}}>
+                                {
+                                    treeData.map(item => {
+                                        return (
+                                            <div style={{height: 40, lineHeight: '40px'}}>
+                                                <Checkbox
+                                                    checked={checkAttr[item.key]}
+                                                    onChange={() => this.setState({checkAttr: {...checkAttr, [item.key] : !checkAttr[item.key]}})}
+                                                >
+                                                    {item.title}
+                                                </Checkbox>
+                                            </div>);
+                                    })
+                                }
+                            </Col>
+                            <Col md={6} xs={6} sm={6} lg={6} style={{ padding: '10px', height: '100%'}}>
+                                {
+                                    treeData.map(item => {
+                                        if (this.state.checkAttr[item.key]) {
+                                            return item.children.map(it => {
+                                                return (<div style={{height: 30, lineHeight: '30px'}}>
+                                                    <Checkbox
+                                                        checked={value[it.attribute]}
+                                                        onChange={(value) => this.onSelect(value, it.attribute, it.set)}
+                                                    >
+                                                        {it.title}
+                                                    </Checkbox>
+                                                </div>)
+                                            })
+                                        }
+                                        return null;
+                                    })
+                                }
+                            </Col>
+                        </Row>
+                        </Panel>
                     </Col>
                     <Col md={6} xs={6} sm={6} lg={6}>
                         {/*{*/}
                         {/*    this.getCollapse(this.state.treeData)*/}
                         {/*}*/}
-                        {
-                            this.state.display ?  <Grid {...props} /> : null
-                        }
+                        <Panel header="Grid预览">
+                            {
+                                this.state.display ?  <Grid {...props} /> : null
+                            }
+                        </Panel>
                     </Col>
-                    <Col md={3} xs={3} sm={3} lg={3}>
-                            <Panel header="属性配置">
-                                <div>
-                                    {
-                                        Object.keys(this.state.setAll).map(item => this.state.setAll[item].map(it => this.getItemInput(it)))
-                                    }
-                                </div>
-                            </Panel>
+                    <Col md={3} xs={3} sm={3} lg={3} style={{height: '100%', padding: 0}}>
+                        <Panel header="属性配置">
+                            <div>
+                                {
+                                    Object.keys(this.state.setAll).map(item => this.state.setAll[item].map(it => this.getItemInput(it)))
+                                }
+                            </div>
+                        </Panel>
                     </Col>
                 </Row>
             </div>
