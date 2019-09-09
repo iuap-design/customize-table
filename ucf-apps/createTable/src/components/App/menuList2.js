@@ -174,27 +174,29 @@ export const treeData = [
     //     key: '0-4',
     //     children: [
     //         {
-    //             title: '过滤值',
-    //             attribute: 'columns[i].width',
-    //             type: 'input',
-    //             key: '0-4-1',
+    //             title: '自定义无数据显示',
+    //             attribute: 'emptyText',
+    //             set: [
+    //                 {type: 'radio', title: '表格数据', key: 'data', options: [{title: '[]', value: 'none'}, {title: 'data', value: 'data'}]},
+    //                 {type: 'input', title: '自定义无数据显示', key: 'emptyText'}
+    //             ],
     //         },
-    //
     //     ],
     // },
-    // {
-    //     title: '列操作-排序 Sort',
-    //     key: '0-4',
-    //     children: [
-    //         {
-    //             title: '过滤值',
-    //             attribute: 'columns[i].width',
-    //             type: 'input',
-    //             key: '0-4-1',
-    //         },
-    //
-    //     ],
-    // },
+    {
+        title: '列操作-排序 Sort',
+        key: '0-4-1',
+        children: [
+            {
+                title: '排序-单维排序',
+                attribute: 'columns[i].sorter',
+                set: [
+                    {type: 'radio', title: '开启过滤-columns', key: 'columns[i].sorter', options: [{title: 'function', value: true}, {title: 'undefined', value: false}]},
+                    {type: 'radio', title: '开启过滤-table', key: 'sort', options: [{title: '{mode: "single"}', value: "single"}, {title: '{mode: "multiple"}', value: 'multiple'}]},
+                ],
+            },
+        ],
+    },
     // {
     //     title: '列操作-拖拽 Drag',
     //     key: '0-4',

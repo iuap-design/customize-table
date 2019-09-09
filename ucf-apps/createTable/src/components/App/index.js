@@ -3,29 +3,15 @@
  */
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Col, Row, ColorPicker, Checkbox ,Select, Popover, Panel, Icon, Tree } from 'tinper-bee';
+import { Col, Row, ColorPicker, Checkbox ,Select, Popover, Panel, Icon, Tabs } from 'tinper-bee';
 import Table from 'bee-table';
 import Radio from 'bee-radio';
-import singleSelect from "tinper-bee/lib/singleSelect.js";
-import multiSelect from "tinper-bee/lib/multiSelect.js";
-import sort from "tinper-bee/lib/sort.js";
-import sum from "tinper-bee/lib/sum.js";
-import dragColumn from "tinper-bee/lib/dragColumn.js";
-import filterColumn from "tinper-bee/lib/filterColumn.js";
-import bigData from "tinper-bee/lib/bigData.js";
 import Grid from 'bee-complex-grid';
-import {leftMenuData, treeData, GridData, MultiSelectData, SortData, SumData, FilterColumnData} from './menuList2';
+import {treeData} from './menuList2';
 import 'bee-complex-grid/build/Grid.css';
 import './index.less';
 const Option = Select.Option;
-const TreeNode = Tree.TreeNode;
-const SingleSelectTable = singleSelect(Table, Radio);
-const SumTable = sum(Table);
-const SortTable = sort(Table, Icon);
-const MultiSelectTable = multiSelect(Table, Checkbox);
-const DragColumnTable = dragColumn(Table);
-const FilterColumnTable = filterColumn(Table, Popover, Icon);
-const BigDataTable = bigData(Table);
+const {TabPane} = Tabs;
 
 class App extends Component {
     constructor(props) {
@@ -36,6 +22,7 @@ class App extends Component {
             treeData: treeData.slice(),
             selectedKeys: ['0-0'],
             value: {},
+            activeKey: '1',
             checkAttr: {},
             inputValue: {},
             columns: [
@@ -114,7 +101,7 @@ class App extends Component {
             const checked = this.state.value['columns[i].titleAlign'];
             if (checked) {
                 columns.map(item => {
-                    item.titleAlign =  value;
+                    item.titleAlign =  this.state.inputValue['columns[i].titleAlign'];
                 })
             } else {
                 columns.map(item => {
@@ -128,7 +115,7 @@ class App extends Component {
             const checked = this.state.value['columns[i].contentAlign'];
             if (checked) {
                 columns.map(item => {
-                    item.contentAlign =  value;
+                    item.contentAlign =  this.state.inputValue['columns[i].titleAlign'];
                 })
             } else {
                 columns.map(item => {
@@ -173,11 +160,20 @@ class App extends Component {
         },
         'columns[i].sorter': (value) => {
             const columns = this.state.columns.slice();
-            if (value) {
-                columns[1].sorter = (a, b) => moment(a.time) - moment(b.time);
-            } else {
-                columns[1].sorter =  undefined;
-            }
+            const checked = this.state.inputValue['columns[i].sorter'];
+            columns.map(item => {
+                if(item.key === 'time' || item.key === 'amount') {
+                    if (checked) {
+                        item.sorter = (a, b) => item.key === 'time' ? moment(a.time) - moment(b.time) : a.amount - b.amount;
+                        item.sorterClick = (data,type) => {
+                            console.log("data",data);
+                        }
+                    } else {
+                        item.sorter =  undefined;
+                        item.sorterClick = undefined;
+                    }
+                }
+            })
             this.setState({columns});
         },
         'columns[i].sorterClick': (value) => {
@@ -317,7 +313,7 @@ class App extends Component {
     render() {
         const scroll = {};
         const clientHeight = document.body.clientHeight - 120;
-        const {data = [], checkAttr = {}, inputValue, value, setAll = {}, display} = this.state;
+        const {data = [], checkAttr = {}, inputValue, value, setAll = {}, display, activeKey} = this.state;
         const columns = this.state.columns.slice();
         const paginationObj = {
             items:10,//一页显示多少条
@@ -354,7 +350,7 @@ class App extends Component {
             ]
         },{
             iconType:'uf-copy',
-        }]
+        }];
         inputValue['scroll.x'] ? scroll.x = +inputValue['scroll.x'] : null;
         inputValue['scroll.y'] ? scroll.y = +inputValue['scroll.y'] : null;
         if (inputValue['columns[2].fixed']) {
@@ -370,12 +366,12 @@ class App extends Component {
             emptyText: inputValue.emptyText ? () => inputValue.emptyText : undefined,
             paginationObj: value.paginationObj && inputValue.paginationObj ? paginationObj : 'none',
             showHeaderMenu: value.showHeaderMenu ? inputValue.showHeaderMenu : false,
-            showRowNum: value.showRowNum ? inputValue.showRowNum : false,
+            showRowNum: value.showRowNum ? inputValue.showRowNum : undefined,
             multiSelect: value.multiSelect ? {type: inputValue.multiSelect} : {type: false},
+            sort: inputValue.sort ? {mode: inputValue.sort} : undefined,
             //
             autoCheckedByClickRows: value.autoCheckedByClickRows,
             sorterClick: value.sorterClick ? () => console.log(arguments) : undefined,
-            sort: {mode: 'single'},
             afterFilter: value.afterFilter ? this.afterFilter : undefined,
             getSelectedDataFunc: value.getSelectedDataFunc
                 ?
@@ -398,10 +394,15 @@ class App extends Component {
             headerScroll: value.headerScroll,
             footerScroll: value.footerScroll,
             resetScroll: value.resetScroll,
-        }
+        };
+        const codeProps = {data: inputValue.data !== 'none' ? 'data' : '[]', columns: 'columns'};
+        Object.keys(props).filter(item => {
+            return props[item] !== undefined && item !== 'data' && item !== 'columns'
+        }).map(item => codeProps[item] = typeof props[item] === 'function' ? 'this.' + item : JSON.stringify(props[item]));
+
         return (
             <div className="app-wrap" style={{background: '#ccc', height: '100%'}}>
-                <div style={{
+                <header style={{
                     background: '#fff',
                     height: '50px'
                 }}>
@@ -411,35 +412,30 @@ class App extends Component {
                         height: '50px',
                         lineHeight: '50px',
                         fontSize: '18px',
-                        width: '160px'
+                        width: '160px',
+                        textAlign: 'center'
                     }}>
                         Grid组件演示器
                     </div>
-                </div>
+                </header>
                 <Row style={{margin: '10px auto',minHeight: 500}}>
-                    <Col md={3} xs={3} sm={3} lg={3} style={{padding: 0}}>
-                        <Panel header="功能选择" style={{height: clientHeight}}>
-                            <Row>
-                                <Col md={6} xs={6} sm={6} lg={6}  style={{padding: '10px'}}>
-                                    {
-                                        treeData.map(item => {
-                                            return (
-                                                <div style={{height: 40, lineHeight: '40px'}}>
-                                                    <Checkbox
-                                                        checked={checkAttr[item.key]}
-                                                        onChange={() => this.setState({checkAttr: {...checkAttr, [item.key] : !checkAttr[item.key]}})}
-                                                    >
-                                                        {item.title}
-                                                    </Checkbox>
-                                                </div>);
-                                        })
-                                    }
-                                </Col>
-                                <Col md={6} xs={6} sm={6} lg={6} style={{ padding: '10px', height: clientHeight - 80, overflow: 'auto'}}>
-                                    {
-                                        treeData.map(item => {
-                                            if (checkAttr[item.key]) {
-                                                return <Panel header={item.title}>
+                    <Col md={2} xs={2} sm={2} lg={2} style={{padding: 0}}>
+                        <Panel header="功能选择" style={{height: clientHeight, marginBottom: '0px',}}>
+                            <div style={{padding: '10px 10%', marginBottom: '0px', height: clientHeight - 80, textAlign: 'left', overflow: 'auto'}}>
+                                {
+                                    treeData.map(item => {
+                                        return (
+                                            <div style={{minHeight: 40, lineHeight: '40px'}}>
+                                                <Checkbox
+                                                    checked={checkAttr[item.key]}
+                                                    onChange={() => this.setState({checkAttr: {...checkAttr, [item.key] : !checkAttr[item.key]}})}
+                                                >
+                                                    {item.title}
+                                                </Checkbox>
+                                                {
+                                                    checkAttr[item.key]
+                                                        ?
+                                                        <Panel style={{marginTop: 10}}>
                                                         {
                                                             item.children.map(it => {
                                                                 return (
@@ -454,27 +450,95 @@ class App extends Component {
                                                                 )
                                                             })
                                                         }
-                                                        </Panel>
-                                            }
-                                            return null;
-                                        })
-                                    }
-                                </Col>
-                            </Row>
+                                                    </Panel>
+                                                        :
+                                                        null
+                                                }
+                                            </div>);
+                                    })
+                                }
+                            </div>
+                                {/*<Col md={6} xs={6} sm={6} lg={6} style={{ padding: '10px', height: clientHeight - 80, overflow: 'auto'}}>*/}
+                                {/*    {*/}
+                                {/*        treeData.map(item => {*/}
+                                {/*            if (checkAttr[item.key]) {*/}
+                                {/*                return <Panel header={item.title}>*/}
+                                {/*                        {*/}
+                                {/*                            item.children.map(it => {*/}
+                                {/*                                return (*/}
+                                {/*                                    <div style={{height: 30, lineHeight: '30px'}}>*/}
+                                {/*                                        <Checkbox*/}
+                                {/*                                            checked={value[it.attribute]}*/}
+                                {/*                                            onChange={(value) => this.onSelect(value, it.attribute, it.set)}*/}
+                                {/*                                        >*/}
+                                {/*                                            {it.title}*/}
+                                {/*                                        </Checkbox>*/}
+                                {/*                                    </div>*/}
+                                {/*                                )*/}
+                                {/*                            })*/}
+                                {/*                        }*/}
+                                {/*                        </Panel>*/}
+                                {/*            }*/}
+                                {/*            return null;*/}
+                                {/*        })*/}
+                                {/*    }*/}
+                                {/*</Col>*/}
                         </Panel>
                     </Col>
-                    <Col md={6} xs={6} sm={6} lg={6}>
-                        <Panel header="Grid预览" style={{height: clientHeight, overflow: 'auto'}}>
-                            {
-                                inputValue['<Grid.GridToolBar />'] ? <Grid.GridToolBar toolBtns={toolBtns} btnSize='sm' /> : null
-                            }
-                            {
-                                display ?  <Grid {...props} /> : null
-                            }
+                    <Col md={7} xs={7} sm={7} lg={7}>
+                        <Panel header="Grid预览" style={{height: clientHeight, marginBottom: '0px', overflow: 'auto'}}>
+                            <Tabs
+                                activeKey={activeKey}
+                                tabBarPosition={'top'}
+                                onChange={(value) => this.setState({activeKey: value})}
+                                className="demo4-tabs"
+                                onTabClick={this.onTabClick}
+                            >
+                                <TabPane tab='预览' key='1'>
+                                    {
+                                        inputValue['<Grid.GridToolBar />'] ? <Grid.GridToolBar toolBtns={toolBtns} btnSize='sm' /> : null
+                                    }
+                                    {
+                                        display ?  <Grid {...props} /> : null
+                                    }
+                                </TabPane>
+                                <TabPane tab='源码' key='2'>
+                                    {
+                                        (() => {
+                                            const gridProps = Object.keys(codeProps).map(item => <p style={{margin : '3px', padding: '0 20px'}}>{item}={'{' + codeProps[item] + '}'}</p>);
+                                            const gridData = data.map(item => <p style={{margin : '3px', padding: '0 20px'}}>{JSON.stringify(item)},</p>);
+                                            const gridCol= columns.map(item => <p style={{margin : '3px', padding: '0 20px'}}>{
+                                                (() => {
+                                                    const obj = Object.assign({}, item);
+                                                    Object.keys(obj).map(it => {
+                                                        if( typeof obj[it] === 'function') {
+                                                            obj[it] = '() => this.' + it + '()';
+                                                        }
+                                                    })
+                                                    return JSON.stringify(obj)
+                                                })()
+                                            },</p>);
+                                            return (<div style={{padding: '20px'}}>
+                                                        <div>
+                                                            <p style={{margin : '3px'}}>const data = [</p>
+                                                            {gridData}
+                                                            <p style={{margin : '3px'}}>];</p>
+                                                            <p style={{margin : '3px'}}>const columns = [</p>
+                                                            {gridCol}
+                                                            <p style={{margin : '3px'}}>];</p>
+                                                            {'<' + 'Grid'}
+                                                            {gridProps}
+                                                            {'/>'}
+                                                        </div>
+                                                    </div>)
+                                        })()
+                                    }
+                                </TabPane>
+                            </Tabs>
                         </Panel>
                     </Col>
                     <Col md={3} xs={3} sm={3} lg={3} style={{padding: 0}}>
-                        <Panel header="属性配置" style={{height: clientHeight, overflow: 'auto'}}>
+                        <Panel header='属性配置' style={{height: clientHeight, marginBottom: '0px', overflow: 'auto'}}>
                             <div>
                                 {
                                     Object.keys(setAll).length > 0
@@ -492,6 +556,10 @@ class App extends Component {
                         </Panel>
                     </Col>
                 </Row>
+                <footer style={{textAlign: 'center', height: '50px', lineHeight: '50px', color: '#aaa', background: '#fff'}}>
+                    <p style={{margin: 0}}>Copyright ©2019      用友网络科技股份有限公司版权所有   京ICP备05007539号
+                        -21 京公网安备11010802021935号</p>
+                </footer>
             </div>
         );
     }
