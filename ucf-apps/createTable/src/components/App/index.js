@@ -7,7 +7,7 @@ import { Col, Row, ColorPicker, Checkbox ,Select, Popover, Panel, Icon, Tabs } f
 import Table from 'bee-table';
 import Radio from 'bee-radio';
 import Grid from 'bee-complex-grid';
-import {treeData} from './menuList2';
+import {treeData, tableColumns, tableData, tableProps, tableEvent, APIData} from './menu';
 import 'bee-complex-grid/build/Grid.css';
 import './index.less';
 const Option = Select.Option;
@@ -19,8 +19,16 @@ class App extends Component {
         this.state = {
             display: true,
             setAll: {},
+            API: {},
+            apiAll: {
+                props: {},
+                event: {},
+                columns: {},
+                data: {},
+            },
             treeData: treeData.slice(),
             selectedKeys: ['0-0'],
+            demoActive: 'demo',
             value: {},
             activeKey: '1',
             checkAttr: {},
@@ -232,6 +240,20 @@ class App extends Component {
             this.inputMiddleware(value, attribute);
         });
     };
+    apiSelect = (selected, record, key) => {
+        const {apiAll, API} = this.state;
+        if (selected) {
+            apiAll[key][record.title] = record;
+            API[record.title] = true;
+        } else {
+            apiAll[key][record.title] = undefined;
+            API[record.title] = false;
+        }
+        this.setState({
+            apiAll,
+            API
+        }, () => this.tableRefresh());
+    };
     checkedMiddleware(value, attribute) {
         const _this = this;
         typeof _this['table'][attribute] === 'function' &&  _this['table'][attribute](value);
@@ -310,92 +332,113 @@ class App extends Component {
     tableRefresh() {
         this.setState({display: false}, () => setTimeout(() => this.setState({display: true}), 4))
     }
+    getProps(active) {
+        let props = {};
+        const {data = [], inputValue, value, apiAll, columns} = this.state;
+        if (active === 'demo') {
+            const scroll = {};
+            const paginationObj = {
+                items:10,//一页显示多少条
+                total:data.length,//总共多少条、
+                freshData:this.freshData,//点击下一页刷新的数据
+                onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件
+                showJump:false,
+                noBorder:true,
+                horizontalPosition:'center'
+            };
+            inputValue['scroll.x'] ? scroll.x = +inputValue['scroll.x'] : null;
+            inputValue['scroll.y'] ? scroll.y = +inputValue['scroll.y'] : null;
+            props = {
+                ref: 'Table',
+                className: inputValue.className,
+                columns: columns.slice(),
+                data: inputValue.data !== 'none' ? data : [],
+                bordered: inputValue.bordered,
+                loading: inputValue.loading,
+                emptyText: inputValue.emptyText ? () => inputValue.emptyText : undefined,
+                paginationObj: value.paginationObj && inputValue.paginationObj ? paginationObj : 'none',
+                showHeaderMenu: value.showHeaderMenu ? inputValue.showHeaderMenu : false,
+                showRowNum: value.showRowNum ? inputValue.showRowNum : undefined,
+                multiSelect: value.multiSelect ? {type: inputValue.multiSelect} : {type: false},
+                sort: inputValue.sort ? {mode: inputValue.sort} : undefined,
+                //
+                autoCheckedByClickRows: value.autoCheckedByClickRows,
+                sorterClick: value.sorterClick ? () => console.log(arguments) : undefined,
+                afterFilter: value.afterFilter ? this.afterFilter : undefined,
+                getSelectedDataFunc: value.getSelectedDataFunc
+                    ?
+                    (selectedList, record, index) => window.alert('所有选中行:' + JSON.stringify(selectedList) + '\n当前操作行:' + JSON.stringify(record))
+                    :
+                    undefined,
+                filterable: value.filterable,
+                filterDelay: value.filterDelay ? inputValue.filterDelay : undefined,
+                onFilterChange: value.filterable ? this.onFilterChange : undefined,
+                onFilterClear: value.filterable ? this.onFilterClear : undefined,
+                showHeader: value.showHeader,
+                bodyDisplayInRow: value.bodyDisplayInRow,
+                bodyStyle: value.bodyStyle ? {color: inputValue.bodyStyle} : undefined,
+                size: value.size ? inputValue.size : undefined,
+                height: value.height ? +inputValue.height : undefined,
+                headerHeight: value.headerHeight ? +inputValue.headerHeight : undefined,
+                title: value.title ? () => <span>{inputValue.title}</span> : undefined,
+                scroll: scroll,
+                headerScroll: value.headerScroll,
+                footerScroll: value.footerScroll,
+                resetScroll: value.resetScroll,
+            };
+        } else {
+            Object.keys(apiAll.props).filter(item => apiAll.props[item] !== undefined).map(item => {
+                props[apiAll.props[item].title] = apiAll.props[item].value;
+            });
+            props.data = props.data ? data : [];
+            props.columns = columns;
+        }
+        return props
+    }
     render() {
-        const scroll = {};
         const clientHeight = document.body.clientHeight - 120;
-        const {data = [], checkAttr = {}, inputValue, value, setAll = {}, display, activeKey} = this.state;
+        const {data = [], checkAttr = {}, inputValue, value, setAll = {}, display, activeKey, checkAPI = {}, API, demoActive} = this.state;
         const columns = this.state.columns.slice();
-        const paginationObj = {
-            items:10,//一页显示多少条
-            total:data.length,//总共多少条、
-            freshData:this.freshData,//点击下一页刷新的数据
-            onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件
-            showJump:false,
-            noBorder:true,
-            horizontalPosition:'center'
-        };
-        const toolBtns = [{
-            value:'新增',
-            onClick:this.addData,
-            bordered:false,
-            colors:'primary'
-        },{
-            value:'导出',
-            iconType:'uf-search',
-            onClick:this.export
-        },{
-            value:'上传',
-            iconType:'uf-cloud-up',
-        },{
-            value:'批量操作',
-            onClick:this.dispatchOpt,
-            children:[
-                {
-                    value:'修改',
-                    onClick:this.dispatchUpdate
-                },{
-                    value:'删除',
-                    onClick:this.dispatchDel
-                }
-            ]
-        },{
-            iconType:'uf-copy',
-        }];
-        inputValue['scroll.x'] ? scroll.x = +inputValue['scroll.x'] : null;
-        inputValue['scroll.y'] ? scroll.y = +inputValue['scroll.y'] : null;
+        const toolBtns = [
+            {
+                value:'新增',
+                onClick:this.addData,
+                bordered:false,
+                colors:'primary'
+            },
+            {
+                value:'导出',
+                iconType:'uf-search',
+                onClick:this.export
+            },
+            {
+                value:'上传',
+                iconType:'uf-cloud-up',
+            },
+            {
+                value:'批量操作',
+                onClick:this.dispatchOpt,
+                children:[
+                    {
+                        value:'修改',
+                        onClick:this.dispatchUpdate
+                    },{
+                        value:'删除',
+                        onClick:this.dispatchDel
+                    }
+                ]
+            },
+            {
+                iconType:'uf-copy',
+            }
+        ];
         if (inputValue['columns[2].fixed']) {
             columns[2].fixed = inputValue['columns[2].fixed']
         }
-        const props = {
-            ref: 'Table',
-            className: inputValue.className,
-            columns: columns.slice(),
-            data: inputValue.data !== 'none' ? data : [],
-            bordered: inputValue.bordered,
-            loading: inputValue.loading,
-            emptyText: inputValue.emptyText ? () => inputValue.emptyText : undefined,
-            paginationObj: value.paginationObj && inputValue.paginationObj ? paginationObj : 'none',
-            showHeaderMenu: value.showHeaderMenu ? inputValue.showHeaderMenu : false,
-            showRowNum: value.showRowNum ? inputValue.showRowNum : undefined,
-            multiSelect: value.multiSelect ? {type: inputValue.multiSelect} : {type: false},
-            sort: inputValue.sort ? {mode: inputValue.sort} : undefined,
-            //
-            autoCheckedByClickRows: value.autoCheckedByClickRows,
-            sorterClick: value.sorterClick ? () => console.log(arguments) : undefined,
-            afterFilter: value.afterFilter ? this.afterFilter : undefined,
-            getSelectedDataFunc: value.getSelectedDataFunc
-                ?
-                (selectedList, record, index) => window.alert('所有选中行:' + JSON.stringify(selectedList) + '\n当前操作行:' + JSON.stringify(record))
-                :
-                undefined,
-            filterable: value.filterable,
-            filterDelay: value.filterDelay ? inputValue.filterDelay : undefined,
-            onFilterChange: value.filterable ? this.onFilterChange : undefined,
-            onFilterClear: value.filterable ? this.onFilterClear : undefined,
-            showHeader: value.showHeader,
+        const props = this.getProps(demoActive);
 
-            bodyDisplayInRow: value.bodyDisplayInRow,
-            bodyStyle: value.bodyStyle ? {color: inputValue.bodyStyle} : undefined,
-            size: value.size ? inputValue.size : undefined,
-            height: value.height ? +inputValue.height : undefined,
-            headerHeight: value.headerHeight ? +inputValue.headerHeight : undefined,
-            title: value.title ? () => <span>{inputValue.title}</span> : undefined,
-            scroll: scroll,
-            headerScroll: value.headerScroll,
-            footerScroll: value.footerScroll,
-            resetScroll: value.resetScroll,
-        };
         const codeProps = {data: inputValue.data !== 'none' ? 'data' : '[]', columns: 'columns'};
+
         Object.keys(props).filter(item => {
             return props[item] !== undefined && item !== 'data' && item !== 'columns'
         }).map(item => codeProps[item] = typeof props[item] === 'function' ? 'this.' + item : JSON.stringify(props[item]));
@@ -420,69 +463,93 @@ class App extends Component {
                 </header>
                 <Row style={{margin: '10px auto',minHeight: 500}}>
                     <Col md={2} xs={2} sm={2} lg={2} style={{padding: 0}}>
-                        <Panel header="功能选择" style={{height: clientHeight, marginBottom: '0px',}}>
-                            <div style={{padding: '10px 10%', marginBottom: '0px', height: clientHeight - 80, textAlign: 'left', overflow: 'auto'}}>
-                                {
-                                    treeData.map(item => {
-                                        return (
-                                            <div style={{minHeight: 40, lineHeight: '40px'}}>
-                                                <Checkbox
-                                                    checked={checkAttr[item.key]}
-                                                    onChange={() => this.setState({checkAttr: {...checkAttr, [item.key] : !checkAttr[item.key]}})}
-                                                >
-                                                    {item.title}
-                                                </Checkbox>
-                                                {
-                                                    checkAttr[item.key]
-                                                        ?
-                                                        <Panel style={{marginTop: 10}}>
+                        <Panel header="功能选择" style={{height: clientHeight, marginBottom: '0px'}}>
+                            <Tabs
+                                className="Demo5-tabs"
+                                defaultActiveKey="demo"
+                                tabBarStyle="upborder"
+                                activeKey={demoActive}
+                                onChange={(value) => this.setState({demoActive: value})}
+                            >
+                                <TabPane tab='演示' key="demo">
+                                    <div style={{padding: '10px 10%', marginBottom: '0px', height: clientHeight - 140, textAlign: 'left', overflow: 'auto'}}>
+                                        {
+                                            treeData.map(item => {
+                                                return (
+                                                    <div style={{minHeight: 40, lineHeight: '40px'}}>
+                                                        <Checkbox
+                                                            checked={checkAttr[item.key]}
+                                                            onChange={() => this.setState({checkAttr: {...checkAttr, [item.key] : !checkAttr[item.key]}})}
+                                                        >
+                                                            {item.title}
+                                                        </Checkbox>
                                                         {
-                                                            item.children.map(it => {
-                                                                return (
-                                                                    <div style={{height: 30, lineHeight: '30px'}}>
-                                                                        <Checkbox
-                                                                            checked={value[it.attribute]}
-                                                                            onChange={(value) => this.onSelect(value, it.attribute, it.set)}
-                                                                        >
-                                                                            {it.title}
-                                                                        </Checkbox>
-                                                                    </div>
-                                                                )
-                                                            })
+                                                            checkAttr[item.key]
+                                                                ?
+                                                                <Panel style={{marginTop: 10}}>
+                                                                    {
+                                                                        item.children.map(it => {
+                                                                            return (
+                                                                                <div style={{height: 30, lineHeight: '30px'}}>
+                                                                                    <Checkbox
+                                                                                        checked={value[it.attribute]}
+                                                                                        onChange={(value) => this.onSelect(value, it.attribute, it.set)}
+                                                                                    >
+                                                                                        {it.title}
+                                                                                    </Checkbox>
+                                                                                </div>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </Panel>
+                                                                :
+                                                                null
                                                         }
-                                                    </Panel>
-                                                        :
-                                                        null
-                                                }
-                                            </div>);
-                                    })
-                                }
-                            </div>
-                                {/*<Col md={6} xs={6} sm={6} lg={6} style={{ padding: '10px', height: clientHeight - 80, overflow: 'auto'}}>*/}
-                                {/*    {*/}
-                                {/*        treeData.map(item => {*/}
-                                {/*            if (checkAttr[item.key]) {*/}
-                                {/*                return <Panel header={item.title}>*/}
-                                {/*                        {*/}
-                                {/*                            item.children.map(it => {*/}
-                                {/*                                return (*/}
-                                {/*                                    <div style={{height: 30, lineHeight: '30px'}}>*/}
-                                {/*                                        <Checkbox*/}
-                                {/*                                            checked={value[it.attribute]}*/}
-                                {/*                                            onChange={(value) => this.onSelect(value, it.attribute, it.set)}*/}
-                                {/*                                        >*/}
-                                {/*                                            {it.title}*/}
-                                {/*                                        </Checkbox>*/}
-                                {/*                                    </div>*/}
-                                {/*                                )*/}
-                                {/*                            })*/}
-                                {/*                        }*/}
-                                {/*                        </Panel>*/}
-                                {/*            }*/}
-                                {/*            return null;*/}
-                                {/*        })*/}
-                                {/*    }*/}
-                                {/*</Col>*/}
+                                                    </div>);
+                                            })
+                                        }
+                                    </div>
+                                </TabPane>
+                                <TabPane tab='API' key="API">
+                                    <div style={{padding: '10px 10%', marginBottom: '0px', height: clientHeight - 140, textAlign: 'left', overflow: 'auto'}}>
+                                        {
+                                            APIData.map(item => {
+                                                return (
+                                                    <div style={{minHeight: 40, lineHeight: '40px'}}>
+                                                        <Checkbox
+                                                            checked={checkAPI[item.title]}
+                                                            onChange={() => this.setState({checkAPI: {...checkAPI, [item.title] : !checkAPI[item.title]}})}
+                                                        >
+                                                            {item.title}
+                                                        </Checkbox>
+                                                        {
+                                                            checkAPI[item.title]
+                                                                ?
+                                                                <Panel style={{marginTop: 10}}>
+                                                                    {
+                                                                        item.children.map(it => {
+                                                                            return (
+                                                                                <div style={{height: 30, lineHeight: '30px'}}>
+                                                                                    <Checkbox
+                                                                                        checked={API[it.title]}
+                                                                                        onChange={(value) => this.apiSelect(value, it, item.key)}
+                                                                                    >
+                                                                                        {it.title}
+                                                                                    </Checkbox>
+                                                                                </div>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </Panel>
+                                                                :
+                                                                null
+                                                        }
+                                                    </div>);
+                                            })
+                                        }
+                                    </div>
+                                </TabPane>
+                            </Tabs>
                         </Panel>
                     </Col>
                     <Col md={7} xs={7} sm={7} lg={7}>
@@ -490,6 +557,7 @@ class App extends Component {
                             <Tabs
                                 activeKey={activeKey}
                                 tabBarPosition={'top'}
+                                tabBarStyle="upborder"
                                 onChange={(value) => this.setState({activeKey: value})}
                                 className="demo4-tabs"
                                 onTabClick={this.onTabClick}
@@ -497,6 +565,9 @@ class App extends Component {
                                 <TabPane tab='预览' key='1'>
                                     {
                                         inputValue['<Grid.GridToolBar />'] ? <Grid.GridToolBar toolBtns={toolBtns} btnSize='sm' /> : null
+                                    }
+                                    {
+                                        console.log(props)
                                     }
                                     {
                                         display ?  <Grid {...props} /> : null
@@ -514,7 +585,7 @@ class App extends Component {
                                                         if( typeof obj[it] === 'function') {
                                                             obj[it] = '() => this.' + it + '()';
                                                         }
-                                                    })
+                                                    });
                                                     return JSON.stringify(obj)
                                                 })()
                                             },</p>);
@@ -541,16 +612,7 @@ class App extends Component {
                         <Panel header='属性配置' style={{height: clientHeight, marginBottom: '0px', overflow: 'auto'}}>
                             <div>
                                 {
-                                    Object.keys(setAll).length > 0
-                                        ?
-                                        Object.keys(setAll).map(item => setAll[item].map(it => {
-                                            return <div style={{marginBottom: '15px'}}>
-                                                <h4 style={{marginBottom: '5px'}}>{it.title}</h4>
-                                                <div>{this.getItemInput(it)}</div>
-                                            </div>
-                                        }))
-                                        :
-                                        <div style={{textAlign: 'center'}}>暂无配置属性</div>
+                                    demoActive === 'demo' ? this.getDemo() : this.getApi()
                                 }
                             </div>
                         </Panel>
@@ -562,6 +624,38 @@ class App extends Component {
                 </footer>
             </div>
         );
+    }
+    getDemo() {
+        const {setAll} = this.state;
+        if (Object.keys(setAll).length > 0) {
+            return Object.keys(setAll).map(item => setAll[item].map(it => {
+                return <div style={{marginBottom: '15px'}}>
+                    <h4 style={{marginBottom: '5px'}}>{it.title}</h4>
+                    <div>{this.getItemInput(it)}</div>
+                </div>
+            }))
+        }
+        return <div style={{textAlign: 'center'}}>暂无配置属性</div>
+    }
+    getApi() {
+        const {apiAll} = this.state;
+        const arr = Object.keys(apiAll).filter((item) => apiAll[item] !== undefined);
+        const node = arr.map(item => {
+            const nodeArr = Object.keys(apiAll[item]).filter(item => apiAll[item] !== undefined)
+            return <div>
+                        <h4>{item}</h4>
+                        {
+                            Object.keys(apiAll[item]).filter(Item => apiAll[item][Item] !== undefined).map(it => (
+                                <div style={{marginBottom: '15px', marginLeft: '30px'}}>
+                                    <h5 style={{marginBottom: '5px'}}>{apiAll[item][it].title}</h5>
+                                    <div>type：{apiAll[item][it].type}</div>
+                                    <div>value：{typeof apiAll[item][it].value === 'object' ? JSON.stringify(apiAll[item][it].value) : "" + apiAll[item][it].value}</div>
+                                </div>
+                            ))
+                        }
+                    </div>
+        })
+        return node;
     }
 }
 
