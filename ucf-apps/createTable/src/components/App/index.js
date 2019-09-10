@@ -19,9 +19,9 @@ class App extends Component {
         this.state = {
             display: true,
             setAll: {},
-            API: {},
+            API: {data: true},
             apiAll: {
-                props: {},
+                props: {data: {title: 'data', value: true}},
                 event: {},
                 columns: {},
                 data: {},
@@ -241,7 +241,7 @@ class App extends Component {
         });
     };
     apiSelect = (selected, record, key) => {
-        const {apiAll, API} = this.state;
+        const {apiAll, API, columns, data} = this.state;
         if (selected) {
             apiAll[key][record.title] = record;
             API[record.title] = true;
@@ -249,6 +249,7 @@ class App extends Component {
             apiAll[key][record.title] = undefined;
             API[record.title] = false;
         }
+        typeof record.onSelect === 'function' && record.onSelect(selected, this, columns, data);
         this.setState({
             apiAll,
             API
@@ -387,9 +388,13 @@ class App extends Component {
                 resetScroll: value.resetScroll,
             };
         } else {
-            Object.keys(apiAll.props).filter(item => apiAll.props[item] !== undefined).map(item => {
-                props[apiAll.props[item].title] = apiAll.props[item].value;
-            });
+            function propsAndEvent(object) {
+                Object.keys(object).filter(item => object[item] !== undefined).map(item => {
+                    props[object[item].title] = object[item].value;
+                });
+            }
+            propsAndEvent(apiAll.props);
+            propsAndEvent(apiAll.event);
             props.data = props.data ? data : [];
             props.columns = columns;
         }
@@ -441,7 +446,7 @@ class App extends Component {
 
         Object.keys(props).filter(item => {
             return props[item] !== undefined && item !== 'data' && item !== 'columns'
-        }).map(item => codeProps[item] = typeof props[item] === 'function' ? 'this.' + item : JSON.stringify(props[item]));
+        }).map(item => codeProps[item] = typeof props[item] === 'function' ? '' + props[item] : JSON.stringify(props[item]));
 
         return (
             <div className="app-wrap" style={{background: '#ccc', height: '100%'}}>
@@ -648,8 +653,15 @@ class App extends Component {
                             Object.keys(apiAll[item]).filter(Item => apiAll[item][Item] !== undefined).map(it => (
                                 <div style={{marginBottom: '15px', marginLeft: '30px'}}>
                                     <h5 style={{marginBottom: '5px'}}>{apiAll[item][it].title}</h5>
-                                    <div>type：{apiAll[item][it].type}</div>
-                                    <div>value：{typeof apiAll[item][it].value === 'object' ? JSON.stringify(apiAll[item][it].value) : "" + apiAll[item][it].value}</div>
+                                    {
+                                        apiAll[item][it].type && <div>type：{apiAll[item][it].type}</div>
+                                    }
+                                    {
+                                        apiAll[item][it].arguments && <div>arguments：<b>{apiAll[item][it].arguments.join('，')}</b></div>
+                                    }
+                                    {
+                                        apiAll[item][it].value && <div>value：{typeof apiAll[item][it].value === 'object' ? JSON.stringify(apiAll[item][it].value) : "" + apiAll[item][it].value}</div>
+                                    }
                                 </div>
                             ))
                         }

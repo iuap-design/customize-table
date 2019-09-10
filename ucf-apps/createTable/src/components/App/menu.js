@@ -337,7 +337,7 @@ export const treeData = [
     },
 ];
 export const tableProps = [
-    {title: 'data', type: 'object[]', value: 'this.state.data', setValue: 'this.state.data', disable: true},
+    {title: 'data', type: 'object[]', value: 'this.state.data', setValue: 'this.state.data', disable: true,},
     {title: 'columns', type: 'object[]', value: 'this.state.columns', setValue: 'this.state.data', disable: true},
     {title: 'bordered', type: 'boolean', value: true, setValue: 'true'},
     {title: 'defaultExpandAllRows', type: 'boolean', value: true, setValue: 'true'},
@@ -386,15 +386,15 @@ export const tableProps = [
     {title: 'autoSelect', type: 'boolean', value: true},
 ]
 export const tableEvent = [
-    {title: 'onExpand', argunments: ['expanded', 'record'], value: (expanded, record) => console.log(expanded, record)},
-    {title: 'onExpandedRowsChange', argunments: ['expandedRowKeys'], value: (expandedRowKeys) => console.log(expandedRowKeys)},
-    {title: 'onRowClick', argunments: ['record', 'index', 'event'], value: (record, index, event) => console.log(record, index, event)},
-    {title: 'onRowDoubleClick', argunments: ['record', 'index', 'event'], value: (record, index, event) => console.log(record, index, event)},
-    {title: 'onFilterChange', argunments: ['field', 'value', 'condition'], value: (field, value, condition) => console.log(field, value, condition)},
-    {title: 'onFilterClear', argunments: ['field'], value: (field) => console.log(field)},
-    {title: 'onRowHover', argunments: ['index', 'record'], value: (index, record) => console.log(index, record)},
-    {title: 'onDragRowStart', argunments: ['record', 'index'], value: (record, index) => console.log(record, index)},
-    {title: 'onDropRow', argunments: ['data', 'record'], value: (data, record) => console.log(data, record)},
+    {title: 'onExpand', arguments: ['expanded', 'record'], value: (expanded, record) => console.log(expanded, record)},
+    {title: 'onExpandedRowsChange', arguments: ['expandedRowKeys'], value: (expandedRowKeys) => console.log(expandedRowKeys)},
+    {title: 'onRowClick', arguments: ['record', 'index', 'event'], value: (record, index, event) => console.log(record, index, event)},
+    {title: 'onRowDoubleClick', arguments: ['record', 'index', 'event'], value: (record, index, event) => console.log(record, index, event)},
+    {title: 'onFilterChange', arguments: ['field', 'value', 'condition'], value: (field, value, condition) => console.log(field, value, condition)},
+    {title: 'onFilterClear', arguments: ['field'], value: (field) => console.log(field)},
+    {title: 'onRowHover', arguments: ['index', 'record'], value: (index, record) => console.log(index, record)},
+    {title: 'onDragRowStart', arguments: ['record', 'index'], value: (record, index) => console.log(record, index)},
+    {title: 'onDropRow', arguments: ['data', 'record'], value: (data, record) => console.log(data, record)},
 ]
 export const tableColumns = [
     {title: 'key', type: 'string'},
@@ -418,22 +418,71 @@ export const tableColumns = [
     {title: 'filterDropdownType', type: '"string"|"number"'},
     {title: 'filterDropdownIncludeKeys', type: 'string[]'},
     {title: 'filterInputNumberOptions', type: 'object'},
-    {title: 'textAlign', type: '"left"|"center"|"right"'},
+    {
+        title: 'textAlign', type: '"left"|"center"|"right"',
+        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'textAlign', value: 'right', index: 'i'})
+    },
     {title: 'mergeEndIndex', type: 'number'},
     {title: 'sortEnable', type: 'boolean'},
-    {title: 'fieldType', type: '"string"|"number"|"cruuency"|"bool"|"link"'},
-    {title: 'fontColor', type: 'string'},
-    {title: 'bgColor', type: 'string'},
-    {title: 'titleAlign', type: '"left"|"center"|"right"'},
-    {title: 'contentAlign', type: '"left"|"center"|"right"'},
-    {title: 'required', type: 'boolean'},
-    {title: 'isShow', type: 'boolean'},
+    {
+        title: 'fieldType', type: '"string"|"number"|"cruuency"|"bool"|"link"',
+        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'fieldType', value: 'link', index: 0})
+    },
+    {
+        title: 'fontColor', type: 'string',
+        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'fontColor', value: 'green', index: 2})
+    },
+    {
+        title: 'bgColor', type: 'string',
+        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'bgColor', value: 'red'})
+    },
+    {
+        title: 'titleAlign', type: '"left"|"center"|"right"',
+        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'titleAlign', value: 'center'})
+    },
+    {
+        title: 'contentAlign', type: '"left"|"center"|"right"',
+        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'contentAlign', value: 'center'})
+    },
+    {
+        title: 'required', type: 'boolean',
+        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'required', value: true})
+    },
+    {
+        title: 'isShow', type: 'boolean',
+        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'isShow', value: false})
+    },
     {title: 'cellMenu', type: 'object'},
-
 ];
+function onColumnsSelect({selected, _this, columns, data}, {key, value, index = 1}) {
+    const column = columns.slice();
+    if (selected) {
+        index === 'i' ? columns.map(item => item[key] = value) : columns[index][key] = value;
+    } else {
+        index === 'i' ? columns.map(item => item[key] = undefined) : columns[index][key] = undefined;
+    }
+    console.log(columns);
+    _this.setState({columns})
+}
 export const tableData = [
-    {title: '_disabled', type: 'boolean'},
-    {title: '_checked', type: 'boolean'},
+    {
+        title: '_disabled', type: 'boolean', onSelect: (selected, _this, columns, data) => {
+            if (selected) {
+                data[2]._disabled = true;
+            } else {
+                data[2]._disabled = false;
+            }
+            _this.setState({data})
+        }
+    },
+    {title: '_checked', type: 'boolean', onSelect: (selected, _this, data, columns) => {
+            if (selected) {
+                data[2]._checked = true;
+            } else {
+                data[2]._checked = false;
+            }
+            _this.setState({data});
+        }},
 ];
 export const APIData = [
     {title: 'Grid.props', key: 'props', children: tableProps},
