@@ -19,13 +19,20 @@ export const treeData = [
                 attribute: 'loading',
                 set: [{type: 'radio', title: 'Loading状态', key: 'loading', options: [{title: 'true', value: true}, {title: 'false', value: false}]}],
             },
-            // {
-            //     title: '表格标题',
-            //     attribute: 'title',
-            //     key: '0-0-4',
-            //     type: 'input',
-            //     matters: 'title: 传入一个函数,该函数返回一个ReactNode.',
-            // },
+            {
+                title: '自定义表格标题',
+                attribute: 'title',
+                set: [
+                    {type: 'input', title: '自定义表格标题', key: 'title'},
+                ],
+            },
+            {
+                title: '自定义表格表尾',
+                attribute: 'footer',
+                set: [
+                    {type: 'input', title: '表格表尾', key: 'footer'},
+                ],
+            },
             // {
             //     title: '表格大小',
             //     key: '0-0-5',
@@ -189,58 +196,62 @@ export const treeData = [
         key: '0-4-1',
         children: [
             {
-                title: '排序-单维排序',
+                title: '排序-开启/关闭排序',
                 attribute: 'columns[i].sorter',
                 set: [
-                    {type: 'radio', title: '开启过滤-columns', key: 'columns[i].sorter', options: [{title: 'function', value: true}, {title: 'undefined', value: false}]},
-                    {type: 'radio', title: '开启过滤-table', key: 'sort', options: [{title: '{mode: "single"}', value: "single"}, {title: '{mode: "multiple"}', value: 'multiple'}]},
+                    {type: 'radio', title: '开启排序-columns', key: 'columns[i].sorter', options: [{title: 'function', value: true}, {title: 'undefined', value: false}]},
+                ],
+            },
+            {
+                title: '排序-单维/多维',
+                attribute: 'columns[i].sorter',
+                set: [
+                    {type: 'radio', title: '单维/多维', key: 'sort', options: [{title: '单维-{mode: "single"}', value: "single"}, {title: '多维-{mode: "multiple"}', value: 'multiple'}]},
                 ],
             },
         ],
     },
-    // {
-    //     title: '列操作-拖拽 Drag',
-    //     key: '0-4',
-    //     children: [
-    //         {
-    //             title: '过滤值',
-    //             attribute: 'columns[i].width',
-    //             type: 'input',
-    //             key: '0-4-1',
-    //         },
-    //
-    //     ],
-    // },
-    // {
-    //     title: '扩展行 Expanded Row',
-    //     key: '0-4',
-    //     children: [
-    //         {
-    //             title: '自定义表格嵌套的内容',
-    //             attribute: 'columns[i].width',
-    //             type: 'input',
-    //             key: '0-4-1',
-    //         },
-    //         {
-    //             title: '树型表格数据展示',
-    //             attribute: 'columns[i].width',
-    //             type: 'input',
-    //             key: '0-4-1',
-    //         },
-    //         {
-    //             title: '自定义表格标题',
-    //             attribute: 'columns[i].width',
-    //             type: 'input',
-    //             key: '0-4-1',
-    //         },
-    //         {
-    //             title: '自定义表格表尾',
-    //             attribute: 'columns[i].width',
-    //             type: 'input',
-    //             key: '0-4-1',
-    //         },
-    //     ],
-    // },
+    {
+        title: '列操作-拖拽 Drag',
+        key: '0-4-3',
+        children: [
+            {
+                title: '拖拽交换列',
+                attribute: 'draggable',
+                set: [
+                    {type: 'radio', title: '拖拽交换列', key: 'draggable', options: [{title: 'true', value: true}, {title: 'false', value: false}]},
+                ],
+            },
+            {
+                title: '拖拽调整列宽度',
+                attribute: 'dragborder',
+                set: [
+                    {type: 'radio', title: '拖拽交换列', key: 'dragborder', options: [{title: 'true', value: true}, {title: 'false', value: false}]},
+                ],
+            },
+
+        ],
+    },
+    {
+        title: '扩展行 Expanded Row',
+        key: '0-4-6',
+        children: [
+            {
+                title: '自定义扩展行内容',
+                attribute: 'expandedRowRender',
+                set: [
+                    {type: 'input', title: '自定义扩展行内容', key: 'expandedRowRender'},
+                ],
+            },
+            {
+                title: '展开行通过点击触发',
+                attribute: 'expandRowByClick',
+                set: [
+                    {type: 'radio', title: '展开行通过点击触发', key: 'expandRowByClick', options: [{title: 'true', value: true}, {title: 'false', value: false}]},
+                ],
+            }
+        ],
+    },
     {
         title: '行操作-选择',
         key: '0-4',
@@ -251,11 +262,11 @@ export const treeData = [
                 set: [
                     {
                         type: 'radio', title: '单选/多选/无', key: 'multiSelect', options:
-                        [
-                            {title: '{type: "checkbox"}', value: 'checkbox'},
-                            {title: '{type: "radio"}', value: 'radio'},
-                            {title: 'false', value: false},
-                        ]
+                            [
+                                {title: '{type: "checkbox"}', value: 'checkbox'},
+                                {title: '{type: "radio"}', value: 'radio'},
+                                {title: 'false', value: false},
+                            ]
                     }
                 ],
             },
@@ -267,6 +278,57 @@ export const treeData = [
                             [
                                 {title: 'true', value: true},
                                 {title: 'false', value: false},
+                            ]
+                    }
+                ],
+            },
+            {
+                title: '选择通过点击行触发',
+                attribute: 'autoCheckedByClickRows',
+                set: [
+                    {type: 'radio', title: '选择通过点击行触发', key: 'autoCheckedByClickRows', options:
+                            [
+                                {title: 'true', value: true},
+                                {title: 'false', value: false},
+                            ]
+                    }
+                ],
+            },
+        ],
+    },
+    {
+        title: '行操作-拖拽 Drag',
+        key: '0-4-7',
+        children: [
+            {
+                title: '拖拽交换顺序',
+                attribute: 'rowDraggAble',
+                set: [
+                    {
+                        type: 'radio', title: '单选/拖拽交换顺序/无', key: 'rowDraggAble', options:
+                            [
+                                {title: 'true', value: true},
+                                {title: 'false', value: false},
+                            ]
+                    }
+                ],
+            },
+        ],
+    },
+    {
+        title: '导出 Export',
+        key: '0-4-4',
+        children: [
+            {
+                title: '导出Excel',
+                attribute: 'export',
+                set: [
+                    {type: 'input', title: '导出文件名', key: 'exportFileName'},
+                    {
+                        type: 'radio', title: '导出数据', key: 'exportData', options:
+                            [
+                                {title: 'data', value: 'data'},
+                                {title: '[1, 2, 3]', value: [1, 2, 3]},
                             ]
                     }
                 ],
@@ -336,54 +398,74 @@ export const treeData = [
         ],
     },
 ];
+export const tableMethods = [
+    {key: 'props.resetColumns', title: 'resetColumns', value: "this.refs.grid.exportExcel()"},
+    {key: 'props.exportExcel', title: 'exportExcel', value: "this.refs.grid.exportExcel()"},
+]
 export const tableProps = [
-    {title: 'data', type: 'object[]', value: 'this.state.data', setValue: 'this.state.data', disable: true,},
-    {title: 'columns', type: 'object[]', value: 'this.state.columns', setValue: 'this.state.data', disable: true},
-    {title: 'bordered', type: 'boolean', value: true, setValue: 'true'},
-    {title: 'defaultExpandAllRows', type: 'boolean', value: true, setValue: 'true'},
-    {title: 'defaultExpandedRowKeys', type: 'string[]', value: [1, 2, 3], setValue: "[1, 2, 3]"},
-    {title: 'rowRef', type: '(record, index, indent) => string', value: (record) => "table", setValue: '(record) => "table"'},
-    {title: 'rowKey', type: 'string|(record, index) => string', value: (record) => record.a, setValue: '(record) => record.a'},
-    {title: 'expandedRowKeys', type: 'string[]', value: [3, 4, 5], setValue: "[3, 4, 5]"},
-    {title: 'rowClassName', type: '() => string', value: () => "testRowClassName", setValue: '() => "testRowClassName"' },
-    {title: 'expandedRowClassName', type: '() => string', value: () => "testExpandedRowClassName", setValue: '() => "testExpandedRowClassName"'},
-    {title: 'indentSize', type: 'number', value: 15},
-    {title: 'expandIconAsCell', type: 'boolean', value: true},
-    {title: 'expandIconColumnIndex', type: 'number', value: 2},
-    {title: 'expandedRowRender', type: '(record, index, indent) => ReactNode', value: (record) => <div>{record.a}</div>},
-    {title: 'haveExpandIcon', type: '() => boolean', value: () => true},
-    {title: 'expandedIcon', type: 'ReactNode', value: <Icon  />},
-    {title: 'collapsedIcon', type: 'ReactNode', value: <Icon  />},
-    {title: 'expandRowByClick', type: 'boolean', value: true},
-    {title: 'rowDraggAble', type: 'boolean', value: true},
-    {title: 'showHeader', type: 'boolean', value: true},
-    {title: 'title', type: '() => ReactNode', value: (record) => <div>测试标题</div>},
-    {title: 'footer', type: '() => ReactNode', value: (record) => <div>测试尾部</div>},
-    {title: 'emptyText', type: '() => ReactNode', value: (record) => <div>无数据显示</div>},
-    {title: 'loading', type: 'boolean', value: true},
-    {title: 'getBodyWrapper', type: '(body) => ReactNode',value: (body) => <div>{body}</div>},
-    {title: 'bodyStyle', type: 'object', value: {color: 'green'}},
-    {title: 'style', type: 'object', value: {color: 'red'}},
-    {title: 'scroll', type: '{x: number|string, y: number}', value: {x: 3200, y: 200}},
-    {title: 'headerScroll', type: 'boolean', value: true},
-    {title: 'footerScroll', type: 'boolean', value: true},
-    {title: 'resetScroll', type: 'boolean', value: true},
-    {title: 'filterable', type: 'boolean', value: true},
-    {title: 'filterDelay', type: 'number', value: 500},
-    {title: 'sort', type: 'object', value: {mode: 'single', backSource: false}},
-    {title: 'syncHover', type: 'boolean', value: false},
-    {title: 'loadBuffer', type: 'number',value: 20},
-    {title: 'hoverContent', type: '() => ReactNode', value: () => <div>测试DOM</div>},
-    {title: 'heightConsistent', type: 'boolean', value: true},
-    {title: 'height', type: 'number', value: 265},
-    {title: 'headerHeight', type: 'number', value: 355},
-    {title: 'headerDisplayInRow', type: 'boolean', value: false},
-    {title: 'bodyDisplayInRow', type: 'boolean', value: false},
-    {title: 'size', type: '"sm"|"md"|"lg"', value: 'sm'},
-    {title: 'hideHeaderScroll', type: 'boolean', value: true},
-    {title: 'showRowNum', type: 'boolean', value: true},
-    {title: 'autoCheckedByClickRows', type: 'boolean', value: false},
-    {title: 'autoSelect', type: 'boolean', value: true},
+    {key: 'props.data', title: 'data', type: 'object[]', value: 'data',},
+    {key: 'props.columns', title: 'columns', type: 'object[]', value: 'columns', disabled: true},
+    {key: 'props.bordered', title: 'bordered', type: 'boolean', value: true},
+    {key: 'props.defaultExpandAllRows', title: 'defaultExpandAllRows', type: 'boolean', value: true},
+    {key: 'props.defaultExpandedRowKeys', title: 'defaultExpandedRowKeys', type: 'string[]', value: [1, 2, 3]},
+    {key: 'props.rowRef', title: 'rowRef', type: '(record, index, indent) => string', value: (record) => "table"},
+    {key: 'props.rowKey', title: 'rowKey', type: 'string|(record, index) => string', value: (record) => record.a},
+    {key: 'props.expandedRowKeys', title: 'expandedRowKeys', type: 'string[]', value: [3, 4, 5]},
+    {key: 'props.rowClassName', title: 'rowClassName', type: '() => string', value: () => "testRowClassName"},
+    {key: 'props.expandedRowClassName', title: 'expandedRowClassName', type: '() => string', value: () => "testExpandedRowClassName"},
+    {key: 'props.indentSize', title: 'indentSize', type: 'number', value: 15},
+    {key: 'props.expandIconAsCell', title: 'expandIconAsCell', type: 'boolean', value: true},
+    {key: 'props.expandIconColumnIndex', title: 'expandIconColumnIndex', type: 'number', value: 2},
+    {key: 'props.expandedRowRender', title: 'expandedRowRender', type: '(record, index, indent) => ReactNode', value: (record) => <div>{record.a}</div>},
+    {key: 'props.haveExpandIcon', title: 'haveExpandIcon', type: '() => boolean', value: () => true},
+    {key: 'props.expandedIcon', title: 'expandedIcon', type: 'ReactNode', value: <Icon  />},
+    {key: 'props.collapsedIcon', title: 'collapsedIcon', type: 'ReactNode', value: <Icon  />},
+    {key: 'props.expandRowByClick', title: 'expandRowByClick', type: 'boolean', value: true},
+    {key: 'props.rowDraggAble', title: 'rowDraggAble', type: 'boolean', value: true},
+    {key: 'props.showHeader', title: 'showHeader', type: 'boolean', value: true},
+    {key: 'props.title', title: 'title', type: '() => ReactNode', value: (record) => <div>测试标题</div>},
+    {key: 'props.footer', title: 'footer', type: '() => ReactNode', value: (record) => <div>测试尾部</div>},
+    {key: 'props.emptyText', title: 'emptyText', type: '() => ReactNode', value: (record) => <div>无数据显示</div>},
+    {key: 'props.loading', title: 'loading', type: 'boolean', value: true},
+    {key: 'props.getBodyWrapper', title: 'getBodyWrapper', type: '(body) => ReactNode',value: (body) => body},
+    {key: 'props.bodyStyle', title: 'bodyStyle', type: 'object', value: {color: 'green'}},
+    {key: 'props.style', title: 'style', type: 'object', value: {color: 'red'}},
+    {key: 'props.scroll', title: 'scroll', type: '{x: number|string, y: number}', value: {x: 3200, y: 200}},
+    {key: 'props.headerScroll', title: 'headerScroll', type: 'boolean', value: true},
+    {key: 'props.footerScroll', title: 'footerScroll', type: 'boolean', value: true},
+    {key: 'props.resetScroll', title: 'resetScroll', type: 'boolean', value: true},
+    {key: 'props.filterable', title: 'filterable', type: 'boolean', value: true},
+    {key: 'props.filterDelay', title: 'filterDelay', type: 'number', value: 500},
+    {key: 'props.sort', title: 'sort', type: 'object', value: {mode: 'single', backSource: false}},
+    {key: 'props.syncHover', title: 'syncHover', type: 'boolean', value: false},
+    {key: 'props.loadBuffer', title: 'loadBuffer', type: 'number',value: 20},
+    {key: 'props.hoverContent', title: 'hoverContent', type: '() => ReactNode', value: () => <div>测试DOM</div>},
+    {key: 'props.heightConsistent', title: 'heightConsistent', type: 'boolean', value: true},
+    {key: 'props.height', title: 'height', type: 'number', value: 265},
+    {key: 'props.headerHeight', title: 'headerHeight', type: 'number', value: 355},
+    {key: 'props.headerDisplayInRow', title: 'headerDisplayInRow', type: 'boolean', value: false},
+    {key: 'props.bodyDisplayInRow', title: 'bodyDisplayInRow', type: 'boolean', value: false},
+    {key: 'props.size', title: 'size', type: '"sm"|"md"|"lg"', value: 'sm'},
+    {key: 'props.hideHeaderScroll', title: 'hideHeaderScroll', type: 'boolean', value: true},
+    {key: 'props.showRowNum', title: 'showRowNum', type: 'boolean', value: true},
+    {key: 'props.autoCheckedByClickRows', title: 'autoCheckedByClickRows', type: 'boolean', value: false},
+    {key: 'props.autoSelect', title: 'autoSelect', type: 'boolean', value: true},
+    {key: 'props.showFilterMenu', title: 'showFilterMenu', type: 'boolean', value: true},
+    {key: 'props.columnFilterAble', title: 'columnFilterAble', type: 'boolean', value: false},
+    {key: 'props.paginationObj', title: 'paginationObj', type: 'object', value: false},
+    {key: 'props.showHeaderMenu', title: 'showHeaderMenu', type: 'boolean', value: false},
+    {key: 'props.multiSelect', title: 'multiSelect', type: '{type: string}', value: {type: 'radio'}},
+    {key: 'props.exportFileName', title: 'exportFileName', type: 'string', value: 'API_Eecel'},
+    {key: 'props.sheetName', title: 'sheetName', type: 'boolean', value: false},
+    {key: 'props.sheetHeader', title: 'sheetHeader', type: 'object', value: {height: 30}},
+    {key: 'props.sheetIsRowFilter', title: 'sheetIsRowFilter', type: 'boolean', value: true},
+    {key: 'props.exportData', title: 'exportData', type: 'array', value: ['1', '2', '3']},
+    {key: 'props.canSum', title: 'canSum', type: 'boolean', value: true},
+    {key: 'props.afterRowFilter', title: 'afterRowFilter', type: '() => void', value: (select, record) => console.log(select,record)},
+    {key: 'props.getSelectedDataFunc', title: 'getSelectedDataFunc', type: '() => void', value: (select, record) => console.log(select,record)},
+    {key: 'props.dragborder', title: 'dragborder', type: 'boolean', value: true},
+    {key: 'props.selectedRow', title: 'selectedRow', type: '() => []', value: () => [3, 4]},
+    {key: 'props.selectedRowIndex', title: 'selectedRowIndex', type: 'number', value: 3},
 ]
 export const tableEvent = [
     {title: 'onExpand', arguments: ['expanded', 'record'], value: (expanded, record) => console.log(expanded, record)},
@@ -397,91 +479,144 @@ export const tableEvent = [
     {title: 'onDropRow', arguments: ['data', 'record'], value: (data, record) => console.log(data, record)},
 ]
 export const tableColumns = [
-    {title: 'key', type: 'string'},
-    {title: 'className', type: 'string'},
-    {title: 'colSpan', type: 'number'},
-    {title: 'title', type: 'string|ReactNode'},
-    {title: 'dataIndex', type: 'string'},
-    {title: 'width', type: 'string|number'},
-    {title: 'sorter', type: '() => boolean'},
-    {title: 'sorterClick', type: '() => void'},
-    {title: 'render', type: '(text, record, index) => {children: ReactNode, props: {colSpan: number, rowSpan: number}}'},
-    {title: 'onCellClick', type: '(row, event) => void'},
-    {title: 'onHeadCellClick', type: '(row, event) => void'},
-    {title: 'order', type: '"descend"|"ascend"'},
-    {title: 'filterType', type: '"text"|"dropdown"|"date"|"daterange"|"number"'},
-    {title: 'filterDropdown', type: '"show"|"hide"'},
-    {title: 'format', type: 'string'},
-    {title: 'filterDropdownAuto', type: '"auto"|"manual"|"filterDropdownData"'},
-    {title: 'filterDropdownData', type: '{key: any, value: any}'},
-    {title: 'filterDropdownFocus', type: '() => void'},
-    {title: 'filterDropdownType', type: '"string"|"number"'},
-    {title: 'filterDropdownIncludeKeys', type: 'string[]'},
-    {title: 'filterInputNumberOptions', type: 'object'},
     {
-        title: 'textAlign', type: '"left"|"center"|"right"',
-        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'textAlign', value: 'right', index: 'i'})
-    },
-    {title: 'mergeEndIndex', type: 'number'},
-    {title: 'sortEnable', type: 'boolean'},
-    {
-        title: 'fieldType', type: '"string"|"number"|"cruuency"|"bool"|"link"',
-        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'fieldType', value: 'link', index: 0})
+        key: 'columns.key', title: 'key', type: 'string',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'key', value: 'a', index: 1})
     },
     {
-        title: 'fontColor', type: 'string',
-        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'fontColor', value: 'green', index: 2})
+        key: 'columns.className', title: 'className', type: 'string',
+        onSelect: (columns) => onColumnsSelect({key: 'className', value: 'testClassName', index: 1, columns})
     },
     {
-        title: 'bgColor', type: 'string',
-        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'bgColor', value: 'red'})
+        key: 'columns.colSpan', title: 'colSpan', type: 'number',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'colSpan', value: 2, index: 1})
     },
     {
-        title: 'titleAlign', type: '"left"|"center"|"right"',
-        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'titleAlign', value: 'center'})
+        key: 'columns.title', title: 'title', type: 'string|ReactNode',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'title', value: '离职时间', initValue: '入职时间', index: 1})
     },
     {
-        title: 'contentAlign', type: '"left"|"center"|"right"',
-        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'contentAlign', value: 'center'})
+        key: 'columns.dataIndex', title: 'dataIndex', type: 'string', disabled: true,
+        onSelect: (columns) => onColumnsSelect({columns, key: 'dataIndex', value: 'a', initValue: 'time', index: 0})
     },
     {
-        title: 'required', type: 'boolean',
-        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'required', value: true})
+        key: 'columns.width', title: 'width', type: 'string|number',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'width', value: '230px', index: 1})
     },
     {
-        title: 'isShow', type: 'boolean',
-        onSelect: (selected, _this, columns, data) => onColumnsSelect({selected, _this, columns, data}, {key: 'isShow', value: false})
+        key: 'columns.sorter', title: 'sorter', type: '() => boolean',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'sorter', value: (a, b) =>a.time - b.time, index: '1'})
     },
-    {title: 'cellMenu', type: 'object'},
+    {
+        key: 'columns.sorterClick', title: 'sorterClick', type: '() => void',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'sorterClick', value: () =>console.log(arguments), index: '1'})
+    },
+    {
+        key: 'columns.render', title: 'render', type: '(text, record, index) => {children: ReactNode, props: {colSpan: number, rowSpan: number}}',
+        onSelect: (columns) =>
+            onColumnsSelect({columns, key: 'render', value: (text) => {
+                return {
+                    children: <div>{'入职时间' + text}</div>,
+                    props: {colSpan: 2, rowSpan: 1}
+                }
+            }, index: 1})
+    },
+    {
+        key: 'columns.onCellClick', title: 'onCellClick', type: '(row, event) => void',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'onCellClick', value: (row, event) =>console.log(row, event), index: '1'})
+    },
+    {
+        key: 'columns.onHeadCellClick', title: 'onHeadCellClick', type: '(row, event) => void',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'onHeadCellClick', value: (row, event) =>console.log(row, event), index: '1'})
+    },
+    {
+        key: 'columns.order', title: 'order', type: '"descend"|"ascend"',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'order', value: 'ascend', index: 'i'})
+    },
+    {
+        key: 'columns.filterType', title: 'filterType', type: '"text"|"dropdown"|"date"|"daterange"|"number"',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'filterType', value: 'dropdown', index: 'i'})
+    },
+    {
+        key: 'columns.filterDropdown', title: 'filterDropdown', type: '"show"|"hide"',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'filterDropdown', value: 'show', index: 'i'})
+    },
+    {
+        key: 'columns.format', title: 'format', type: 'string',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'format', value: '', index: 1})
+    },
+    {
+        key: 'columns.filterDropdownAuto', title: 'filterDropdownAuto', type: '"auto"|"manual"|"filterDropdownData"',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'filterDropdownAuto', value: 'filterDropdownData', index: 1})
+    },
+    {
+        key: 'columns.filterDropdownData', title: 'filterDropdownData', type: '{key: any, value: any}'
+    },
+    {
+        key: 'columns.filterDropdownFocus', title: 'filterDropdownFocus', type: '() => void',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'filterDropdownFocus', value: () => console.log('filterDropdownFocus'), index: 'i'})
+    },
+    {
+        key: 'columns.filterDropdownType', title: 'filterDropdownType', type: '"string"|"number"',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'filterDropdownType', value: 'number', index: 'i'})
+    },
+    {
+        key: 'columns.filterDropdownIncludeKeys', title: 'filterDropdownIncludeKeys', type: 'string[]'
+    },
+    {
+        key: 'columns.filterInputNumberOptions', title: 'filterInputNumberOptions', type: 'object'
+    },
+    {
+        key: 'columns.textAlign', title: 'textAlign', type: '"left"|"center"|"right"',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'textAlign', value: 'right', index: 'i'})
+    },
+    {
+        key: 'columns.sortEnable', title: 'sortEnable', type: 'boolean',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'sortEnable', value: true, index: 1})
+    },
+    {
+        key: 'columns.fieldType', title: 'fieldType', type: '"string"|"number"|"cruuency"|"bool"|"link"',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'fieldType', value: 'link', index: 0})
+    },
+    {
+        key: 'columns.fontColor', title: 'fontColor', type: 'string',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'fontColor', value: 'green', index: 2})
+    },
+    {
+        key: 'columns.bgColor', title: 'bgColor', type: 'string',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'bgColor', value: 'red'})
+    },
+    {
+        key: 'columns.titleAlign', title: 'titleAlign', type: '"left"|"center"|"right"',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'titleAlign', value: 'center'})
+    },
+    {
+        key: 'columns.contentAlign', title: 'contentAlign', type: '"left"|"center"|"right"',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'contentAlign', value: 'center'})
+    },
+    {
+        key: 'columns.required', title: 'required', type: 'boolean',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'required', value: true})
+    },
+    {
+        key: 'columns.isShow', title: 'isShow', type: 'boolean',
+        onSelect: (columns) => onColumnsSelect({columns, key: 'isShow', value: false})
+    },
+    {
+        key: 'columns.cellMenu', title: 'cellMenu', type: 'object'
+    },
 ];
-function onColumnsSelect({selected, _this, columns, data}, {key, value, index = 1}) {
-    const column = columns.slice();
-    if (selected) {
-        index === 'i' ? columns.map(item => item[key] = value) : columns[index][key] = value;
-    } else {
-        index === 'i' ? columns.map(item => item[key] = undefined) : columns[index][key] = undefined;
-    }
-    console.log(columns);
-    _this.setState({columns})
+function onColumnsSelect({key, value, index = 1, columns}) {
+    index === 'i' ? columns.map(item => item[key] = value) : columns[index][key] = value;
 }
 export const tableData = [
     {
-        title: '_disabled', type: 'boolean', onSelect: (selected, _this, columns, data) => {
-            if (selected) {
-                data[2]._disabled = true;
-            } else {
-                data[2]._disabled = false;
-            }
-            _this.setState({data})
+        title: '_disabled', type: 'boolean', onSelect: (data) => {
+            data[2]._disabled = true;
         }
     },
-    {title: '_checked', type: 'boolean', onSelect: (selected, _this, data, columns) => {
-            if (selected) {
-                data[2]._checked = true;
-            } else {
-                data[2]._checked = false;
-            }
-            _this.setState({data});
+    {title: '_checked', type: 'boolean', onSelect: (data) => {
+            data[2]._checked = true;
         }},
 ];
 export const APIData = [
@@ -489,5 +624,6 @@ export const APIData = [
     {title: 'Grid.event', key: 'event', children: tableEvent},
     {title: 'Grid.columns', key: 'columns', children: tableColumns},
     {title: 'Grid.data', key: 'data', children: tableData},
+    {title: 'Grid.methods', key: 'methods', children: tableMethods},
 ]
 

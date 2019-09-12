@@ -18,8 +18,9 @@
   },
   "homepage": "https://github.com/iuap-design/ucf-webapp#readme",
   "devDependencies": {
-    "ucf-scripts": "^1.1.9",
-    "copy-webpack-plugin": "^5.0.3"
+    "copy-webpack-plugin": "^5.0.3",
+    "lodash": "^4.17.15",
+    "ucf-scripts": "^1.1.9"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.0",
@@ -37,6 +38,6 @@
     "react-dom": "^16.8.6",
     "react-intl": "^2.8.0",
     "ref-multiple-table": "2.0.4",
-    "tinper-bee": "^2.1.6"
+    "tinper-bee": "^2.2.0"
   }
 }
