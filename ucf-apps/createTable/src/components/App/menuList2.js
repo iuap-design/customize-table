@@ -330,7 +330,7 @@ export const treeData = [
             {
                 title: '顶部工具栏',
                 attribute: 'GridToolBar',
-                set: [{type: 'radio', title: '工具栏组件', key: '<Grid.GridToolBar />', options: [{title: 'true', value: true}, {title: 'false', value: false}]}],
+                set: [{type: 'radio', title: '工具栏组件', key: 'ToolBar', options: [{title: 'true', value: true}, {title: 'false', value: false}]}],
             },
         ],
     },

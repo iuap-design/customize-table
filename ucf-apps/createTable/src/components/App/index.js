@@ -215,7 +215,7 @@ class App extends Component {
                 </div>
             ); break;
         }
-        return <div style={{color: '#212121', fontSize: '12px'}}>{node}</div>;
+        return <div style={{color: '#212121', fontSize: '14px'}}>{node}</div>;
     }
     tableRefresh() {
         this.setState({display: false}, () => setTimeout(() => this.setState({display: true}), 4))
@@ -324,8 +324,8 @@ class App extends Component {
         const {setAll} = this.state;
         if (Object.keys(setAll).length > 0) {
             return Object.keys(setAll).map(item => setAll[item].map(it => {
-                return <div style={{marginBottom: '15px'}}>
-                    <h4 style={{marginBottom: '5px'}}>{it.title}</h4>
+                return <div style={{marginBottom: '16px'}}>
+                    <h6 style={{marginBottom: '4px'}}>{it.title}</h6>
                     <div>{this.getItemInput(it)}</div>
                 </div>
             }))
@@ -341,8 +341,8 @@ class App extends Component {
                         <h4>{item}</h4>
                         {
                             Object.keys(apiAll[item]).filter(Item => apiAll[item][Item] !== undefined).map(it => (
-                                <div style={{marginBottom: '15px', marginLeft: '30px'}}>
-                                    <h5 style={{marginBottom: '5px'}}>{apiAll[item][it].title}</h5>
+                                <div style={{marginBottom: '16px', marginLeft: '30px'}}>
+                                    <h5 style={{marginBottom: '4px'}}>{apiAll[item][it].title}</h5>
                                     {
                                         apiAll[item][it].type && <div>type：{apiAll[item][it].type}</div>
                                     }
@@ -416,7 +416,7 @@ class App extends Component {
         }).map(item => codeProps[item] = typeof props[item] === 'function' ? '' + props[item] : JSON.stringify(props[item]));
 
         return (
-            <div className="app-wrap" style={{background: '#ccc', height: '100%'}}>
+            <div className="app-wrap" style={{background: '#d7d9db', height: '100%'}}>
                 <header style={{
                     background: '#fff',
                     height: '50px'
@@ -430,7 +430,7 @@ class App extends Component {
                         width: '160px',
                         textAlign: 'center'
                     }}>
-                        Grid组件演示器
+                        Grid 功能演示系统
                     </div>
                 </header>
                 <Row style={{margin: '10px auto',minHeight: 500}}>
@@ -443,7 +443,7 @@ class App extends Component {
                                 activeKey={demoActive}
                                 onChange={(value) => {this.setState({demoActive: value}); this.tableRefresh()}}
                             >
-                                <TabPane tab='演示' key="demo">
+                                <TabPane tab='功能特性' key="demo">
                                     <div style={{padding: '10px 10%', marginBottom: '0px', height: clientHeight - 140, textAlign: 'left', overflow: 'auto'}}>
                                         {
                                             treeData.map(item => {
@@ -559,12 +559,12 @@ class App extends Component {
                                 tabBarPosition={'top'}
                                 tabBarStyle="upborder"
                                 onChange={(value) => {this.setState({activeKey: value})}}
-                                className="demo4-tabs"
+                                className="preview-tabs"
                                 onTabClick={this.onTabClick}
                             >
                                 <TabPane tab='预览' key='1'>
                                     {
-                                        inputValue['<Grid.GridToolBar />'] ? <Grid.GridToolBar toolBtns={toolBtns} btnSize='sm' /> : null
+                                        inputValue['ToolBar'] ? <Grid.GridToolBar toolBtns={toolBtns} btnSize='sm' /> : null
                                     }
                                     {
                                         props.exportData ? <Grid.GridToolBar toolBtns={exportBtn} btnSize='sm' /> : null
@@ -573,7 +573,7 @@ class App extends Component {
                                         display ?  <Grid ref={'grid'} {...props} /> : null
                                     }
                                 </TabPane>
-                                <TabPane tab='源码' key='2'>
+                                <TabPane tab='源码' key='2' className="source-code">
                                     {
                                         (() => {
                                             const gridProps = Object.keys(codeProps).map(item => <p style={{margin : '3px', padding: '0 20px'}}>{item}={'{' + codeProps[item] + '}'}</p>);

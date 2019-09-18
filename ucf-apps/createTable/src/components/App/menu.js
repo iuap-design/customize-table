@@ -1,7 +1,7 @@
 import {Icon} from 'tinper-bee'
 export const treeData = [
     {
-        title: '基础 Basic',
+        title: '基础',
         key: '0-0',
         children: [
             {
@@ -82,7 +82,7 @@ export const treeData = [
         ],
     },
     {
-        title: '滚动 Scroll View',
+        title: '滚动条',
         key: '0-1',
         children: [
             {
@@ -97,7 +97,7 @@ export const treeData = [
         ],
     },
     {
-        title: '列渲染 Custom Render',
+        title: '列渲染',
         key: '0-2',
         children: [
             {
@@ -158,7 +158,7 @@ export const treeData = [
         ],
     },
     {
-        title: '列操作-锁定 Fixed / 隐藏 Hide',
+        title: '列操作-锁定 / 隐藏 ',
         key: '0-3',
         children: [
             {
@@ -192,7 +192,7 @@ export const treeData = [
     //     ],
     // },
     {
-        title: '列操作-排序 Sort',
+        title: '列操作-排序',
         key: '0-4-1',
         children: [
             {
@@ -212,7 +212,7 @@ export const treeData = [
         ],
     },
     {
-        title: '列操作-拖拽 Drag',
+        title: '列操作-拖拽',
         key: '0-4-3',
         children: [
             {
@@ -233,7 +233,7 @@ export const treeData = [
         ],
     },
     {
-        title: '扩展行 Expanded Row',
+        title: '扩展行',
         key: '0-4-6',
         children: [
             {
@@ -283,10 +283,10 @@ export const treeData = [
                 ],
             },
             {
-                title: '选择通过点击行触发',
+                title: '行点击关联选择操作',
                 attribute: 'autoCheckedByClickRows',
                 set: [
-                    {type: 'radio', title: '选择通过点击行触发', key: 'autoCheckedByClickRows', options:
+                    {type: 'radio', title: '行点击关联选择操作', key: 'autoCheckedByClickRows', options:
                             [
                                 {title: 'true', value: true},
                                 {title: 'false', value: false},
@@ -294,14 +294,8 @@ export const treeData = [
                     }
                 ],
             },
-        ],
-    },
-    {
-        title: '行操作-拖拽 Drag',
-        key: '0-4-7',
-        children: [
             {
-                title: '拖拽交换顺序',
+                title: '行拖拽',
                 attribute: 'rowDraggAble',
                 set: [
                     {
@@ -312,29 +306,48 @@ export const treeData = [
                             ]
                     }
                 ],
-            },
+            }
         ],
     },
-    {
-        title: '导出 Export',
-        key: '0-4-4',
-        children: [
-            {
-                title: '导出Excel',
-                attribute: 'export',
-                set: [
-                    {type: 'input', title: '导出文件名', key: 'exportFileName'},
-                    {
-                        type: 'radio', title: '导出数据', key: 'exportData', options:
-                            [
-                                {title: 'data', value: 'data'},
-                                {title: '[1, 2, 3]', value: [1, 2, 3]},
-                            ]
-                    }
-                ],
-            },
-        ],
-    },
+    // {
+    //     title: '行操作-拖拽',
+    //     key: '0-4-7',
+    //     children: [
+    //         {
+    //             title: '拖拽交换顺序',
+    //             attribute: 'rowDraggAble',
+    //             set: [
+    //                 {
+    //                     type: 'radio', title: '单选/拖拽交换顺序/无', key: 'rowDraggAble', options:
+    //                         [
+    //                             {title: 'true', value: true},
+    //                             {title: 'false', value: false},
+    //                         ]
+    //                 }
+    //             ],
+    //         },
+    //     ],
+    // },
+    // {
+    //     title: '导出 Export',
+    //     key: '0-4-4',
+    //     children: [
+    //         {
+    //             title: '导出Excel',
+    //             attribute: 'export',
+    //             set: [
+    //                 {type: 'input', title: '导出文件名', key: 'exportFileName'},
+    //                 {
+    //                     type: 'radio', title: '导出数据', key: 'exportData', options:
+    //                         [
+    //                             {title: 'data', value: 'data'},
+    //                             {title: '[1, 2, 3]', value: [1, 2, 3]},
+    //                         ]
+    //                 }
+    //             ],
+    //         },
+    //     ],
+    // },
     // {
     //     title: '无限滚动 Infinite-scroll（性能亮点）',
     //     key: '0-4',
@@ -375,7 +388,7 @@ export const treeData = [
     //     ],
     // },
     {
-        title: '分页 Pagination',
+        title: '分页',
         key: '0-5',
         attribute: 'paginationObj',
         children: [
@@ -387,13 +400,27 @@ export const treeData = [
         ],
     },
     {
-        title: '工具栏 Toobar',
+        title: '表头工具栏',
         key: '0-6',
         children: [
             {
-                title: '顶部工具栏',
+                title: '顶部操作栏',
                 attribute: 'GridToolBar',
-                set: [{type: 'radio', title: '工具栏组件', key: '<Grid.GridToolBar />', options: [{title: 'true', value: true}, {title: 'false', value: false}]}],
+                set: [{type: 'radio', title: '工具栏组件', key: 'ToolBar', options: [{title: '显示', value: true}, {title: '隐藏', value: false}]}],
+            },
+            {
+                title: '导出Excel',
+                attribute: 'export',
+                set: [
+                    {type: 'input', title: '导出文件名', key: 'exportFileName'},
+                    {
+                        type: 'radio', title: '导出数据', key: 'exportData', options:
+                            [
+                                {title: 'data', value: 'data'},
+                                {title: '[1, 2, 3]', value: [1, 2, 3]},
+                            ]
+                    }
+                ],
             },
         ],
     },
