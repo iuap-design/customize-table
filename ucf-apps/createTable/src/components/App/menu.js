@@ -204,7 +204,7 @@ export const treeData = [
             },
             {
                 title: '排序-单维/多维',
-                attribute: 'columns[i].sorter',
+                attribute: 'sort',
                 set: [
                     {type: 'radio', title: '单维/多维', key: 'sort', options: [{title: '单维-{mode: "single"}', value: "single"}, {title: '多维-{mode: "multiple"}', value: 'multiple'}]},
                 ],
