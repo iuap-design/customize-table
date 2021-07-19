@@ -5,10 +5,10 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import _ from 'lodash';
 import { Col, Row, ColorPicker, Checkbox ,Select, Popover, Panel, Icon, Tabs } from 'tinper-bee';
-import { Timeline,Input } from '@tinper/next-ui';
+import { Input } from '@tinper/next-ui';
 import Radio from 'bee-radio';
-// import {treeData, APIData, renderComponent} from './menu';
-import {treeData as TimelineTreeData, APIData as TimelineAPIData, renderComponent as TimelineRenderComponent} from './menu';
+import {treeData as TimelineTreeData, APIData as TimelineAPIData, renderComponent as TimelineRenderComponent, getProps as TimelineGetProps} from '../components/Timeline';
+import {treeData as StepsTreeData, APIData as StepsAPIData, renderComponent as StepsRenderComponent, getProps as StepsGetProps} from '../components/Steps';
 import 'bee-complex-grid/build/Grid.css';
 import './index.less';
 const Option = Select.Option;
@@ -21,6 +21,9 @@ class App extends Component {
 			treeData: [],
 			APIData : [],
 			renderComponent : ()=>{},
+			getProps  : ()=>{},
+
+
             display: true,
             setAll: {},
             API: {
@@ -47,11 +50,29 @@ class App extends Component {
 	componentDidMount() {
 		const search = window.location.search.split('?')[1]
 		const component = search.split('=')[1];
-		const treeData = TimelineTreeData
-		const APIData = TimelineAPIData
-		const renderComponent = TimelineRenderComponent
+		let obj = {
+			Timeline: {
+				treeData: TimelineTreeData,
+				APIData: TimelineAPIData,
+				renderComponent: TimelineRenderComponent,
+				getProps: TimelineGetProps,
+			},
+			Steps: {
+				treeData: StepsTreeData,
+				APIData: StepsAPIData,
+				renderComponent: StepsRenderComponent,
+				getProps: StepsGetProps,
+			},
+
+		}
+
+		const treeData = obj[component].treeData
+		const APIData = obj[component].APIData
+		const renderComponent = obj[component].renderComponent
+		const getProps = obj[component].getProps
+
 		this.setState({
-			treeData,APIData,renderComponent
+			treeData,APIData,renderComponent, getProps
 		})
 	}
     onSelect = (selected, attribute, set) => {
@@ -151,21 +172,20 @@ class App extends Component {
         this.setState({display: false}, () => setTimeout(() => this.setState({display: true}), 4))
     }
     getProps(active) {
-        let props = {};
-        let itemProps = {};
-        const {data = [], inputValue, value, apiAll, columns} = this.state;
-
+        const {inputValue, value} = this.state;
         if (active === 'demo') {
-            props = {
-				pending: value.pending ? inputValue.pending : undefined
-			}
-			itemProps = {
-            	color: value.color ? inputValue.color : undefined,
-            	dot: value.dot ? inputValue.dot : undefined,
-			}
-        } else {
+			const data =  this.state.getProps({inputValue, value}) || {}
+			console.log(data)
+			return data
+        //     props = {
+		// 		pending: value.pending ? inputValue.pending : undefined
+		// 	}
+		// 	itemProps = {
+        //     	color: value.color ? inputValue.color : undefined,
+        //     	dot: value.dot ? inputValue.dot : undefined,
+		// 	}
         }
-        return {props, itemProps}
+        // return {props, itemProps}
     }
     getDemo() {
         const {setAll} = this.state;

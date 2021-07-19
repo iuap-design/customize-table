@@ -42,18 +42,6 @@ export const renderComponent = ({props, itemProps}) =>
 		<Timeline.Item {...itemProps}>Technical testing 2015-09-01</Timeline.Item>
 		<Timeline.Item {...itemProps}>Network problems being solved 2015-09-01</Timeline.Item>
 	</Timeline>)
-export const getProps = ({inputValue, value}) => {
-	let props = {};
-	let itemProps = {};
-	props = {
-		pending: value.pending ? inputValue.pending : undefined
-	}
-	itemProps = {
-		color: value.color ? inputValue.color : undefined,
-		dot: value.dot ? inputValue.dot : undefined,
-	}
-	return {props, itemProps}
-}
 export const TimelineProps = [
     {key: 'props.pending', title: 'pending', type: 'string,boolen,ReactNode', value: '-',},
 ]

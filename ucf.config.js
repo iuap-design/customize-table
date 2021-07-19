@@ -12,9 +12,7 @@ module.exports = (env, argv) => {
         // 启动所有模块，默认这个配置，速度慢的时候使用另外的配置
         // bootList: true,
         // 启动这两个模块，启动调试、构建
-        bootList: [
-            "createTable",
-        ],
+        bootList: true,
         // 代理的配置
         proxy: [
             {
@@ -56,8 +54,6 @@ module.exports = (env, argv) => {
         ],
         // 静态托管服务
         static: 'ucf-common/src/static',
-        // 展开打包后的资源文件，包含图片、字体图标相关
-        res_extra: true,
         // 构建资源的时候产出sourceMap，调试服务不会生效
         open_source_map: false,
         // CSS loader 控制选项
