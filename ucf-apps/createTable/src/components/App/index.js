@@ -168,7 +168,7 @@ class App extends Component {
         let node = null;
         switch (item.type) {
             case 'input' : node = (
-                <div style={{paddingLeft: '12px', padding: '10px, 0'}}>
+                <div className='rightInput'>
                     <span style={{marginRight: '12px'}}>{item.key}:</span>
                     <input
                         style={{width: '120px', height: '20px'}}
@@ -177,7 +177,7 @@ class App extends Component {
                 </div>
             );break;
             case 'select' : node = (
-                <div style={{paddingLeft: '12px', padding: '10px, 0'}}>
+                <div className='rightInput'>
                     <span style={{marginRight: '12px'}}>{item.key}:</span>
                     <Select
                         size='sm'
@@ -192,7 +192,7 @@ class App extends Component {
                 </div>
             ); break;
             case 'radio' : node = (
-                <div style={{paddingLeft: '12px', padding: '10px, 0'}}>
+                <div className='rightInput'>
                     <span style={{marginRight: '12px'}}>{item.key}:</span>
                     <Radio.RadioGroup
                         value={this.state.inputValue[item.key]}
@@ -215,7 +215,7 @@ class App extends Component {
                 </div>
             ); break;
         }
-        return <div style={{color: '#212121', fontSize: '14px'}}>{node}</div>;
+        return <div className={'rightLi'}>{node}</div>;
     }
     tableRefresh() {
         this.setState({display: false}, () => setTimeout(() => this.setState({display: true}), 4))
@@ -416,24 +416,16 @@ class App extends Component {
         }).map(item => codeProps[item] = typeof props[item] === 'function' ? '' + props[item] : JSON.stringify(props[item]));
 
         return (
-            <div className="app-wrap" style={{background: '#d7d9db', height: '100%'}}>
+            <div className="app-wrap">
                 <header style={{
                     background: '#fff',
                     height: '50px'
                 }}>
-                    <div style={{
-                        background: '#666',
-                        color: '#fff',
-                        height: '50px',
-                        lineHeight: '50px',
-                        fontSize: '18px',
-                        width: '160px',
-                        textAlign: 'center'
-                    }}>
+                    <div className='gridTitle'>
                         Grid 功能演示系统
                     </div>
                 </header>
-                <Row style={{margin: '10px auto',minHeight: 500}}>
+                <Row className='leftRow'>
                     <Col md={2} xs={2} sm={2} lg={2} style={{padding: 0}}>
                         <Panel header="功能选择" style={{height: clientHeight, marginBottom: '0px'}}>
                             <Tabs
@@ -618,8 +610,8 @@ class App extends Component {
                         </Panel>
                     </Col>
                 </Row>
-                <footer style={{textAlign: 'center', height: '50px', lineHeight: '50px', color: '#aaa', background: '#fff'}}>
-                    <p style={{margin: 0}}>Copyright ©2019      用友网络科技股份有限公司版权所有   京ICP备05007539号
+                <footer>
+                    <p>Copyright ©2019      用友网络科技股份有限公司版权所有   京ICP备05007539号
                         -21 京公网安备11010802021935号</p>
                 </footer>
             </div>
