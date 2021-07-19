@@ -725,12 +725,27 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.2"
 
+"@babel/runtime-corejs2@^7.4.5":
+  version "7.14.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.14.0.tgz#5519b92ccc819bd3d0a1ecb25ab3cb5a775485f8"
+  integrity sha512-btR4E8JiGlmmDI5YgirlG9z3T91rBdxnVh2YuEStrHDcekffaaIeK+CE0S4IaYUyYhMa7rFDfF2GEO79XNbLEA==
+  dependencies:
+    core-js "^2.6.5"
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@^7.1.2", "@babel/runtime@^7.4.0":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
   integrity sha512-28QvEGyQyNkB0/m2B4FU7IEZGK2NUrcMtT6BZEFALTguLk+AUT6ofsHtPk5QyjAdUkpMJ+/Em+quwz4HOt30AQ==
   dependencies:
     regenerator-runtime "^0.13.2"
+
+"@babel/runtime@^7.10.1", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.9.2":
+  version "7.14.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.0.tgz#46794bc20b612c5f75e62dd071e24dfd95f1cbe6"
+  integrity sha512-JELkvo/DlpNdJ7dlyw/eY7E0suy5i5GQH+Vlxaq1nsNJ+H7f4Vtv3jMeCEgRhZZQFXTjldYfQgv2qmM6M1v5wA==
+  dependencies:
+    regenerator-runtime "^0.13.4"
 
 "@babel/template@^7.1.0", "@babel/template@^7.4.4":
   version "7.4.4"
@@ -791,6 +806,14 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/hoist-non-react-statics@^3.3.0":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
+  integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
+  dependencies:
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
+
 "@types/minimatch@*":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
@@ -801,10 +824,39 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.3.tgz#27b3f40addaf2f580459fdb405222685542f907a"
   integrity sha512-3SiLAIBkDWDg6vFo0+5YJyHPWU9uwu40Qe+v+0MH8wRKYBimHvvAOyk3EzMrD/TrIlLYfXrqDqrg913PynrMJQ==
 
+"@types/prop-types@*":
+  version "15.7.3"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
+  integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+
 "@types/q@^1.5.1":
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
+
+"@types/react-redux@^7.1.16":
+  version "7.1.16"
+  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-7.1.16.tgz#0fbd04c2500c12105494c83d4a3e45c084e3cb21"
+  integrity sha512-f/FKzIrZwZk7YEO9E1yoxIuDNRiDducxkFlkw/GNMGEnK9n4K8wJzlJBghpSuOVDgEUHoDkDF7Gi9lHNQR4siw==
+  dependencies:
+    "@types/hoist-non-react-statics" "^3.3.0"
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
+    redux "^4.0.0"
+
+"@types/react@*":
+  version "17.0.5"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.5.tgz#3d887570c4489011f75a3fc8f965bf87d09a1bea"
+  integrity sha512-bj4biDB9ZJmGAYTWSKJly6bMr4BLUiBrx9ujiJEoP9XIDY9CTaPGxE5QWN/1WjpPLzYF7/jRNnV2nNxNe970sw==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/scheduler@*":
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
+  integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
 
 "@types/source-list-map@*":
   version "0.1.2"
@@ -1004,6 +1056,17 @@ abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
   integrity sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
+
+ac-complex-search-panel@^0.1.4:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/ac-complex-search-panel/-/ac-complex-search-panel-0.1.7.tgz#f21e393a7858a0540f4c354e98ffb6639d8f9e40"
+  integrity sha512-3Zu8B80qEhODtkYpWoFW+q7QlmtGdOhQq97JUWyvgSeKo4YQMzLZUevJ4s0TUYcfB+JBoESQ5vYsQC2xtUEXBA==
+  dependencies:
+    babel-runtime "^6.23.0"
+    bee-panel "1.2.13"
+    classnames "^2.2.5"
+    react-hot-keys "^1.3.0"
+    tinper-bee-core latest
 
 accepts@~1.3.7:
   version "1.3.7"
@@ -1214,6 +1277,11 @@ async-each@^1.0.1:
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.3.tgz#b727dbf87d7651602f06f4d4ac387f47d91b0cbf"
   integrity sha512-z/WhQ5FPySLdvREByI2vZiTWwCnF0moMJ1hK9YQwDTHKh6I7/uSckMetoRGb5UBZPC1z0jlw+n/XCgjeH7y1AQ==
 
+async-validator@^3.2.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/async-validator/-/async-validator-3.5.2.tgz#68e866a96824e8b2694ff7a831c1a25c44d5e500"
+  integrity sha512-8eLCg00W9pIRZSB781UUX/H6Oskmm8xloZfr09lz5bikRpBVDlJ3hRVuxxP1SxcwsEYfJ4IU8Q19Y8/893r3rQ==
+
 async-validator@~1.11.3:
   version "1.11.5"
   resolved "https://registry.yarnpkg.com/async-validator/-/async-validator-1.11.5.tgz#9d43cf49ef6bb76be5442388d19fb9a6e47597ea"
@@ -1320,30 +1388,30 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bee-affix@1.0.15:
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/bee-affix/-/bee-affix-1.0.15.tgz#f389f3d69e2517d0a24bce86405b2e62e6344fc7"
-  integrity sha512-0RAK8YtfQFb4JZAqGophIlpOXdNV0+EjnQo6m9OkxU4r69GtmjRwufaMVtsER4wb1EqAtfHbEw3Te7xISk6vcA==
+bee-affix@1.0.18:
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/bee-affix/-/bee-affix-1.0.18.tgz#745377535bf4e6eb913ead335772bf567330664b"
+  integrity sha512-PeFyafTbjlalIVJEjzfIXaRFx38Gy4rl/PdeGp7XBpBK9ivaKNcwZucK8Um/mhPmV/f4l4WLOlzqXMS0Rk04ng==
   dependencies:
     babel-runtime "^6.23.0"
     classnames "^2.2.5"
     lodash.isequal "^4.5.0"
     tinper-bee-core latest
 
-bee-alert@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/bee-alert/-/bee-alert-2.0.0.tgz#955ce714f8f0dfac147d473fd49656498a4a993e"
-  integrity sha512-CmVN+RnatVzIn0GWhY9n/84B7sOIyRhzcisSf/YgQlKbsbJb84imUM38VIpc2GjfY074BUhnVuK4QF474PYzng==
+bee-alert@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/bee-alert/-/bee-alert-2.0.1.tgz#9e0abeefe7d160c8e9e01b2562fcde7791af55aa"
+  integrity sha512-ohOaG3S1E/tbu832p7Kqu0W53NawuFGZES43UL8JDe/ojkc4D4sXuTcQ+RelNkQwmf1558ZIYOravv+fp0Re0Q==
   dependencies:
     babel-runtime "^6.25.0"
     bee-icon "^1.0.2"
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-anchor@0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/bee-anchor/-/bee-anchor-0.0.4.tgz#5697b088b60b0cf3ef348a947651a7b13cdc8ecc"
-  integrity sha512-1zt000zSPbSKc/WnYazxFj9WXL/a+X43MX3LqddnMGiFjKc0nN7cj9yVv7/BYar1J3TpAo1PXivu6o9whJt5yA==
+bee-anchor@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/bee-anchor/-/bee-anchor-0.0.6.tgz#076ab5470ff6d6b4e69396147eea44e0d6639821"
+  integrity sha512-KJUZLd+f6SOFJ7GvAXgaLY9R8NGrCoIIvXOLfug0YogvYRybTUkCkK+1f9LzCx50pVXQoaTzx1OADMuFy1hgHg==
   dependencies:
     babel-runtime "^6.23.0"
     classnames "^2.2.5"
@@ -1358,54 +1426,63 @@ bee-animate@1.0.0, bee-animate@^1.0.0, bee-animate@latest:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-autocomplete@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/bee-autocomplete/-/bee-autocomplete-2.0.3.tgz#534d257c41ef21878ddd2cfbd5d87111dc73689f"
-  integrity sha512-ZMN1hw51/6RL3EhO8r06+bir5YbhdMExzpIrP0wg945q8WhkvRa4WgfSNW2lO8HQNjLXHtMxhyccyPtrDJbFww==
+bee-autocomplete@2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/bee-autocomplete/-/bee-autocomplete-2.0.5.tgz#6a8360029e6879e434efff4a2063067697a82591"
+  integrity sha512-sSYVoKQfJf0S8rJppZKQmZyY+JOeMxOSjcYojLFUTBVF422kOMT/zlUdo7mjsrEOZpqhsUorXfASH5p9uHNsAA==
   dependencies:
     babel-runtime "^6.23.0"
     bee-form-control latest
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-backtop@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/bee-backtop/-/bee-backtop-1.0.1.tgz#093a74494f87771aca9b1da091d6c3e40531e70b"
-  integrity sha1-CTp0SU+HdxrKmx2gkdbD5AUx5ws=
+bee-backtop@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/bee-backtop/-/bee-backtop-1.0.2.tgz#89be8b12efe5aa8228fd5f3b0c2880acd31df8ba"
+  integrity sha512-WCe1LVcABrOozcmC9A1WbLcXH+5dGVSiAVG+YiXfwiGEE8cccil4cFrxfqxW4gT8qbO1CbbPyF7zmh6PUvi7IA==
   dependencies:
     babel-runtime "^6.23.0"
     bee-icon "^1.0.3"
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-badge@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/bee-badge/-/bee-badge-2.0.0.tgz#45d26d12189a33c603d67c9fbfcf8e5fc5780ccd"
-  integrity sha512-jSmLEcGGYwFiGx6XZwf8CMYOZii+vpLcGyck9ruOs0Z++mJvJHv65dCEWt0cXAxV4Fxo3B1GTTLy0zuQDdesgg==
+bee-badge@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/bee-badge/-/bee-badge-2.0.1.tgz#c382cd94446a7c471f08994cbd834a5f88e9103a"
+  integrity sha512-GQT61oFN2dOspVNG6ZpGFgg8GlNV1vocs8VUvTcIPPfAhXHaB/yyW/0MdU61bgH/dCwZ0UDjOFJEjxh9c6XpZg==
   dependencies:
     babel-runtime "^6.23.0"
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-breadcrumb@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/bee-breadcrumb/-/bee-breadcrumb-2.0.1.tgz#1948dba9696bed10de52a2a3b0881c25ef180597"
-  integrity sha512-gGdun58ahmI07mQBhnatJcg9ZNoOdHvK/DRsBBG65n07amcEcqELxF05IfeTuX+QF56qJiPWYm5++SUsX/ZDyw==
+bee-breadcrumb@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/bee-breadcrumb/-/bee-breadcrumb-2.0.2.tgz#f36aad9e6d5fa8384d8a396ed1fd39d983fb4f19"
+  integrity sha512-Ox24CRbv7jNK0QRXGDHudY03ogjueviK8mwBrC5VQKhYKnaZxPafhTdrSHCWK18NVQmlSh/3CciwVQk7V4ssHA==
   dependencies:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-button-group@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/bee-button-group/-/bee-button-group-2.0.1.tgz#9a5a3843237657ca91ce220f8b2fdcbd12c5cb65"
-  integrity sha512-wtuMWyLxs3TQbDwyQQhMbcS3cvx5cVvu/HWepJv74grfgQ7eZjF4DjEuxx9Rl2yCSbg5lXC7rC7ZBfbayvuu3A==
+bee-button-group@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/bee-button-group/-/bee-button-group-2.0.2.tgz#caa06a2cde1bdc8906cf3dc6932cc4613536d0f3"
+  integrity sha512-pnPFTj4uWIloSr1vbxJmzpuI7grFIZYpoAa9fkbChcCmzzkeGD2U7gTgVQisrlprJdeINbLEZ0yFQAw58AUgzw==
   dependencies:
     babel-runtime "^6.23.0"
     bee-button latest
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-button@2.0.11, bee-button@^2.0.10, bee-button@latest:
+bee-button@2.0.20:
+  version "2.0.20"
+  resolved "https://registry.yarnpkg.com/bee-button/-/bee-button-2.0.20.tgz#4aa2f1c8fe36fdfe154a77256d8294a086160eb9"
+  integrity sha512-MhQDsCJbxT8aUzY5rC8R/Oz+hCMfynN7Z4Rt3eMi9VzHsTIsa/yahMXSVeyeZldC4SWVZAJDG2LO8LMimwhOag==
+  dependencies:
+    babel-runtime "^6.23.0"
+    classnames "^2.2.5"
+    tinper-bee-core latest
+
+bee-button@^2.0.10, bee-button@latest:
   version "2.0.11"
   resolved "https://registry.yarnpkg.com/bee-button/-/bee-button-2.0.11.tgz#c3e46d223b438e0eb0863aa2883ea7df25d14a9d"
   integrity sha512-j9ceanC55rN/YhA6qzXwAJ7phuHitaZ5jLaC9qKmWtj8iiigx4w1wxEYnu6UehIyuAa0EyuA6FazGCgGAUBoJQ==
@@ -1414,34 +1491,36 @@ bee-button@2.0.11, bee-button@^2.0.10, bee-button@latest:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-calendar@2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/bee-calendar/-/bee-calendar-2.0.4.tgz#2b6dd31e9c8eee3fa8e57040b273958110ed431e"
-  integrity sha512-ZTo8vt80QUsqqdOjM2qF2BS1PsAT6072tLhW+i3d2JBj6Coy4v6kVNXLE/qNrAeL1tWJu83BIN22jnz2BGsILQ==
+bee-calendar@2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/bee-calendar/-/bee-calendar-2.1.3.tgz#280bfc550906f031434f99695a9b9f48b62437d3"
+  integrity sha512-LprfamNVmN4yRGiNtKL94SMb/g6p118+01jk7VTM+wYmIq2K6UBduf02wlkYTL46gR0FRMNqbqZZtKxZOjWfNw==
   dependencies:
     babel-runtime "^6.23.0"
     classnames "^2.2.5"
     moment "^2.18.1"
-    rc-calendar "^8.4.4"
+    rc-calendar "^9.15.5"
     rc-select "^6.8.6"
     tinper-bee-core latest
 
-bee-carousel@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/bee-carousel/-/bee-carousel-1.0.0.tgz#4c3d99cb761f1b80fa002c7a514da286a356ada7"
-  integrity sha1-TD2Zy3YfG4D6ACx6UU2ihqNWrac=
+bee-carousel@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/bee-carousel/-/bee-carousel-1.0.2.tgz#9d789bbf2f2439d0b186a52d160a33f2415bc202"
+  integrity sha512-2LMBESaWZCQ6w2UWZKYJgDMQEQgNTT17z6tYJR52/dCseRtDzOzrVTZzl839jYefdHdWvgjorkudvna+md4J/Q==
   dependencies:
     babel-runtime "^6.23.0"
     classnames "^2.2.5"
+    omit.js "^1.0.2"
     swiper "^4.0.6"
     tinper-bee-core latest
 
-bee-cascader@2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/bee-cascader/-/bee-cascader-2.1.4.tgz#0430a9ad8d0952ec99fde38429515bc67b83126a"
-  integrity sha512-pTZlU2OurEPZcCezrcjVI2AShQs//zShFl/dEmL4ab/WYtluujFrbxTG/KaOZrD49XWEXRhCtyBzvkXVTpj6Hg==
+bee-cascader@2.1.8:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/bee-cascader/-/bee-cascader-2.1.8.tgz#600fab7807c424051422ef2e1fe7b188e08f4a21"
+  integrity sha512-UtKGEMGYJYe9sbJegEfbSvAjM6QpHRKRhu420w0M2qao9GePjscqXVWzZeVH7dWYhl3i9xP4B6gSKCrjlAvjFQ==
   dependencies:
     array-tree-filter "^2.1.0"
+    bee-form "^2.0.11"
     bee-form-control latest
     bee-icon latest
     bee-input-group latest
@@ -1451,7 +1530,16 @@ bee-cascader@2.1.4:
     tinper-bee-core latest
     warning "^4.0.3"
 
-bee-checkbox@2.0.6, bee-checkbox@^2.0.3, bee-checkbox@^2.0.5, bee-checkbox@latest:
+bee-checkbox@2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/bee-checkbox/-/bee-checkbox-2.0.11.tgz#82eae224a9c80fd8f8ef86e21cb24797c1e38bcb"
+  integrity sha512-6b1fpzL251lCFw1XCvXTTXIw99xw6Oj/AAJxecd/XawPSB1267zOsMgSzjLsIA+Yn+stERncYb2U2nXY/WWVwQ==
+  dependencies:
+    classnames "^2.2.5"
+    lodash.isequal "^4.5.0"
+    tinper-bee-core latest
+
+bee-checkbox@^2.0.3, bee-checkbox@^2.0.5, bee-checkbox@latest:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/bee-checkbox/-/bee-checkbox-2.0.6.tgz#1fec96afe654beddb8e3077efa6b29a353d49d1e"
   integrity sha512-Vyz1cZGoX2QowWsZ7A7Oz2TUReweLxZaa5Ot0VPiqquCBJ2gdSqo0NjZMgjBmrab9b2vwDMOq7poDkgORoaqrA==
@@ -1460,10 +1548,10 @@ bee-checkbox@2.0.6, bee-checkbox@^2.0.3, bee-checkbox@^2.0.5, bee-checkbox@lates
     lodash.isequal "^4.5.0"
     tinper-bee-core latest
 
-bee-clipboard@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/bee-clipboard/-/bee-clipboard-2.0.2.tgz#09538eb2cdb484d911595dc755c1197c5e4f53a7"
-  integrity sha512-bPEAvTwReIIJeIIjRW6Ds9N9LB/EU/6lSrFXg3Zb57rZMgg97c2y4EzX/FMxMP2GshFlGvlix6wBFwp0BhVx/w==
+bee-clipboard@2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/bee-clipboard/-/bee-clipboard-2.0.5.tgz#f9d8b085e44d4bf4c078066183fc27019fb2cf27"
+  integrity sha512-UBx+Tdb9Mq02kxpOV/FCjVXaZXT/hdD6NdoOzPRIUeG3fR5IyaDMHCeBWz88thQ8vh7duiUKDm7vgzWq3WVtPA==
   dependencies:
     babel-runtime latest
     bee-button latest
@@ -1476,19 +1564,19 @@ bee-clipboard@2.0.2:
     clipboard "^1.6.1"
     tinper-bee-core latest
 
-bee-collapse@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/bee-collapse/-/bee-collapse-1.0.2.tgz#0f716a16c33519b81a023805de38ddc24b8c34dc"
-  integrity sha512-f10QMfPNacMWwE3K/+7kZlM/OORfuOMDTGYfwVAspM2P/wHmhIZcfrPCFHKosdnzUi+UakFD0vzm91uN6arJLA==
+bee-collapse@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/bee-collapse/-/bee-collapse-1.0.3.tgz#80d921042561e38b668a7cfa63ff1cd66d073a1b"
+  integrity sha512-3L2tpzZSYDmGV8EKUXJduqqOVkQ2BgWojvQhhIJpAxgmYgXf2jeo8SKKjKx+fuqL+xNZ5yH6VG1+KwhIF5btcw==
   dependencies:
     bee-transition "^1.0.0"
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-colorpicker@0.0.11:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/bee-colorpicker/-/bee-colorpicker-0.0.11.tgz#46f3529d0080600a64e1203f2127bf8c792346f7"
-  integrity sha512-fM9lpogCHSo982ZQA8p92T14EVZcdaPUzLs9xRp3yA/VJYLKgdPh3qYpLqxWApMRMWvXqFYubX2EXgPn359ROg==
+bee-colorpicker@0.0.15:
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/bee-colorpicker/-/bee-colorpicker-0.0.15.tgz#dc351cae263538e8807f84f67480afe062189694"
+  integrity sha512-qJEM4lxWT3nArs7k1Ud7m+EfD1+mVv0yVxYH5sPUptEdjnZtIs9vqkYAM0Tkt9FAt74EWloU+zj5nxUdBRbpEg==
   dependencies:
     babel-runtime "^6.23.0"
     bee-form latest
@@ -1501,11 +1589,12 @@ bee-colorpicker@0.0.11:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-complex-grid@2.0.24:
-  version "2.0.24"
-  resolved "https://registry.yarnpkg.com/bee-complex-grid/-/bee-complex-grid-2.0.24.tgz#eb58f50c16d829e09620cf7310b273f7c44eb435"
-  integrity sha512-ZTSLV6mbFiLegg25brWBuDY3zSqIhm8n4aJuKYwFRO7hgVs1c3tg2tWiITESlgsodpSS5OtsU62BM8wDkhCyZQ==
+bee-complex-grid@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/bee-complex-grid/-/bee-complex-grid-2.2.1.tgz#bdddd1283658e02b42ffb7a1932c461b3d642c6c"
+  integrity sha512-rS4KDP8rlhEwflKpVrwa7t7FekXXPuDHAPxYDVWywawAxOesAYjKls6XQzxp+3Y1jJ6yDEwm5NqVUUGgi0RfoA==
   dependencies:
+    async-validator "^3.2.2"
     bee-checkbox "^2.0.3"
     bee-dropdown "^2.0.2"
     bee-form-control "^2.0.1"
@@ -1514,13 +1603,16 @@ bee-complex-grid@2.0.24:
     bee-menus "^2.0.2"
     bee-modal "^2.0.2"
     bee-pagination "^2.0.4"
+    bee-popconfirm "^2.0.0"
     bee-popover "^2.0.0"
     bee-radio "^2.0.14"
-    bee-table "^2.1.15-beta.1"
-    bee-tabs "^2.0.6"
+    bee-table "^2.2.59"
+    bee-tooltip "^2.1.4"
     blob.js "^1.0.1"
     classnames "^2.2.6"
     file-saver "^1.3.3"
+    lodash.clonedeep "^4.5.0"
+    lodash.isequal "^4.5.0"
     script-loader "0.7.2"
     tinper-bee-core latest
     xlsx "^0.11.17"
@@ -1550,23 +1642,25 @@ bee-complex-grid@^2.0.25:
     tinper-bee-core latest
     xlsx "^0.11.17"
 
-bee-datepicker@2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/bee-datepicker/-/bee-datepicker-2.2.5.tgz#5e2b377d4d98cdaf4e752ea9619f0059ffa65a15"
-  integrity sha512-GX3txfHd5rAbcA/VsYAv9Wq5+yho1TxSQ0B4+Xo0KN+ic1KIXEatsP3bGBHp/0psdD8409qc0LM9i74xeZg6Eg==
+bee-datepicker@2.3.28:
+  version "2.3.28"
+  resolved "https://registry.yarnpkg.com/bee-datepicker/-/bee-datepicker-2.3.28.tgz#05f70af767832a9144ae3f30baf559914ee80030"
+  integrity sha512-xZjkYKqr04+YuPXpSrcO2tw8jbZFexQurKw4jpx2KSEoXSkVmTEkD4hjMNMKOffwQHsGOHzoVYWjTc/80yl8nA==
   dependencies:
     bee-button latest
     bee-form-control latest
     bee-input-group latest
     classnames "^2.2.5"
     moment "^2.17.1"
+    omit.js "^1.0.2"
+    rc-calendar "^9.15.10"
     rc-time-picker "^3.1.0"
     rc-trigger "^2.2.0"
     rc-util "^4.1.1"
     react-lifecycles-compat "^3.0.4"
     tinper-bee-core latest
 
-bee-datepicker@^2.0.28, bee-datepicker@^2.0.6:
+bee-datepicker@^2.0.28:
   version "2.2.7"
   resolved "https://registry.yarnpkg.com/bee-datepicker/-/bee-datepicker-2.2.7.tgz#d55332520fdf360327ff35200ee187c15317a89e"
   integrity sha512-8Tfh9FRaMUKIcSNBe6jWu9zqcArxusbO+tsDhN8EnuhPClZLFTnmP1jREDr6TcgjAwCfXllGrQ9a90GmHMoxiA==
@@ -1582,20 +1676,20 @@ bee-datepicker@^2.0.28, bee-datepicker@^2.0.6:
     react-lifecycles-compat "^3.0.4"
     tinper-bee-core latest
 
-bee-dnd@1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/bee-dnd/-/bee-dnd-1.1.3.tgz#87ae06a509ab4cb4ca387c61e3f495aa7fdde8f2"
-  integrity sha512-i6KU3CtAXRPiLHNorz8K4Ds0hO3u79PzjPN5G/Yhvxjkz7L6tHPROK+2ARKIh128qgSUN2g1Z+myOEXkOJwG5A==
+bee-dnd@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/bee-dnd/-/bee-dnd-3.0.0.tgz#337eebe250a3a03915a317c535e17b779d25efb7"
+  integrity sha512-KP9DvKL/zGVUuybUggV8ejShQ0sSYrNlaAAybVSBdALSBmvqDdRy2xagqyf6fRm8wmXaxMAL8JUIYMcooCsxMw==
   dependencies:
     babel-runtime "^6.26.0"
     classnames "^2.2.5"
     lodash.isequal "^4.5.0"
-    react-beautiful-dnd "^9.0.2"
+    react-beautiful-dnd "11.0.5"
     react-draggable "^3.0.2"
     react-grid-layout "^0.16.6"
     tinper-bee-core latest
 
-bee-dnd@^1.1.2, bee-dnd@^1.1.3:
+bee-dnd@^1.1.3:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/bee-dnd/-/bee-dnd-1.1.5.tgz#abddc985c736e38fd56d7dd242e9fce425d97104"
   integrity sha512-av+ihyLyO+FfBaOBNPAMB3AXUT0ftRbaYC12MCCIicaU8NgQbWsFDLT5U8Qg7Tl4TBJJSIOehNWclcUUhaQBBA==
@@ -1608,10 +1702,10 @@ bee-dnd@^1.1.2, bee-dnd@^1.1.3:
     react-grid-layout "^0.16.6"
     tinper-bee-core latest
 
-bee-drawer@0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/bee-drawer/-/bee-drawer-0.0.6.tgz#4b5ae27e528e29fd1e220e4a6d5436e2a4685b42"
-  integrity sha512-dL9eFKfejTbmhnIVKBoqGsjtmsHnJSvnUV7pGLFlTS5/MQXGI8wau+3q+P2ihOLuYPmdk8Tep6WpzZWOOatF4Q==
+bee-drawer@0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/bee-drawer/-/bee-drawer-0.0.7.tgz#d182a5d5230d5578bbf54b54a1d8c2a5bfecd291"
+  integrity sha512-oFisjczRaJONnmGAkA8VFQAKJXZFnVzwU/Llls0ZNJhpR9RQ4SWtWqgZUTd/ECoIzEANBmpmCKW2W9Jiia5/kQ==
   dependencies:
     babel-runtime "^6.23.0"
     bee-icon "^1.0.11"
@@ -1619,10 +1713,10 @@ bee-drawer@0.0.6:
     react-transition-group "^2.6.1"
     tinper-bee-core latest
 
-bee-dropdown@2.0.10:
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/bee-dropdown/-/bee-dropdown-2.0.10.tgz#27423dbb0f339b09163a1b4d54b8ff05e0b59e64"
-  integrity sha512-+eWkXAj/ufrHwo3LihxKxhDW+SqLCWZ9eohSnXvA8GHywAb4M5InpKKcy4iY1vacWGRILQvg0Ro1jzIpCQOgEw==
+bee-dropdown@2.0.12:
+  version "2.0.12"
+  resolved "https://registry.yarnpkg.com/bee-dropdown/-/bee-dropdown-2.0.12.tgz#36e372d6fef79539ced4a29a66afd7acc3947cbe"
+  integrity sha512-uFMSwxcii67vEZWPInLBNEOjkKeJm7FG8I0AwHDAmqvPmJsg/ZgG6yBJtYwDewOC5WSgEYOgc4qWwqyQCrbftw==
   dependencies:
     bee-overlay "^1.0.31"
     classnames "^2.2.5"
@@ -1637,6 +1731,19 @@ bee-dropdown@^2.0.2, bee-dropdown@^2.0.4:
     classnames "^2.2.5"
     tinper-bee-core latest
 
+bee-form-control@2.0.24:
+  version "2.0.24"
+  resolved "https://registry.yarnpkg.com/bee-form-control/-/bee-form-control-2.0.24.tgz#7be51c650befbc3b445234badeb0e06174fd3660"
+  integrity sha512-XelrsfEpWbHYDSAIysPyr2LisuW+l3Qj+8ZGHEIaP6rp7dTSR9EdYNTIMnuYv7vc2m03u7H/IFgs/GRGjdxVxg==
+  dependencies:
+    bee-icon "^1.0.3"
+    classnames "^2.2.5"
+    express "^4.16.3"
+    omit.js "^2.0.2"
+    rc-textarea "^0.3.0"
+    tinper-bee-core latest
+    warning "^3.0.0"
+
 bee-form-control@2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/bee-form-control/-/bee-form-control-2.0.6.tgz#12895b9b57ef4d10f68817913e3ed5d980a957b1"
@@ -1648,7 +1755,7 @@ bee-form-control@2.0.6:
     tinper-bee-core latest
     warning "^3.0.0"
 
-bee-form-control@2.0.7, bee-form-control@^2.0.1, bee-form-control@^2.0.2, bee-form-control@latest:
+bee-form-control@^2.0.1, bee-form-control@^2.0.2, bee-form-control@latest:
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/bee-form-control/-/bee-form-control-2.0.7.tgz#0bc495448eb42cb2a2ed1bb77edd4ba7b43600f7"
   integrity sha512-bdmkv+6tlRsoRmY+PmM+KldsVVs8ZWwj4c+z42QvSA4UojGAGJPI1rid4ruZQX4lzjcBOJhDXltBgfcNzermiA==
@@ -1659,16 +1766,27 @@ bee-form-control@2.0.7, bee-form-control@^2.0.1, bee-form-control@^2.0.2, bee-fo
     tinper-bee-core latest
     warning "^3.0.0"
 
-bee-form-group@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/bee-form-group/-/bee-form-group-2.0.0.tgz#1ebe4b8ca920adf6414f33a96a0fe28f77476d18"
-  integrity sha512-r88DH5o+dW9+BCYdhuCX+7+xLDfYgrZiuFQdpOrJEXPalFGuvZ8u7FMSc6CDyWK9iFgi/fgNGNEtqymFU7K/hA==
+bee-form-group@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/bee-form-group/-/bee-form-group-2.0.1.tgz#21af4634e4f1034a8783417e968e420180552e84"
+  integrity sha512-9BL2vHFund+04zKQyT0T87JV3QARISq5qkvr3hZD7FteC0SnidC2SFLyYaDYeMo1PaoceGg2rXS9RD1mMByYYg==
   dependencies:
     classnames "^2.2.5"
     tinper-bee-core latest
     warning "^3.0.0"
 
-bee-form@2.0.11, bee-form@^2.0.11, bee-form@latest:
+bee-form@2.0.13:
+  version "2.0.13"
+  resolved "https://registry.yarnpkg.com/bee-form/-/bee-form-2.0.13.tgz#442a55757fd29654d26f2cfbdda3e4149ce587cc"
+  integrity sha512-LxRAeE6Zddv5u9muQSEzXv5vX+RP95fXerCSmjNOVGGu8maw5WkZm4jwM23H2Ma38y/4ElxaYYJ1E3uGuXAfnQ==
+  dependencies:
+    babel-runtime "^6.23.0"
+    bee-layout latest
+    classnames "^2.2.5"
+    rc-form "^2.1.7"
+    tinper-bee-core latest
+
+bee-form@^2.0.11, bee-form@latest:
   version "2.0.11"
   resolved "https://registry.yarnpkg.com/bee-form/-/bee-form-2.0.11.tgz#e5afecf0e31cfd3801ac191418299dd58fcc47bb"
   integrity sha512-ee6wovzH4kzNpLwAInehJj/tZCWL9sMIRW1GtjSGSa19QZqs0BZlmA/xSIy0IhR/nzPk4SbITfzGpWcgSKzHYQ==
@@ -1679,7 +1797,16 @@ bee-form@2.0.11, bee-form@^2.0.11, bee-form@latest:
     rc-form "^2.1.7"
     tinper-bee-core latest
 
-bee-icon@1.0.11, bee-icon@^1.0.0, bee-icon@^1.0.10, bee-icon@^1.0.11, bee-icon@^1.0.2, bee-icon@^1.0.3, bee-icon@latest:
+bee-icon@1.0.15, bee-icon@^1.0.4:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/bee-icon/-/bee-icon-1.0.15.tgz#73b050b377ea48e2c78caae6050442120ce3c079"
+  integrity sha512-b8hOGdHWH48287zUlgMOYmSJXCG/Y4qY4jx5YmQ1aVRH9Eaznkqc4v4cTgfs4jc4+pYj5Epd2hBIPOZLBLJ2tw==
+  dependencies:
+    babel-runtime "^6.23.0"
+    classnames "^2.2.5"
+    tinper-bee-core latest
+
+bee-icon@^1.0.0, bee-icon@^1.0.10, bee-icon@^1.0.11, bee-icon@^1.0.2, bee-icon@^1.0.3, bee-icon@latest:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/bee-icon/-/bee-icon-1.0.11.tgz#36becc1f5fd3d92ed4a23e7f448ff9d1804d3b77"
   integrity sha512-iHIkWad5dzwMqSXX+c+B5Np5oxzX2Y2xhsFYsRcpkon+DK7EjiyiFyo44N9ShpRujs/EWbRkCQExvtLUbA2ezw==
@@ -1696,7 +1823,16 @@ bee-input-group-addon@2.0.1, bee-input-group-addon@latest:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-input-group@2.0.3, bee-input-group@^2.0.2, bee-input-group@latest:
+bee-input-group@2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/bee-input-group/-/bee-input-group-2.0.4.tgz#ba25a959093302d310d3ca32abb76eb2fce0734b"
+  integrity sha512-lzOwIAej+WqILt4xCezPIOa9ivuQukJWU9ihDawu7px4A21xmm2SySp7nQNiCpoLp6oL/gcg1yMyDAZkIGJsXQ==
+  dependencies:
+    bee-input-group-addon latest
+    classnames "^2.2.5"
+    tinper-bee-core latest
+
+bee-input-group@^2.0.2, bee-input-group@latest:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/bee-input-group/-/bee-input-group-2.0.3.tgz#62e75f73bd4bb600c42c324f8a7228e3aaa16ac7"
   integrity sha512-XGZnUhagLipyCyPtiKKpVZSUZvMjbR9Vz2XmXN+thdid0BTM4zkggVeEbgFEle3FYr41p/lt9vFEOplUU0tUsQ==
@@ -1705,7 +1841,20 @@ bee-input-group@2.0.3, bee-input-group@^2.0.2, bee-input-group@latest:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-input-number@2.1.4, bee-input-number@^2.0.7:
+bee-input-number@2.2.40:
+  version "2.2.40"
+  resolved "https://registry.yarnpkg.com/bee-input-number/-/bee-input-number-2.2.40.tgz#c682068ffa1ff1e5d9ba29b53ba568b1e4d7e560"
+  integrity sha512-zi08fB5fveMxpwmF8U//McBzT+Nmo/xqceFSii4BYDkXADryDtbufWW6r/aubhuuW0r+G9d9niPX2mecde/ioQ==
+  dependencies:
+    babel-runtime "^6.22.0"
+    bee-form-control "2.0.6"
+    bee-input-group latest
+    bee-locale latest
+    bee-message "^2.1.6"
+    classnames "^2.2.5"
+    tinper-bee-core latest
+
+bee-input-number@^2.0.7:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/bee-input-number/-/bee-input-number-2.1.4.tgz#150f2342cf406ac7e9fb8cc1cdb38932567daf51"
   integrity sha512-4/Mq1+wYgHGseMPt5ABLbFGZN+OLMuerosWDsUrzBEFCvFki+uyaV4K7KNxsDtjSUwxFCBfgwViTSXF79gYoSw==
@@ -1717,7 +1866,15 @@ bee-input-number@2.1.4, bee-input-number@^2.0.7:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-label@1.0.0, bee-label@^1.0.0, bee-label@latest:
+bee-label@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/bee-label/-/bee-label-1.0.1.tgz#3e64fad097b3874303921972109787fbed27513f"
+  integrity sha512-hmEZA0GHn2Iry05qe147RAdwd+oB+ME/opIxTZqtsM9TSeBlIYlz4I8Q7NIisOGubMqWSpC3tpPflEDFN20huQ==
+  dependencies:
+    classnames "^2.2.5"
+    tinper-bee-core latest
+
+bee-label@^1.0.0, bee-label@latest:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/bee-label/-/bee-label-1.0.0.tgz#0b8beb364ecc0fcc80f764e36c433c3b6a7c9051"
   integrity sha1-C4vrNk7MD8yA92TjbEM8O2p8kFE=
@@ -1725,7 +1882,15 @@ bee-label@1.0.0, bee-label@^1.0.0, bee-label@latest:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-layout@1.2.7, bee-layout@^1.2.7, bee-layout@latest:
+bee-layout@1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/bee-layout/-/bee-layout-1.2.8.tgz#536ba2005019e37e15f187eec191005b1e7df29e"
+  integrity sha512-4iOXLxh1cixWQzEuBHQV+uegGBtAfBuTHHseJNY4D0wZc2XCcsLNMUYRQXbgmmvqDgE5p2HBdcicxFJP6rBzLA==
+  dependencies:
+    classnames "^2.2.5"
+    tinper-bee-core latest
+
+bee-layout@^1.2.7, bee-layout@latest:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/bee-layout/-/bee-layout-1.2.7.tgz#f239f0fc9d2e2e7b4d10e5b0c0a5bb8edbf0329f"
   integrity sha1-8jnw/J0uLntNEOWwwKW7jtvwMp8=
@@ -1733,10 +1898,10 @@ bee-layout@1.2.7, bee-layout@^1.2.7, bee-layout@latest:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-loading-state@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/bee-loading-state/-/bee-loading-state-2.0.2.tgz#8612c5aad6372a637107388156aee22f59e27c72"
-  integrity sha512-rU6GDDxkbq0TsRh0wqYS3TMDMg/bNSWnyAgMZ0dB1jGs02YCYl3rEm9bdOs6S0ya77OycBh+YYCRf7M1XuBTKQ==
+bee-loading-state@2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/bee-loading-state/-/bee-loading-state-2.0.5.tgz#83bd115ad07bfff01da59174e19e0053d88bea97"
+  integrity sha512-ffO7OJi8rdEy9AqxgNNYPUyENrzbg6KTU5VRljlXAavzMZW95X6+O1wm1a8H7FYvAjnOzyxYPvF/sa+qTNycuw==
   dependencies:
     babel-runtime "^6.23.0"
     bee-button latest
@@ -1754,6 +1919,17 @@ bee-loading@1.1.2, bee-loading@^1.0.9, bee-loading@^1.1.2, bee-loading@latest:
     classnames "^2.2.5"
     tinper-bee-core latest
 
+bee-loading@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/bee-loading/-/bee-loading-3.0.1.tgz#684cbdd831364f3f1d8f356af5fd2bf844f1e521"
+  integrity sha512-1kRPpQj/uGXr4VHp+IWrksPEnLeXjJinTpeldCppghuq42SYqb2J4WJ/d/jDlo0HR/twpMG5J16fcDTSPujauQ==
+  dependencies:
+    bee-icon "^1.0.10"
+    bee-locale "^1.0.6"
+    bee-overlay "^1.0.2"
+    classnames "^2.2.5"
+    tinper-bee-core latest
+
 bee-locale@0.0.14, bee-locale@latest:
   version "0.0.14"
   resolved "https://registry.yarnpkg.com/bee-locale/-/bee-locale-0.0.14.tgz#4f3a0dc54cd77a030b78ba7bdb040206def13438"
@@ -1767,6 +1943,15 @@ bee-locale@0.0.9:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/bee-locale/-/bee-locale-0.0.9.tgz#3c1c369ada4945810f198fc22757354883558f72"
   integrity sha512-91CqVyk+Pli5mztwhzgLy2LzFiDLkXdCwL4FlYi9c7qonMeJyeWWQ7GgDIR/SNDfWIRawZoNz5LJ038WAmuHzg==
+  dependencies:
+    babel-runtime "^6.23.0"
+    classnames "^2.2.5"
+    tinper-bee-core latest
+
+bee-locale@1.0.6, bee-locale@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/bee-locale/-/bee-locale-1.0.6.tgz#ae14977e0a28603a99f06ab5f54f6e979bb78979"
+  integrity sha512-iroojqTiSos5IdmxSnWo+b6SKB4l1Geb2tMzP5GKzr9y26K8rguoh8dVYsPqUJ/9h1y/V8sTC1WNXgoyhcKLxw==
   dependencies:
     babel-runtime "^6.23.0"
     classnames "^2.2.5"
@@ -1790,10 +1975,10 @@ bee-locale@^0.0.2:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-menus@2.0.9:
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/bee-menus/-/bee-menus-2.0.9.tgz#85d8f0de5bb53a2ce5b4a40f5732fe04e0d1ed62"
-  integrity sha512-E5PH1DhWDBzkYfrcxrCbT81KNMC3tgNFjR9yQIF3rCYKR0iNoniDwFU8TmO64k6C2In56xQb0MWGDNSAzdx27Q==
+bee-menus@2.0.14:
+  version "2.0.14"
+  resolved "https://registry.yarnpkg.com/bee-menus/-/bee-menus-2.0.14.tgz#80f18c6eb1f6b0f66db8a13a7e4321b382c310a6"
+  integrity sha512-zGV5IAnbzVZJLuDlJTgIS3cNB/3m0x0XxwB4liGKF40AgvEM7SjYeM2fUPI1reKPont9ZE30faU6YRNJewPFtQ==
   dependencies:
     babel-runtime "6.x"
     bee-animate "^1.0.0"
@@ -1824,7 +2009,28 @@ bee-menus@^2.0.2, bee-menus@^2.0.6:
     resize-observer-polyfill "^1.5.1"
     tinper-bee-core latest
 
-bee-message@2.1.4, bee-message@latest:
+bee-message@2.1.7, bee-message@^2.1.6:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/bee-message/-/bee-message-2.1.7.tgz#18d6c70ad5fe857ae49ba637b6686cb0745da102"
+  integrity sha512-62Wk/W8x+6J0pEmQITice/YXqovYHDwqsSj2/fmWdiL7QhjY9Gryf5b2bMxRaxQV2hK7VyC8+k5Lz5ULtUrWvA==
+  dependencies:
+    bee-icon latest
+    bee-notification latest
+    classnames "^2.2.5"
+    tinper-bee-core latest
+    warning "^4.0.3"
+
+bee-message@^1.0.4:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/bee-message/-/bee-message-1.0.13.tgz#80f3ed99b0cac99d0c6f70ef8390bfb5ff6bcd0a"
+  integrity sha512-mWQtFhhVlL4vYJZoS5l0CYnWWXr/vApeYyic7HAsTDBWFuLhhf5DWTbsFcewsMnKm0p/TVifqP83gkA7L1Eufg==
+  dependencies:
+    bee-icon "^1.0.4"
+    bee-notification "^1.1.6"
+    classnames "^2.2.5"
+    tinper-bee-core "^0.4.1"
+
+bee-message@latest:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/bee-message/-/bee-message-2.1.4.tgz#b3bdee0e15d6dea59c058b762b69066dcd24a53c"
   integrity sha512-WHnP25YF355i19AfVvW1RhuQMRUhtsHSMOJpHRXWj3ATlK22ygaWwe8fsvwiQNb6MhP4+2E5L9jNWG28iYnv5w==
@@ -1835,18 +2041,15 @@ bee-message@2.1.4, bee-message@latest:
     tinper-bee-core latest
     warning "^4.0.3"
 
-bee-modal@2.0.21:
-  version "2.0.21"
-  resolved "https://registry.yarnpkg.com/bee-modal/-/bee-modal-2.0.21.tgz#1a1879292d75a498dad0656d3ca38ef5b9dd30d8"
-  integrity sha512-X+vuC8gcwCa80CqWepdViboSlEs2bvB2sZ7YkNP6EDtgia5+NT+v6lhRI1q0wJFuoP55FlRdnCtdhjHDCyxPhQ==
+bee-modal@2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/bee-modal/-/bee-modal-2.2.3.tgz#b6615f7f5dddc036621c29c9a7ca74d6c394c47d"
+  integrity sha512-nGh0UiLKue3GM62IXN0iZmTYWzlxmNVwajN8EwJ6+N4vkqBWIDDOE8Zmq3PnAI0qaXzVcPHSgqRP+oLN1zT4zw==
   dependencies:
-    bee-datepicker "^2.0.6"
-    bee-dnd "^1.1.2"
+    bee-button latest
+    bee-dnd "^1.1.3"
     bee-icon "^1.0.11"
-    bee-loading "^1.0.9"
     bee-overlay-modal "^0.0.1"
-    bee-popconfirm "^2.0.0"
-    bee-select "^2.0.4"
     bee-transition "^0.2.2"
     classnames "^2.2.5"
     dom-helpers "3.0.0"
@@ -1867,17 +2070,56 @@ bee-modal@^2.0.13, bee-modal@^2.0.2, bee-modal@^2.0.3, bee-modal@^2.0.4, bee-mod
     re-resizable "^4.11.0"
     tinper-bee-core latest
 
-bee-navbar@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/bee-navbar/-/bee-navbar-2.0.0.tgz#c1a4a94f9fd0d101fe80ea297c79b0318ff829aa"
-  integrity sha512-1KwL/rxO7Gt/Hz5nLbzeURYJbLToVAHIpGoywOgloiGsHlA+mpoz/Cq3K0QNIdBl3J7U3RUiIEPaivLqX05TTw==
+bee-modal@^2.1.2:
+  version "2.2.13"
+  resolved "https://registry.yarnpkg.com/bee-modal/-/bee-modal-2.2.13.tgz#25fe3476cfbd72f86473cb82461ee8a7d9383415"
+  integrity sha512-i0ra5Ai7Ci+4ZyQ9tUzwzJD+tsO8c8je52UfoK5WSlIGXFiNbL719RAsgeuRKrupxRLVBqNAwmk5ScZ7rvHQ7w==
+  dependencies:
+    ac-complex-search-panel "^0.1.4"
+    bee-button latest
+    bee-dnd "^1.1.3"
+    bee-icon "^1.0.11"
+    bee-overlay-modal "^0.0.1"
+    bee-transition "^0.2.5"
+    classnames "^2.2.5"
+    dom-helpers "3.0.0"
+    re-resizable "^4.11.0"
+    tinper-bee-core latest
+
+bee-navbar@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/bee-navbar/-/bee-navbar-2.0.1.tgz#68c03a9bbec159149798caf7c904e2018e3a2bca"
+  integrity sha512-vKQYDVbGRAbID+g8OfdpdjSS7ndpn3Uj4sSXIk5GqO0A3OIv0eIC7QnNyfFntpovpI+4qING6Fbp/ZtY44MuCQ==
   dependencies:
     bee-layout "^1.2.7"
     bee-transition "^1.0.0"
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-notification@2.0.2, bee-notification@latest:
+bee-notification@2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/bee-notification/-/bee-notification-2.0.5.tgz#c7e4c0f19d29ef3435afb4f5178d0cd8f6b9dc5e"
+  integrity sha512-fBcwiI/itmVGV6zANtF8CDuKjj5/JB/7Y69980YNJOw8YnScLGEE+j5GBmXiB0S/axMhA5udYNN8rG48LJJd8g==
+  dependencies:
+    bee-animate latest
+    bee-button latest
+    bee-icon "^1.0.11"
+    bee-overlay "^1.0.16"
+    classnames "^2.2.5"
+    tinper-bee-core latest
+
+bee-notification@^1.1.6:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/bee-notification/-/bee-notification-1.1.7.tgz#5a56216d0315b49fab50832673d5f40dead04bd0"
+  integrity sha512-Q0mzrcX35HtzoOOYkfv40ssO6ZVXjFQvi4i/W+gOEmvzgVJc/T5O3fG8to+A6fvjjqpMeNsfE2mn2zfUHp2Mbg==
+  dependencies:
+    bee-animate latest
+    bee-button latest
+    bee-overlay "^1.0.16"
+    classnames "^2.2.5"
+    tinper-bee-core "^0.4.1"
+
+bee-notification@latest:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/bee-notification/-/bee-notification-2.0.2.tgz#e35a84d93c9d3366bc1e0f85a1e84029d75b4518"
   integrity sha512-qm8vHVYwv1Yv976LFE846aUD0uwS5NepX/gkv+q2bRadF/MUr8WFBbWnSKeymnGOq4G0wfslxAmlQi0LpoyAmQ==
@@ -1900,7 +2142,18 @@ bee-overlay-modal@^0.0.1:
     tinper-bee-core latest
     warning "^3.0.0"
 
-bee-overlay@1.0.31, bee-overlay@^1.0.16, bee-overlay@^1.0.2, bee-overlay@^1.0.22, bee-overlay@^1.0.23, bee-overlay@^1.0.25, bee-overlay@^1.0.31, bee-overlay@latest:
+bee-overlay@1.0.32:
+  version "1.0.32"
+  resolved "https://registry.yarnpkg.com/bee-overlay/-/bee-overlay-1.0.32.tgz#1c14f5a368a90a7b11ea73bb5db1a098659532c4"
+  integrity sha512-mRL3gYdVo0uMm+JDuOBHRcN78Hl08voa7dPvwbtS2EkHAKDlv+Oe9nGF+VCEndA83RA3eu0MliNUrNEJVxVGgA==
+  dependencies:
+    bee-animate latest
+    classnames "^2.2.5"
+    dom-helpers "^3.0.0"
+    tinper-bee-core latest
+    warning "^3.0.0"
+
+bee-overlay@^1.0.16, bee-overlay@^1.0.2, bee-overlay@^1.0.22, bee-overlay@^1.0.23, bee-overlay@^1.0.25, bee-overlay@^1.0.31, bee-overlay@latest:
   version "1.0.31"
   resolved "https://registry.yarnpkg.com/bee-overlay/-/bee-overlay-1.0.31.tgz#1b699cf43f4ca24a4e019dd52b2e86f4ea20bf97"
   integrity sha512-LcNDMQlouszz+YXhakdIrIS2beVe3W/vC6CckQyOklDeXn/hslu944Xkctb2+Z0TgeJ5I2f5e42h2kk297xn/Q==
@@ -1911,16 +2164,28 @@ bee-overlay@1.0.31, bee-overlay@^1.0.16, bee-overlay@^1.0.2, bee-overlay@^1.0.22
     tinper-bee-core latest
     warning "^3.0.0"
 
-bee-pagination@2.0.8:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/bee-pagination/-/bee-pagination-2.0.8.tgz#392729fedea5dc7658ef9cba83e981e26b2fc3c0"
-  integrity sha512-4+0GLLt2NhMlZm4lDhzC5pnC5kNhEKrcZwwDZQPT2sppOUzhFJEhpmynsza7e/DAWyleXiMrCsZQvFcLy7iN3A==
+bee-page-layout@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/bee-page-layout/-/bee-page-layout-1.0.1.tgz#e57f47f60f8ca469f60b990c962f094ab96adc9c"
+  integrity sha512-X6NY2kscJ/LszQcRikaTwF25PB5MPH2tX+o5YeagtkP1hyJokdF4YwZmyGkfOlJ0FKAu2B42pSO19Zf1F5UWvQ==
+  dependencies:
+    babel-runtime "^6.23.0"
+    bee-layout latest
+    classnames "^2.2.6"
+    tinper-bee-core latest
+
+bee-pagination@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/bee-pagination/-/bee-pagination-3.0.2.tgz#3571ce10d42d74b294edc36488f06c59f8499a3f"
+  integrity sha512-NSWORTkIMiv8AICcdLQQD+QiF4MPqoM8LSKBDviKm2u2BM/BNlm4ZZNG7Umec4Vu9KFLZ3DI1C0zwHWaPT2Rtw==
   dependencies:
     bee-button latest
     bee-icon latest
     bee-locale "0.0.9"
     bee-select "^2.0.4"
     classnames "^2.2.5"
+    omit.js "^1.0.2"
+    react-cookies "^0.1.1"
     tinper-bee-core latest
 
 bee-pagination@^2.0.4, bee-pagination@^2.0.5, bee-pagination@^2.0.6, bee-pagination@^2.0.8:
@@ -1936,7 +2201,31 @@ bee-pagination@^2.0.4, bee-pagination@^2.0.5, bee-pagination@^2.0.6, bee-paginat
     react-cookies "^0.1.1"
     tinper-bee-core latest
 
-bee-panel@2.0.1, bee-panel@latest:
+bee-panel@1.2.13:
+  version "1.2.13"
+  resolved "https://registry.yarnpkg.com/bee-panel/-/bee-panel-1.2.13.tgz#eed85cb6e4a0ae9dd4a52f71920b1fa4ed8e2ff6"
+  integrity sha512-mrfXTfqttBQZxH3e9bu2zmtCYTkzXuafooYjx4zqgx83hvB2JdDenY883aTafLJqAhftTsVTEz4QmBhIXG918Q==
+  dependencies:
+    babel-runtime "^6.23.0"
+    bee-message "^1.0.4"
+    bee-transition latest
+    classnames latest
+    copy-to-clipboard "^3.0.8"
+    tinper-bee-core latest
+
+bee-panel@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/bee-panel/-/bee-panel-2.0.2.tgz#7370e158f186f7fe86fb9775f524fba1fd213e9d"
+  integrity sha512-ejdQNqEgBa8hYR4E7zT1Jx/Ey7F2BLWNg2S9TGRJl02eG1zhYiC2+8YYJM+U+NfM/jPJYRdf+L/Ek/h/NM3I5A==
+  dependencies:
+    babel-runtime "^6.23.0"
+    bee-message latest
+    bee-transition latest
+    classnames latest
+    copy-to-clipboard "^3.0.8"
+    tinper-bee-core latest
+
+bee-panel@latest:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/bee-panel/-/bee-panel-2.0.1.tgz#1065fd9b3e8dffe418029ddd5d574ad64499fc20"
   integrity sha512-FG61qbsa9kSQtTi1V4F9Y1hPMbkPpspnSl2G+aAaX/xo2IZ9FQeAaNUa5VSfsvprdRWMklK39YQNNmfKI381JQ==
@@ -1948,7 +2237,18 @@ bee-panel@2.0.1, bee-panel@latest:
     copy-to-clipboard "^3.0.8"
     tinper-bee-core latest
 
-bee-popconfirm@2.0.0, bee-popconfirm@^2.0.0:
+bee-popconfirm@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/bee-popconfirm/-/bee-popconfirm-2.0.2.tgz#5de664166c0ba926c05f1b6f794ef7f9d83ba2a5"
+  integrity sha512-l9xiPRTZPnrR+1H+B11GU9GHMEzhMF4oAr9yI6+m157ib0jSZeVl9P0+FtC6cDU+ETnrxITsg2KcPDNKbx32rA==
+  dependencies:
+    babel-runtime "^6.20.0"
+    bee-locale "^0.0.2"
+    bee-overlay "^1.0.22"
+    classnames "^2.2.5"
+    tinper-bee-core latest
+
+bee-popconfirm@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/bee-popconfirm/-/bee-popconfirm-2.0.0.tgz#2c34233980b5b1f2d156c32f386f8dd336a4b973"
   integrity sha512-cja076sh+ApAqHwVBZBLd8IN00+HK8mmtmgkdKFj09vjF5TjB1S+4RBfeZfkOBT37gr8xM4mo78K95yI8BcbVA==
@@ -1959,14 +2259,14 @@ bee-popconfirm@2.0.0, bee-popconfirm@^2.0.0:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-popover@3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/bee-popover/-/bee-popover-3.0.2.tgz#56d9c7b4c13a493f91486d86cc26454755bfa5d3"
-  integrity sha512-j1j0FkanpRlfUk/hYkDYeI1zyi0DPO7MyJyFqhIa4xz3AT1/h3EEDnFWUQwlH/Td8BlSFcRfJzbBTkt/ImE71w==
+bee-popover@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/bee-popover/-/bee-popover-3.1.1.tgz#fee08e10aedd82c38c3ea850bd191451e5a27848"
+  integrity sha512-tXfHG+aphCPYRvJbOEqV6QCGSBhwAYhjek6bxFpVOVqs62SRNl++++GywnNjQw/7bfUaZB91tP5OgxX6+LQ/5A==
   dependencies:
     babel-runtime "^6.26.0"
     bee-overlay latest
-    bee-tooltip "^2.1.2"
+    bee-tooltip latest
     classnames "^2.2.5"
     dom-helpers "^3.2.1"
     tinper-bee-core latest
@@ -1982,7 +2282,17 @@ bee-popover@^2.0.0:
     dom-helpers "^3.2.1"
     tinper-bee-core latest
 
-bee-progress-bar@2.0.1, bee-progress-bar@latest:
+bee-progress-bar@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/bee-progress-bar/-/bee-progress-bar-2.0.2.tgz#24e2552f788da89d15fcc5d7090884a0f01f53d0"
+  integrity sha512-2MzsdW/qhLF9jXPrhRrmRfy3Aw/dAJzb3lRRmoNdbwoLkoqYVsZZl9VJU9qRjO/jPPPGZtbLOChoCMngGyBfPg==
+  dependencies:
+    babel-runtime "^6.23.0"
+    classnames "^2.2.5"
+    nprogress "^0.2.0"
+    tinper-bee-core latest
+
+bee-progress-bar@latest:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/bee-progress-bar/-/bee-progress-bar-2.0.1.tgz#8ea8e7cc56f33bec86c7dfeb2869d04c09bcdabd"
   integrity sha512-DNGEikyS14iupYb5wkyP5Smyk4hiTT+LIa6t+Bmg8QxxtrxuK5KHiRIPw2G8RdJBKHpT4Gec5vPA2YQ0na3psA==
@@ -1992,10 +2302,10 @@ bee-progress-bar@2.0.1, bee-progress-bar@latest:
     nprogress "^0.2.0"
     tinper-bee-core latest
 
-bee-radio@2.0.14:
-  version "2.0.14"
-  resolved "https://registry.yarnpkg.com/bee-radio/-/bee-radio-2.0.14.tgz#0748081b6fe63f015d65b789566047f0b8d4e15f"
-  integrity sha512-Csmc/5KDTbJwTfNr0Uefbf8ndoy0HPH5bf85MU1HqIJ5lYSKpZDXNn7Uyxx+Tlp7mLDk3y29CsSvCgXMvOTOqw==
+bee-radio@2.1.6, bee-radio@^2.0.16:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/bee-radio/-/bee-radio-2.1.6.tgz#acc14beb253be5f7622e6d67af1379dce8a8b457"
+  integrity sha512-rBbj4rhutBIDOF8IfrWLGo9tADkBot/4pjZrt48hH1ZcTxZQH+0k3yun4MQ8ZYLC5qUDxTBleZnHfkqyOdGXJA==
   dependencies:
     classnames "^2.2.5"
     tinper-bee-core "^2.0.28"
@@ -2008,10 +2318,10 @@ bee-radio@^2.0.14, bee-radio@^2.0.8:
     classnames "^2.2.5"
     tinper-bee-core "^2.0.28"
 
-bee-rate@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/bee-rate/-/bee-rate-2.0.3.tgz#afb40c02fedcc342aa5b95b27ccd82e1930af94a"
-  integrity sha512-olT5sWxLR4i/fMS0UWZYy1vINVZj6/wv7RCW14A1AKOx3WzgiWVpA2PvWlJNDotz1X/41kZnLkKmFW3kXGtjLw==
+bee-rate@2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/bee-rate/-/bee-rate-2.0.4.tgz#81822749d27e95273f7d23439a9343cdbc32d7f2"
+  integrity sha512-E9T03oBzRb3K0e1JIC7BfXbt3TpA9Ah97OiPSzCTFC+c24UiTHyNOdzk3SGT7GBI5YR298DJrEysLqfmeLz+/A==
   dependencies:
     bee-icon latest
     classnames "^2.2.5"
@@ -2030,10 +2340,10 @@ bee-search-panel@2.0.13:
     is-instance-of "^1.0.1"
     tinper-bee-core latest
 
-bee-search-panel@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/bee-search-panel/-/bee-search-panel-3.0.1.tgz#800b2b987a1a19f959bb3e0f49d4ba422425a1d3"
-  integrity sha512-nknmU7MHrtrfPEnDPyesHcPs4+1fP374dAxsS9XJrOCTLMBC7pdD0li638e7qJsW+7GeWRUA+PYd16GRuVKlhg==
+bee-search-panel@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/bee-search-panel/-/bee-search-panel-3.0.2.tgz#bcc905ffb21a8f01d203f8b1b9bbfe527a248712"
+  integrity sha512-oALRiXSqS84+Dc3rE8JoPYBfWvEiw07cfj5VswMnC3etSrmc5zN2EpobNq/TJniRAiuBVPeXx1Lgna7A+Z3/Bg==
   dependencies:
     babel-runtime "^6.23.0"
     bee-locale "^0.0.13"
@@ -2054,10 +2364,10 @@ bee-search-panel@^2.0.14:
     is-instance-of "^1.0.1"
     tinper-bee-core latest
 
-bee-select@2.0.14:
-  version "2.0.14"
-  resolved "https://registry.yarnpkg.com/bee-select/-/bee-select-2.0.14.tgz#c04e221da516ac15c4bbc855ff3c7da3e30cfa5f"
-  integrity sha512-JD7IYBFFzaB8tWeWFKt0qymDMQCsuIGb2B68xTJWVxq+CUCnJMJoVO/qHxIhvBD+ucJjb+SfRqMPsreTANV3Tw==
+bee-select@2.0.26:
+  version "2.0.26"
+  resolved "https://registry.yarnpkg.com/bee-select/-/bee-select-2.0.26.tgz#362425ca3b06c934c53eae7fc1b647058327b5fe"
+  integrity sha512-npSfAorasc8rszz1npou0KB2IVsxP6huuf3xNL1ypkf8Gvepdzy5EBwB5fSXelj9Es7gDQklDsCsvHMDzWIlsw==
   dependencies:
     bee-animate "^1.0.0"
     bee-menus "^2.0.2"
@@ -2065,7 +2375,8 @@ bee-select@2.0.14:
     classnames "^2.2.5"
     component-classes "1.x"
     dom-scroll-into-view "1.x"
-    rc-menu "^7.4.19"
+    omit.js "^1.0.2"
+    rc-menu "7.4.19"
     react-lifecycles-compat "^3.0.4"
     tinper-bee-core latest
     warning "^3.0.0"
@@ -2086,10 +2397,10 @@ bee-select@^2.0.11, bee-select@^2.0.12, bee-select@^2.0.4, bee-select@latest:
     tinper-bee-core latest
     warning "^3.0.0"
 
-bee-slider@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/bee-slider/-/bee-slider-2.0.1.tgz#26be2eb5a19543e9b0dd51dcf807c124729c681d"
-  integrity sha512-jB+qwoC4Eb+EOB1WBvHkJSIVitI4Eel10VllPh4kknB7UBpdXps4vDnKPjJSVbAyZax04b9KP+SAmAkw+iYZZA==
+bee-slider@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/bee-slider/-/bee-slider-2.0.2.tgz#07202b7c688cb84610d22883893c7351b16ddc9e"
+  integrity sha512-+0NLfYLZVnmwrLlRzu2q49VGDdCozM3tLD7/HAhQejMGCCbBXfUPMGQ00yzG8D9VCtx3PWEUfstdsdvf2fkaEw==
   dependencies:
     babel-runtime "^6.23.0"
     bee-tooltip latest
@@ -2097,29 +2408,38 @@ bee-slider@2.0.1:
     tinper-bee-core latest
     warning "^3.0.0"
 
-bee-step@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/bee-step/-/bee-step-2.0.1.tgz#82e97d0ac712e5ba680c112e3242513f2f332166"
-  integrity sha512-n+sAdQ9oh5joU8mSYAedrfwMwZ0p8eZFekA+blA4Va+Mipl5NY1b0U/DZ1LY1wop+wtl8dHPPeMmSWKeOWVWJw==
+bee-step@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/bee-step/-/bee-step-2.0.3.tgz#d901849ab36246e07ba3d5aa3a09c15007de84a2"
+  integrity sha512-s4DyaCHAgRcov80RwnCf6PnLAcrudGXlalLiPt+6ZGuTh3PEXTdiT588mM9iQoHv6h4nyyrzR6uOuhXB9epQ6Q==
   dependencies:
     babel-runtime "^6.20.0"
     classnames "^2.2.5"
     lodash.debounce "^4.0.8"
     tinper-bee-core latest
 
-bee-switch@2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/bee-switch/-/bee-switch-2.0.6.tgz#3af7736c63513497363684a4fa1172d2f119fc82"
-  integrity sha512-fVqaN2ZHYZ13uIREGfsPe7hrizGjNZgODuLUJGruLfIAEv8pamkOcTglGLGMtY3l/Lw40T59EC/WseoEvHAAcg==
+bee-svgicon@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/bee-svgicon/-/bee-svgicon-0.0.2.tgz#65a825351424bf433982845f6641d540a00aca32"
+  integrity sha512-ruFgJMFia0nmlmCqO4CP7aP21Ud011+xXOuC5/w/J/kZpzDJ9+ZVzwUVwwwwcsQdOGqxa1HyQA1qSpZoWVP52A==
+  dependencies:
+    babel-runtime "^6.23.0"
+    classnames "^2.2.5"
+    tinper-bee-core latest
+
+bee-switch@2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/bee-switch/-/bee-switch-2.0.7.tgz#2b59aab13f4e0fb4ea3dc941e4606cd077ec58e7"
+  integrity sha512-TgQVG0ZEW4bwQMEgBrvVC1ncyvjeXMQ6YvpXr+4Si8AF691u/K5vbnvayYqv8yDEWfmWt5j899x3UjZVtQmw6w==
   dependencies:
     babel-runtime "^6.20.0"
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-table@2.1.14:
-  version "2.1.14"
-  resolved "https://registry.yarnpkg.com/bee-table/-/bee-table-2.1.14.tgz#3016ad3bcf9ce7ad243be8bf1be8c1adef92d439"
-  integrity sha512-Pq+PbegRb+1UFbr4IuFnFCQpz8ySHE1RB7Uv1IbsjEZCA3f7IGLWw3xq9ApGDjzCPxCBvg+CuuSgdXUkkqbPuA==
+bee-table@2.2.61:
+  version "2.2.61"
+  resolved "https://registry.yarnpkg.com/bee-table/-/bee-table-2.2.61.tgz#4392bdedf71455c17246bd955215f0bc70700e89"
+  integrity sha512-5Vubq/OgKsit3DI+CD1TZy3s9qYbLKJlr4u05Wjtujp3DzoTKi7jcbMV/JGSay3eCrZ5eFnV2YwwQSCfNU7YlA==
   dependencies:
     bee-button latest
     bee-checkbox latest
@@ -2131,7 +2451,7 @@ bee-table@2.1.14:
     bee-loading "1.1.2"
     bee-locale "0.0.14"
     bee-menus "^2.0.6"
-    bee-radio "^2.0.14"
+    bee-radio "^2.0.16"
     bee-select "^2.0.11"
     classnames "^2.2.5"
     component-classes "^1.2.6"
@@ -2142,7 +2462,7 @@ bee-table@2.1.14:
     tinper-bee-core latest
     warning "^3.0.0"
 
-bee-table@^2.0.10, bee-table@^2.0.11, bee-table@^2.0.24, bee-table@^2.1.15-beta.1:
+bee-table@^2.0.10, bee-table@^2.0.11, bee-table@^2.1.15-beta.1:
   version "2.2.7"
   resolved "https://registry.yarnpkg.com/bee-table/-/bee-table-2.2.7.tgz#d40a2f83978dac11133429c880c1e08777f22f3a"
   integrity sha512-QOG+xpOiieSuAsjGe7gvuh/dxcSycws2DQ800J8LSnRngq1xbTJMS5i+Rq8G0fw4gXqq8WgjivxcSf6YLNyyHA==
@@ -2168,7 +2488,46 @@ bee-table@^2.0.10, bee-table@^2.0.11, bee-table@^2.0.24, bee-table@^2.1.15-beta.
     tinper-bee-core latest
     warning "^3.0.0"
 
-bee-tabs@2.1.1, bee-tabs@^2.0.6:
+bee-table@^2.2.13, bee-table@^2.2.59:
+  version "2.3.14"
+  resolved "https://registry.yarnpkg.com/bee-table/-/bee-table-2.3.14.tgz#0c4142b0d1c6a28df226cee1134bbcab3c6fa6ac"
+  integrity sha512-oechNL7p0aGw7NRn1mP4YWcBHaulolrtg2J0cNHTIu6LZU+WPugfJvrqLi4oClOplqflXC5KRgFFf468+lekbQ==
+  dependencies:
+    bee-button latest
+    bee-checkbox latest
+    bee-datepicker "^2.0.28"
+    bee-dropdown "^2.0.4"
+    bee-form-control latest
+    bee-icon latest
+    bee-input-number "^2.0.7"
+    bee-loading "1.1.2"
+    bee-locale "0.0.14"
+    bee-menus "^2.0.6"
+    bee-radio "^2.0.16"
+    bee-select "^2.0.11"
+    classnames "^2.2.5"
+    component-classes "^1.2.6"
+    lodash.clonedeep "^4.5.0"
+    object-path "^0.11.3"
+    shallowequal "^1.0.2"
+    throttle-debounce "^2.0.1"
+    tinper-bee-core latest
+    warning "^3.0.0"
+
+bee-tabs@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/bee-tabs/-/bee-tabs-3.0.3.tgz#2a91f91101e6111b3a76c68cc16ba70c021100e6"
+  integrity sha512-U+EnvB8Z/HnTHvijxrcJ8KubKGwKg1iqv6WjGb092Q2KETEWxpmEnc+ZxUE+0VLQV19LWaV3co4hCkn1Wn71eA==
+  dependencies:
+    bee-icon latest
+    classnames "^2.2.5"
+    lodash "^4.17.15"
+    react-hammerjs "^1.0.1"
+    resize-observer-polyfill "^1.5.1"
+    tinper-bee-core latest
+    warning "^4.0.3"
+
+bee-tabs@^2.0.6:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/bee-tabs/-/bee-tabs-2.1.1.tgz#e2e49faaa2053246bcef29f1a7fd422c057ccc81"
   integrity sha512-zUNMNaxGT25z88GBHvWBZlnrPqWjRAK8XeqX1kqvm1/Ps+WARTNBf6Hiz0avLzG541NcfG/AKsZa1XCovFeMiQ==
@@ -2177,10 +2536,10 @@ bee-tabs@2.1.1, bee-tabs@^2.0.6:
     react-router "^4.2.0"
     tinper-bee-core latest
 
-bee-tag@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/bee-tag/-/bee-tag-0.0.3.tgz#884f5cfb97c4ad6aeca7fbb54dc0f72bc5331d9e"
-  integrity sha512-lcwtXuOzGHyGeV53sNVP1cfisUipyQOuE1lueniGohQB4sTnW7m75nEo8q6HSZWq2pLT+wTS/f2VvTdxg1/Y1w==
+bee-tag@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/bee-tag/-/bee-tag-0.0.4.tgz#fd28bc21021969865ff806f039e8829deaa40762"
+  integrity sha512-KVLLdI8LWuiYfY+2bU/CmYVEGXvxpQC0BPcpQkg0FOF3go2gFpJJRjWG69q1NKMoNqLop61VmKHvy1hHTi2eyA==
   dependencies:
     babel-runtime "^6.23.0"
     bee-form-control "^2.0.2"
@@ -2197,26 +2556,36 @@ bee-tile@1.0.0:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-timeline@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/bee-timeline/-/bee-timeline-2.0.1.tgz#87f5180cc6db6737ecbf4ee480c95d382384b620"
-  integrity sha512-+Nm9R0SkKqzy6UyH2KNZJR+Lqr49pTGp7ZBv73sKwXqKhGyJNY5CEkjLAVoxdmJFR5uRToW3qeeuYNAO+lZAkw==
+bee-timeline@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/bee-timeline/-/bee-timeline-2.0.2.tgz#90fcde21fda27b181596e9569dda1629247b9fcf"
+  integrity sha512-zpWiz8d910HA6iYzqsOBO5b33ZUd/LkoKUG6REqNBSXivyAKafKwKCGMfmGtmW/OkePhVIZv6ThTZ42eBMRyuA==
   dependencies:
     babel-runtime "^6.23.0"
     bee-icon "^1.0.0"
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-timepicker@2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/bee-timepicker/-/bee-timepicker-2.0.4.tgz#e0cfa6ed96cfbc8cd353fd3c7effa9cd915524b5"
-  integrity sha512-UASBqazYqZrEOvKDGEYJOBHR7b0LKMtWCZT5xD/QTlrDa7f4aQmHJu2YaitOjoOXGEh/9EHV5lyh4rftkJBj9w==
+bee-timepicker@2.0.14:
+  version "2.0.14"
+  resolved "https://registry.yarnpkg.com/bee-timepicker/-/bee-timepicker-2.0.14.tgz#11e58448ffe98b77d502d3ca5228a5bf87a6e6ee"
+  integrity sha512-cKrpvUVQtr/hvZX2IgBALteYjbVp74iHfq2TgXSF/dez18BvMeXIhs7ro1K0fWK9mH0r71KTahw9IngvmxWsow==
   dependencies:
     babel-runtime "^6.23.0"
     rc-trigger "^2.6.2"
     tinper-bee-core latest
 
-bee-tooltip@2.1.2, bee-tooltip@^2.1.2, bee-tooltip@latest:
+bee-tooltip@2.1.8, bee-tooltip@^2.1.4:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/bee-tooltip/-/bee-tooltip-2.1.8.tgz#cf9c8e62db3c31784485a2c631258f0de1f2a23c"
+  integrity sha512-1iEfZCliXDO36rOVl4Vwoi2b6W/Kf2Z0mKYG1zIFOV9VNl39zdqxwkYLp2RsRzTZCaD7DL8nvJvnJ0REYq5Dsw==
+  dependencies:
+    babel-runtime "^6.20.0"
+    bee-overlay latest
+    classnames "^2.2.5"
+    tinper-bee-core latest
+
+bee-tooltip@latest:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/bee-tooltip/-/bee-tooltip-2.1.2.tgz#db18345f2093411bbb895d04d0b5febe457486c1"
   integrity sha512-+xxVAu3Vsh7q6l3SqDW0ZLi/rjUMIm4iemFJbZqJBmKYup2krhxkCD5wF+tNxEtQGbdQejkBPfmzpo/GdBwhFg==
@@ -2226,7 +2595,24 @@ bee-tooltip@2.1.2, bee-tooltip@^2.1.2, bee-tooltip@latest:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-transfer@2.0.12, bee-transfer@^2.0.12:
+bee-transfer@2.0.13:
+  version "2.0.13"
+  resolved "https://registry.yarnpkg.com/bee-transfer/-/bee-transfer-2.0.13.tgz#c31822eae4edb056e848089e4dfe9bbdee85e730"
+  integrity sha512-86hnjtw6SdQAax19Io0KEpJUNsjlJPVGGLfl9p3Vja/PJ39rexxR1DNkGgd8Zl9flb40T85ubdLL9lmebmODkA==
+  dependencies:
+    babel-runtime "^6.23.0"
+    bee-animate "^1.0.0"
+    bee-button latest
+    bee-checkbox latest
+    bee-form-control latest
+    bee-icon latest
+    classnames "^2.2.5"
+    react-beautiful-dnd "^9.0.2"
+    react-lazy-load "^3.0.12"
+    shallowequal "^1.0.2"
+    tinper-bee-core latest
+
+bee-transfer@^2.0.12:
   version "2.0.12"
   resolved "https://registry.yarnpkg.com/bee-transfer/-/bee-transfer-2.0.12.tgz#4f1edc4cc2fb2d7951fae5eca277a2f11f452a50"
   integrity sha512-BAOXQYOv5VsvoKGbwhqQu89VDyHkX5CedvRkwGbqudjJGUbHTmmxSWknVt1L4NQ2P+n6t+hIUDFotzaspp50aw==
@@ -2261,10 +2647,19 @@ bee-transition@^0.2.2:
     dom-helpers "^3.0.0"
     tinper-bee-core latest
 
-bee-tree-select@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/bee-tree-select/-/bee-tree-select-0.0.5.tgz#6089205275d3a0f7f0ed0d22bddc9c8e93544084"
-  integrity sha512-Fvr5IfyNOfa54dMT1FB9PEit7nYUNihqHKFH2k/r/0txTLiP+e0OitpUbxgemq+/P9CJULTRVfdgBGTdcFnZZw==
+bee-transition@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/bee-transition/-/bee-transition-0.2.5.tgz#c08395121ade55a586ed6f0d37cbdfb14f1f8757"
+  integrity sha512-ryJpEVPSjgQcMcmOCGo5LV7hCg+8xgldmDau6rP9zy1Sd0OoXnIR6kSgHqM5rzOuBwkGL75zjJ3y3zSrLcSDVg==
+  dependencies:
+    classnames "^2.2.5"
+    dom-helpers "^3.0.0"
+    tinper-bee-core latest
+
+bee-tree-select@0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/bee-tree-select/-/bee-tree-select-0.0.7.tgz#65a8c9a9a8a022d48dc21d745ab789fde5320661"
+  integrity sha512-SHBX75SFBLrIRk1GSPzs9qy60uW2XKdwUqdSrAnMyUOLN9ItlNINySA7uANpZfd7pbOa4hFnH3LiqA9Pt4iinA==
   dependencies:
     babel-runtime "^6.23.0"
     bee-icon "^1.0.11"
@@ -2275,16 +2670,17 @@ bee-tree-select@0.0.5:
     tinper-bee-core latest
     warning "^4.0.3"
 
-bee-tree@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/bee-tree/-/bee-tree-2.1.0.tgz#4188bc0ad2983918bad4f48d8f45d646bb729635"
-  integrity sha512-FxEgmfnzQOSEwcuUA43dpn2kJ5wNXb4zFmlVqgqQ+7bsVU/VYcimBjHKrNXaiuxuj8HNXFRsZZZ8eUJK6pp8JQ==
+bee-tree@2.1.22:
+  version "2.1.22"
+  resolved "https://registry.yarnpkg.com/bee-tree/-/bee-tree-2.1.22.tgz#45a032a2eea948be31c5b3363fc0454c0dc8c39c"
+  integrity sha512-Xj0qIwg/X1YmCiBm0+Gudpm4aPXcnGuFrGe7KDzB6agDf+hNk3O2Pm6beR2jz4FCTUEhfj8wd0+3CLBPJeuQnA==
   dependencies:
     babel-runtime "^6.23.0"
     bee-animate "^1.0.0"
     bee-checkbox latest
     bee-modal "^2.0.13"
     classnames "^2.2.5"
+    omit.js "^1.0.2"
     tinper-bee-core latest
 
 bee-tree@^2.0.7:
@@ -2299,13 +2695,14 @@ bee-tree@^2.0.7:
     classnames "^2.2.5"
     tinper-bee-core latest
 
-bee-upload@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/bee-upload/-/bee-upload-2.0.0.tgz#1c0f6a64c470b1a3a657ad6f212b178306541397"
-  integrity sha512-NGaXdXqeiXx8owFOYTb8E1KtUI9/rQ6rr46wnazWSFdBeX0RKV2/A+CYFSwrWWncspSIQH+72TASbXCJM4kGHA==
+bee-upload@2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/bee-upload/-/bee-upload-2.1.3.tgz#f7d34c6ac706ea00926acfc67fa96f9e9d4510f5"
+  integrity sha512-xrP/FDU4od8rmVTj6+kIcikXafRA4gy1OLFOPGG6etZozTwKvTFRi//rZKwAYv4caXIeKKJ2kppS7Z+CnwkT6A==
   dependencies:
     bee-animate "^1.0.0"
     bee-icon "^1.0.3"
+    bee-modal "^2.1.2"
     bee-progress-bar latest
     classnames "^2.2.5"
     tinper-bee-core latest
@@ -3078,6 +3475,13 @@ css-box-model@^1.0.0:
   dependencies:
     tiny-invariant "^1.0.6"
 
+css-box-model@^1.1.2:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/css-box-model/-/css-box-model-1.2.1.tgz#59951d3b81fd6b2074a62d49444415b0d2b4d7c1"
+  integrity sha512-a7Vr4Q/kd/aw96bnJG332W9V9LkJO69JRcaCYDUqjp6/z0w6VcZjgAcTbgFxEPfBgdnAwlh3iwu+hLopa+flJw==
+  dependencies:
+    tiny-invariant "^1.0.6"
+
 css-color-names@0.0.4, css-color-names@^0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/css-color-names/-/css-color-names-0.0.4.tgz#808adc2e79cf84738069b646cb20ec27beb629e0"
@@ -3244,6 +3648,11 @@ csso@^3.5.1:
   integrity sha512-vrqULLffYU1Q2tLdJvaCYbONStnfkfimRxXNaGjxMldI0C7JPBC4rB1RyjhfdZ4m1frm8pM9uRPKH3d2knZ8gg==
   dependencies:
     css-tree "1.0.0-alpha.29"
+
+csstype@^3.0.2:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.8.tgz#d2266a792729fb227cd216fb572f43728e1ad340"
+  integrity sha512-jXKhWqXPmlUeoQnF/EhTtTl4C9SnrxSH/jZUih3jmO6lBKr99rP3/+FmrMj4EFpOXzMtXHAZkd3x0E6h6Fgflw==
 
 cyclist@~0.2.2:
   version "0.2.2"
@@ -4078,6 +4487,11 @@ gumshoejs@^5.1.1:
   resolved "https://registry.yarnpkg.com/gumshoejs/-/gumshoejs-5.1.2.tgz#82748afe83f3b76cbaef029e58322262f853b7d2"
   integrity sha512-wIRdZGTNkWMP8dY3po8mtNYmCfiSva41LxXIEek2yEHceETpxRmO7DfW7aUbHsuucC9z2oDPu3alN3+00FUqlw==
 
+hammerjs@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
+  integrity sha1-BO93hiz/K7edMPdpIJWTAiK/YPE=
+
 har-schema@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/har-schema/-/har-schema-2.0.0.tgz#a94c2224ebcac04782a0d9035521f24735b7ec92"
@@ -4207,6 +4621,18 @@ hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0:
   integrity sha512-0XsbTXxgiaCDYDIWFcwkmerZPSwywfUqYmwT4jzewKTQSWoE6FCMoUVOeBJWK3E/CrWbxRG3m5GzY4lnIwGRBA==
   dependencies:
     react-is "^16.7.0"
+
+hoist-non-react-statics@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
+  integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
+  dependencies:
+    react-is "^16.7.0"
+
+hotkeys-js@^3.6.2:
+  version "3.8.3"
+  resolved "https://registry.yarnpkg.com/hotkeys-js/-/hotkeys-js-3.8.3.tgz#0331c2cde770e62d51d5d023133f7c4395f59008"
+  integrity sha512-rUmoryG4lEAtkjF5tcYaihrVoE86Fdw1BLqO/UiBWOOF56h32a6ax8oV4urBlinVtNNtArLlBq8igGfZf2tQnw==
 
 hsl-regex@^1.0.0:
   version "1.0.0"
@@ -5020,6 +5446,11 @@ lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
+lodash@^4.17.15:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
+
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3.1, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
@@ -5092,6 +5523,11 @@ memoize-one@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-4.1.0.tgz#a2387c58c03fff27ca390c31b764a79addf3f906"
   integrity sha512-2GApq0yI/b22J2j9rhbrAlsHb0Qcz+7yWxeLG8h+95sl1XPUgeLimQSOdur4Vw7cUhrBHwaUZxWFZueojqNRzA==
+
+memoize-one@^5.0.4:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-5.2.1.tgz#8337aa3c4335581839ec01c3d594090cebe8f00e"
+  integrity sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==
 
 memory-fs@^0.4.0, memory-fs@^0.4.1:
   version "0.4.1"
@@ -5599,6 +6035,11 @@ omit.js@^1.0.2:
   integrity sha512-/QPc6G2NS+8d4L/cQhbk6Yit1WTB6Us2g84A7A/1+w9d/eRGHyEqC5kkQtHVoHZ5NFWGG7tUGgrhVZwgZanKrQ==
   dependencies:
     babel-runtime "^6.23.0"
+
+omit.js@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/omit.js/-/omit.js-2.0.2.tgz#dd9b8436fab947a5f3ff214cb2538631e313ec2f"
+  integrity sha512-hJmu9D+bNB40YpL9jYebQl4lsTW6yEHRTroJzNLqQJYHm7c+NQnJGfZmIWh8S3q3KoaxV1aLhV6B3+0N0/kyJg==
 
 on-finished@~2.3.0:
   version "2.3.0"
@@ -6477,18 +6918,18 @@ rc-animate@^3.0.0-rc.1:
     rc-util "^4.5.0"
     react-lifecycles-compat "^3.0.4"
 
-rc-calendar@^8.4.4:
-  version "8.4.7"
-  resolved "https://registry.yarnpkg.com/rc-calendar/-/rc-calendar-8.4.7.tgz#f9cdbcdad4cfb901f52866000f31b41ddb4779ed"
-  integrity sha512-tyqkroP0WWVqLKAVl3KNll2+nGCLHwa90CV+6dVbaYSmCH4qa56KbKrY/xrSCkX2y3wu4hNSV88Is6zrfllbSQ==
+rc-calendar@^9.15.10, rc-calendar@^9.15.5:
+  version "9.15.11"
+  resolved "https://registry.yarnpkg.com/rc-calendar/-/rc-calendar-9.15.11.tgz#ce1e5ea8e4d77435be66a8c77db12f1f0f9a345f"
+  integrity sha512-qv0VXfAAnysMWJigxaP6se4bJHvr17D9qsLbi8BOpdgEocsS0RkgY1IUiFaOVYKJDy/EyLC447O02sV/y5YYBg==
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
-    create-react-class "^15.5.2"
     moment "2.x"
     prop-types "^15.5.8"
-    rc-trigger "1.x"
-    rc-util "^4.0.4"
+    rc-trigger "^2.2.0"
+    rc-util "^4.1.1"
+    react-lifecycles-compat "^3.0.4"
 
 rc-form@^2.1.7:
   version "2.4.8"
@@ -6502,6 +6943,22 @@ rc-form@^2.1.7:
     hoist-non-react-statics "^3.3.0"
     lodash "^4.17.4"
     warning "^4.0.3"
+
+rc-menu@7.4.19:
+  version "7.4.19"
+  resolved "https://registry.yarnpkg.com/rc-menu/-/rc-menu-7.4.19.tgz#b65a35215966053fe6f6c3b7b12155051969f567"
+  integrity sha512-6rSQk9TsPcC7PuPS1sBXAG6HVUjUuXUO2gSzhxiZx/s9z0px91fd+FxbGbyZmRkPgku2mlZT2hfdIpWItYcPhQ==
+  dependencies:
+    babel-runtime "6.x"
+    classnames "2.x"
+    dom-scroll-into-view "1.x"
+    mini-store "^2.0.0"
+    mutationobserver-shim "^0.3.2"
+    prop-types "^15.5.6"
+    rc-animate "2.x"
+    rc-trigger "^2.3.0"
+    rc-util "^4.1.0"
+    resize-observer-polyfill "^1.5.0"
 
 rc-menu@^5.0.11:
   version "5.1.4"
@@ -6543,6 +7000,16 @@ rc-rate@^2.1.1:
     rc-util "^4.3.0"
     react-lifecycles-compat "^3.0.4"
 
+rc-resize-observer@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/rc-resize-observer/-/rc-resize-observer-1.0.0.tgz#97fb89856f62fec32ab6e40933935cf58e2e102d"
+  integrity sha512-RgKGukg1mlzyGdvzF7o/LGFC8AeoMH9aGzXTUdp6m+OApvmRdUuOscq/Y2O45cJA+rXt1ApWlpFoOIioXL3AGg==
+  dependencies:
+    "@babel/runtime" "^7.10.1"
+    classnames "^2.2.1"
+    rc-util "^5.0.0"
+    resize-observer-polyfill "^1.5.1"
+
 rc-select@^6.8.6:
   version "6.9.8"
   resolved "https://registry.yarnpkg.com/rc-select/-/rc-select-6.9.8.tgz#1c95baacb1c2bc6ba6ad478af88c97f54c436c93"
@@ -6558,6 +7025,16 @@ rc-select@^6.8.6:
     rc-trigger "1.x"
     rc-util "^4.0.4"
     warning "^3.0.0"
+
+rc-textarea@^0.3.0:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/rc-textarea/-/rc-textarea-0.3.4.tgz#1408a64c87b5e76db5c847699ef9ab5ee97dd6f9"
+  integrity sha512-ILUYx831ZukQPv3m7R4RGRtVVWmL1LV4ME03L22mvT56US0DGCJJaRTHs4vmpcSjFHItph5OTmhodY4BOwy81A==
+  dependencies:
+    "@babel/runtime" "^7.10.1"
+    classnames "^2.2.1"
+    rc-resize-observer "^1.0.0"
+    rc-util "^5.7.0"
 
 rc-time-picker@^3.1.0:
   version "3.7.2"
@@ -6650,6 +7127,15 @@ rc-util@4.x, rc-util@^4.0.2, rc-util@^4.0.4, rc-util@^4.1.0, rc-util@^4.1.1, rc-
     react-lifecycles-compat "^3.0.4"
     shallowequal "^0.2.2"
 
+rc-util@^5.0.0, rc-util@^5.7.0:
+  version "5.12.2"
+  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-5.12.2.tgz#41572687a2cd174fdaec028da756d288e398e9f8"
+  integrity sha512-kzqG2lHY4oZsoj5Svov12K+9wi0xQHvGzfbLlsF1PDEH1aTbgdNTwlE7mejc3MGEr+7bNHa4+T5ZemCS8vQ1Gw==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    react-is "^16.12.0"
+    shallowequal "^1.1.0"
+
 rc@^1.2.7:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.8.tgz#cd924bf5200a075b83c188cd6b9e211b7fc0d3ed"
@@ -6669,6 +7155,20 @@ react-addons-test-utils@15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.3.2.tgz#c09a44f583425a4a9c1b38444d7a6c3e6f0f41f6"
   integrity sha1-wJpE9YNCWkqcGzhETXpsPm8PQfY=
+
+react-beautiful-dnd@11.0.5:
+  version "11.0.5"
+  resolved "https://registry.yarnpkg.com/react-beautiful-dnd/-/react-beautiful-dnd-11.0.5.tgz#16b1dbd4d6493de0cb3f842cad57c7e9e1ff5fe7"
+  integrity sha512-7llby9U+jIfkINcyxPHVWU0HFYzqxMemUYgGHsFsbx4fZo1n/pW6sYKYzhxGxR3Ap5HxqswcQkKUZX4uEUWhlw==
+  dependencies:
+    "@babel/runtime-corejs2" "^7.4.5"
+    css-box-model "^1.1.2"
+    memoize-one "^5.0.4"
+    raf-schd "^4.0.0"
+    react-redux "^7.0.3"
+    redux "^4.0.1"
+    tiny-invariant "^1.0.4"
+    use-memo-one "^1.1.0"
 
 react-beautiful-dnd@9.0.2, react-beautiful-dnd@^9.0.2:
   version "9.0.2"
@@ -6722,6 +7222,20 @@ react-grid-layout@^0.16.6:
     react-draggable "3.x"
     react-resizable "1.x"
 
+react-hammerjs@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-hammerjs/-/react-hammerjs-1.0.1.tgz#bc1ed9e9ef7da057163fb169ce12917b6d6ca7d8"
+  integrity sha1-vB7Z6e99oFcWP7FpzhKRe21sp9g=
+  dependencies:
+    hammerjs "^2.0.8"
+
+react-hot-keys@^1.3.0:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-hot-keys/-/react-hot-keys-1.3.1.tgz#14a5ee29b38264790adfc84bde73e1d21fa5ae31"
+  integrity sha512-Ino7daWt2lhUBo7Wr3ATr8dVrc1yyp9uPgR87lHrgV9poYDjh0y7BA3ClvkokcIyFoKIEcs3RQMHxuIAcjuQNg==
+  dependencies:
+    hotkeys-js "^3.6.2"
+
 react-intl@^2.8.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-2.9.0.tgz#c97c5d17d4718f1575fdbd5a769f96018a3b1843"
@@ -6732,6 +7246,11 @@ react-intl@^2.8.0:
     intl-messageformat "^2.1.0"
     intl-relativeformat "^2.1.0"
     invariant "^2.1.1"
+
+react-is@^16.12.0, react-is@^16.13.1:
+  version "16.13.1"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
+  integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.9.0"
@@ -6774,6 +7293,18 @@ react-redux@^5.0.7:
     prop-types "^15.6.1"
     react-is "^16.6.0"
     react-lifecycles-compat "^3.0.0"
+
+react-redux@^7.0.3:
+  version "7.2.4"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.4.tgz#1ebb474032b72d806de2e0519cd07761e222e225"
+  integrity sha512-hOQ5eOSkEJEXdpIKbnRyl04LhaWabkDPV+Ix97wqQX3T3d2NQ8DUblNXXtNMavc7DpswyQM6xfaN4HQDKNY2JA==
+  dependencies:
+    "@babel/runtime" "^7.12.1"
+    "@types/react-redux" "^7.1.16"
+    hoist-non-react-statics "^3.3.2"
+    loose-envify "^1.4.0"
+    prop-types "^15.7.2"
+    react-is "^16.13.1"
 
 react-resizable@1.x:
   version "1.8.0"
@@ -6874,6 +7405,13 @@ redux@^4.0.0:
   dependencies:
     loose-envify "^1.4.0"
     symbol-observable "^1.2.0"
+
+redux@^4.0.1:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-4.1.0.tgz#eb049679f2f523c379f1aff345c8612f294c88d4"
+  integrity sha512-uI2dQN43zqLWCt6B/BMGRMY6db7TTY4qeHHfGeKb3EOhmOKjU3KdWvNLJyqaHRksv/ErdNH7cFZWg9jXtewy4g==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
 
 ref-combobox@2.0.4:
   version "2.0.4"
@@ -7025,6 +7563,11 @@ regenerator-runtime@^0.13.2:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.3.tgz#7cf6a77d8f5c6f60eb73c5fc1955b2ceb01e6bf5"
   integrity sha512-naKIZz2GQ8JWh///G7L3X6LaQUAMp2lvb1rvwwsURe/VXwD6VMfr+/1NuNw3ag8v2kY1aQ/go5SNn79O9JU7yw==
+
+regenerator-runtime@^0.13.4:
+  version "0.13.7"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz#cac2dacc8a1ea675feaabaeb8ae833898ae46f55"
+  integrity sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew==
 
 regenerator-transform@^0.14.0:
   version "0.14.1"
@@ -7767,6 +8310,17 @@ timsort@^0.3.0:
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
+tinper-bee-core@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/tinper-bee-core/-/tinper-bee-core-0.4.1.tgz#1d33bbf6eea3ce222bf52621908c5b2efe910fa9"
+  integrity sha1-HTO79u6jziIr9SYhkIxbLv6RD6k=
+  dependencies:
+    add-dom-event-listener "^1.0.1"
+    component-classes "^1.2.6"
+    create-react-class "^15.5.3"
+    dom-align "^1.5.2"
+    warning "^3.0.0"
+
 tinper-bee-core@^2.0.28, tinper-bee-core@latest:
   version "2.0.33"
   resolved "https://registry.yarnpkg.com/tinper-bee-core/-/tinper-bee-core-2.0.33.tgz#3f28b8fc6437757a674ada8430b87d6daf0ff644"
@@ -7778,75 +8332,77 @@ tinper-bee-core@^2.0.28, tinper-bee-core@latest:
     dom-align "^1.5.2"
     warning "^3.0.0"
 
-tinper-bee@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/tinper-bee/-/tinper-bee-2.1.6.tgz#b1b885d0bb3bf024e0ec6b1dc11e14687f0be57f"
-  integrity sha512-7lqkGu6YV8xWOionQRX0s5gMiSZaR5VntnvBy08/A/yS4tCTjoWOXBSqQrZbp4JwHVygG0gzq9cnAUZZ16BwJw==
+tinper-bee@^2.2.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/tinper-bee/-/tinper-bee-2.4.0.tgz#95ffae261a0c4e8696e112e469e1a4e7dfeea735"
+  integrity sha512-pCzcIobHgamaNQ/Q0Z4q0OB9k6M8VGriQIW3CjxbPrGqaNhoAULcAC9qGnkfDkrVCvbSBTGqJlGOF8soL7ukJA==
   dependencies:
-    bee-affix "1.0.15"
-    bee-alert "2.0.0"
-    bee-anchor "0.0.4"
+    bee-affix "1.0.18"
+    bee-alert "2.0.1"
+    bee-anchor "0.0.6"
     bee-animate "1.0.0"
-    bee-autocomplete "2.0.3"
-    bee-backtop "1.0.1"
-    bee-badge "2.0.0"
-    bee-breadcrumb "2.0.1"
-    bee-button "2.0.11"
-    bee-button-group "2.0.1"
-    bee-calendar "2.0.4"
-    bee-carousel "1.0.0"
-    bee-cascader "2.1.4"
-    bee-checkbox "2.0.6"
-    bee-clipboard "2.0.2"
-    bee-collapse "1.0.2"
-    bee-colorpicker "0.0.11"
-    bee-complex-grid "2.0.24"
-    bee-datepicker "2.2.5"
-    bee-dnd "1.1.3"
-    bee-drawer "0.0.6"
-    bee-dropdown "2.0.10"
-    bee-form "2.0.11"
-    bee-form-control "2.0.7"
-    bee-form-group "2.0.0"
-    bee-icon "1.0.11"
-    bee-input-group "2.0.3"
+    bee-autocomplete "2.0.5"
+    bee-backtop "1.0.2"
+    bee-badge "2.0.1"
+    bee-breadcrumb "2.0.2"
+    bee-button "2.0.20"
+    bee-button-group "2.0.2"
+    bee-calendar "2.1.3"
+    bee-carousel "1.0.2"
+    bee-cascader "2.1.8"
+    bee-checkbox "2.0.11"
+    bee-clipboard "2.0.5"
+    bee-collapse "1.0.3"
+    bee-colorpicker "0.0.15"
+    bee-complex-grid "2.2.1"
+    bee-datepicker "2.3.28"
+    bee-dnd "3.0.0"
+    bee-drawer "0.0.7"
+    bee-dropdown "2.0.12"
+    bee-form "2.0.13"
+    bee-form-control "2.0.24"
+    bee-form-group "2.0.1"
+    bee-icon "1.0.15"
+    bee-input-group "2.0.4"
     bee-input-group-addon "2.0.1"
-    bee-input-number "2.1.4"
-    bee-label "1.0.0"
-    bee-layout "1.2.7"
-    bee-loading "1.1.2"
-    bee-loading-state "2.0.2"
-    bee-locale "0.0.14"
-    bee-menus "2.0.9"
-    bee-message "2.1.4"
-    bee-modal "2.0.21"
-    bee-navbar "2.0.0"
-    bee-notification "2.0.2"
-    bee-overlay "1.0.31"
-    bee-pagination "2.0.8"
-    bee-panel "2.0.1"
-    bee-popconfirm "2.0.0"
-    bee-popover "3.0.2"
-    bee-progress-bar "2.0.1"
-    bee-radio "2.0.14"
-    bee-rate "2.0.3"
-    bee-search-panel "3.0.1"
-    bee-select "2.0.14"
-    bee-slider "2.0.1"
-    bee-step "2.0.1"
-    bee-switch "2.0.6"
-    bee-table "2.1.14"
-    bee-tabs "2.1.1"
-    bee-tag "0.0.3"
+    bee-input-number "2.2.40"
+    bee-label "1.0.1"
+    bee-layout "1.2.8"
+    bee-loading "3.0.1"
+    bee-loading-state "2.0.5"
+    bee-locale "1.0.6"
+    bee-menus "2.0.14"
+    bee-message "2.1.7"
+    bee-modal "2.2.3"
+    bee-navbar "2.0.1"
+    bee-notification "2.0.5"
+    bee-overlay "1.0.32"
+    bee-page-layout "1.0.1"
+    bee-pagination "3.0.2"
+    bee-panel "2.0.2"
+    bee-popconfirm "2.0.2"
+    bee-popover "3.1.1"
+    bee-progress-bar "2.0.2"
+    bee-radio "2.1.6"
+    bee-rate "2.0.4"
+    bee-search-panel "3.0.2"
+    bee-select "2.0.26"
+    bee-slider "2.0.2"
+    bee-step "2.0.3"
+    bee-svgicon "0.0.2"
+    bee-switch "2.0.7"
+    bee-table "2.2.61"
+    bee-tabs "3.0.3"
+    bee-tag "0.0.4"
     bee-tile "1.0.0"
-    bee-timeline "2.0.1"
-    bee-timepicker "2.0.4"
-    bee-tooltip "2.1.2"
-    bee-transfer "2.0.12"
+    bee-timeline "2.0.2"
+    bee-timepicker "2.0.14"
+    bee-tooltip "2.1.8"
+    bee-transfer "2.0.13"
     bee-transition "1.0.0"
-    bee-tree "2.1.0"
-    bee-tree-select "0.0.5"
-    bee-upload "2.0.0"
+    bee-tree "2.1.22"
+    bee-tree-select "0.0.7"
+    bee-upload "2.1.3"
 
 tiny-emitter@^2.0.0:
   version "2.1.0"
@@ -7857,6 +8413,11 @@ tiny-invariant@^1.0.0, tiny-invariant@^1.0.2, tiny-invariant@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.0.6.tgz#b3f9b38835e36a41c843a3b0907a5a7b3755de73"
   integrity sha512-FOyLWWVjG+aC0UqG76V53yAWdXfH8bO6FNmyZOuUrzDzK8DI3/JRY25UD7+g49JWM1LXwymsKERB+DzI0dTEQA==
+
+tiny-invariant@^1.0.4:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.1.0.tgz#634c5f8efdc27714b7f386c35e6760991d230875"
+  integrity sha512-ytxQvrb1cPc9WBEI/HSeYYoGD0kWnGEOR8RY6KomWLBVhqz0RgTwVO9dLrGz7dC+nN9llyI7OKAgRq8Vq4ZBSw==
 
 tiny-warning@^1.0.0:
   version "1.0.3"
@@ -7967,9 +8528,9 @@ typedarray@^0.0.6:
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
 ua-parser-js@^0.7.18:
-  version "0.7.20"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.20.tgz#7527178b82f6a62a0f243d1f94fd30e3e3c21098"
-  integrity sha512-8OaIKfzL5cpx8eCMAhhvTlft8GYF8b2eQr6JkCyVdrgjcytyOmPCXrqXFcUnhonRpLlh5yxEZVohm6mzaowUOw==
+  version "0.7.28"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.28.tgz#8ba04e653f35ce210239c64661685bf9121dec31"
+  integrity sha512-6Gurc1n//gjp9eQNXjD9O3M/sMwVtN5S8Lv9bvOYBfKfDNiIIhqiyi01vMBO45u4zkDE420w/e0se7Vs+sIg+g==
 
 ucf-scripts@^1.1.9:
   version "1.2.3"
@@ -8139,6 +8700,11 @@ url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+use-memo-one@^1.1.0:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/use-memo-one/-/use-memo-one-1.1.2.tgz#0c8203a329f76e040047a35a1197defe342fab20"
+  integrity sha512-u2qFKtxLsia/r8qG0ZKkbytbztzRb317XCkT7yP8wxL0tZ/CzK2G+WWie5vWvpyeP7+YoPIwbJoIHJ4Ba4k0oQ==
 
 use@^3.1.0:
   version "3.1.1"
