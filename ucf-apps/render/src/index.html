@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
+  />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>tinper-next 开发者功能演示系统</title>
+  <link rel="icon" href="//design.yonyoucloud.com/static/tinper-bee/images/favicon.png" type="image/png"
+        sizes="16x16">
+  <link href="${process.env.STATIC_HTTP_PATH}/tinper-bee/latest/assets/tinper-bee.css" rel="stylesheet" media="screen" />
+</head>
+
+<body>
+  <div id="app" style='height: 100%'>
+    <div class="u-loading-backdrop">
+      <div>
+        <div class="u-loading u-loading-rotate">
+          <div><img src='${process.env.STATIC_HTTP_PATH}/images/loading.svg'></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="${process.env.STATIC_HTTP_PATH}/react/16.8.4/umd/react.production.min.js"></script>
+  <script src="${process.env.STATIC_HTTP_PATH}/react/16.8.4/umd/react-dom.production.min.js"></script>
+  <script src="${process.env.STATIC_HTTP_PATH}/prop-types/15.6.0/prop-types.min.js"></script>
+  <script src="${process.env.STATIC_HTTP_PATH}/tinper-bee/latest/build/tinper-bee.js"></script>
+</body>
+</html>

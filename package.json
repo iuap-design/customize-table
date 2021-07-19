@@ -4,7 +4,7 @@
   "description": "开发思路：[大型企业应用在前端微应用视角下的思考](https://github.com/iuap-design/blog/issues/306)",
   "main": "index.js",
   "scripts": {
-    "start": "set NODE_ENV=development&ucf-scripts start --homepage=createTable",
+    "start": "set NODE_ENV=development&ucf-scripts start --homepage=render?search=Timeline",
     "build": "ucf-scripts build"
   },
   "repository": {
@@ -28,6 +28,7 @@
     "bee-complex-grid": "^2.0.25",
     "bee-locale": "0.0.14",
     "bee-search-panel": "2.0.13",
+    "@tinper/next-ui": "snapshot",
     "bee-table": "^2.2.13",
     "classnames": "^2.2.6",
     "clone-deep": "4.0.1",
